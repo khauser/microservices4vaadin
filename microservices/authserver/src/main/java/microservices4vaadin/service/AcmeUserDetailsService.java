@@ -1,10 +1,10 @@
 package microservices4vaadin.service;
 
 import lombok.extern.slf4j.Slf4j;
+import microservices4vaadin.auth.AcmeUser;
+import microservices4vaadin.auth.AcmeUserDetails;
 import microservices4vaadin.exception.UserNotActivatedException;
 import microservices4vaadin.exception.UserNotFoundException;
-import microservices4vaadin.persistence.AcmeUser;
-import microservices4vaadin.persistence.AcmeUserDetails;
 import microservices4vaadin.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

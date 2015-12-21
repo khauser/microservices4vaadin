@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import microservices4vaadin.persistence.AcmeUser;
+import microservices4vaadin.auth.AcmeUser;
 import microservices4vaadin.repository.UserRepository;
 
 /**

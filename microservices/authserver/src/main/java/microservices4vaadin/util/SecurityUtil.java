@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-import microservices4vaadin.persistence.Authorities;
+import microservices4vaadin.auth.Authorities;
 
 /**
  * Utility class for Spring Security.

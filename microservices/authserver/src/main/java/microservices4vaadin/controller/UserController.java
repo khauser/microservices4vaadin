@@ -2,7 +2,7 @@ package microservices4vaadin.controller;
 
 import java.security.Principal;
 
-import microservices4vaadin.persistence.AcmeUserDetails;
+import microservices4vaadin.auth.AcmeUserDetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

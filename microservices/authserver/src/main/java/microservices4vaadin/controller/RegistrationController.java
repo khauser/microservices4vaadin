@@ -3,7 +3,7 @@ package microservices4vaadin.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import microservices4vaadin.persistence.AcmeUser;
+import microservices4vaadin.auth.AcmeUser;
 import microservices4vaadin.repository.UserRepository;
 import microservices4vaadin.service.ActivationService;
 import microservices4vaadin.service.Registration;

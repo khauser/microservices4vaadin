@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
-import microservices4vaadin.persistence.AcmeUser;
-import microservices4vaadin.persistence.Authorities;
-import microservices4vaadin.persistence.Authority;
+import microservices4vaadin.auth.AcmeUser;
+import microservices4vaadin.auth.Authorities;
+import microservices4vaadin.auth.Authority;
 import microservices4vaadin.repository.AuthorityRepository;
 import microservices4vaadin.repository.UserRepository;
 import microservices4vaadin.util.RandomUtil;

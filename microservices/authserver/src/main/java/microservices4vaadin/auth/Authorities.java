@@ -1,4 +1,4 @@
-package microservices4vaadin.persistence;
+package microservices4vaadin.auth;
 
 /**
  * Constants for Spring Security authorities.
