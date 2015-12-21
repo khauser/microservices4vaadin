@@ -1,0 +1,35 @@
+// START: have wro files available
+apply plugin: 'application'
+
+applicationDistribution.into('wro') {
+    from ('src/main/wro')
+}
+// END: have wro files available
+
+ext {
+    dbUnitVersion = "2.5.1"
+    springTestDbunitVersion = "1.2.1"
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-security")
+
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.cloud:spring-cloud-starter-oauth2")
+    compile("org.springframework.security:spring-security-jwt")
+    compile("org.springframework.boot:spring-boot-starter-freemarker")
+
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtime("mysql:mysql-connector-java")
+    compile("org.flywaydb:flyway-core");
+
+    compile("org.apache.commons:commons-lang3:3.0")
+    compile("joda-time:joda-time")
+    compile("javax.mail:mail:1.4.7")
+
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-joda")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:2.4.0")
+
+    testCompile("org.dbunit:dbunit:${dbUnitVersion}")
+    testCompile("com.github.springtestdbunit:spring-test-dbunit:${springTestDbunitVersion}")
+}

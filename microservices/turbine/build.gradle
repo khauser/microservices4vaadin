@@ -1,0 +1,3 @@
+dependencies {
+    compile("org.springframework.cloud:spring-cloud-netflix-turbine-amqp:1.0.3.RELEASE")
+}

@@ -1,0 +1,29 @@
+info:
+  component: Turbine
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+server:
+  port: 8989
+
+management:
+  port: 8990
+
+logging:
+  level:
+    root: INFO
+    com.netflix.discovery: 'OFF'
+    # org.springframework.integration: DEBUG
+
+#turbine:
+#  appConfig: customers,stores,productapi
+#  clusterNameExpression: 'default'
+
+#turbine:
+#  aggregator:
+#    clusterConfig: CUSTOMERS
+#  appConfig: customers
