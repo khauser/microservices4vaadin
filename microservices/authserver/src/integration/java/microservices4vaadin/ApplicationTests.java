@@ -61,7 +61,7 @@ public class ApplicationTests extends DatabaseIntegrationTest {
                 + port + "/uaa/login", String.class);
         String csrf = getCsrf(response.getBody());
         MultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>();
-        form.set("username", "t.tester@lessoria.org");
+        form.set("username", "t.tester@lmicroservice4vaadin.org");
         form.set("password", "password");
         form.set("_csrf", csrf);
         HttpHeaders headers = new HttpHeaders();

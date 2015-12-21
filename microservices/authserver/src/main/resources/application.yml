@@ -27,7 +27,7 @@ spring:
   # DataSource settings: set here your own configurations for the database
   # connection.
   datasource:
-    url: jdbc:mysql://localhost:3306/lessoria_authserverdb
+    url: jdbc:mysql://localhost:3306/microservice4vaadin_authserverdb
     username: root
     password:
     driverClassName: com.mysql.jdbc.Driver
