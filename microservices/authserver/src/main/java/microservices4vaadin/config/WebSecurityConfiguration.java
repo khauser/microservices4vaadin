@@ -1,8 +1,5 @@
 package microservices4vaadin.config;
 
-import microservices4vaadin.CustomAuthenticationSuccessHandler;
-import microservices4vaadin.service.AcmeUserDetailsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import microservices4vaadin.service.AcmeUserDetailsService;
+
 /**
  * Defines the Spring Security authentication, required for authenticating users
  */
@@ -23,9 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Autowired
     private AcmeUserDetailsService userDetailsService;

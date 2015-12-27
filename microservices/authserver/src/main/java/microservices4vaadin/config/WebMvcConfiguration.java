@@ -3,9 +3,6 @@ package microservices4vaadin.config;
 import java.security.Principal;
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,9 +21,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Controller
 @EnableResourceServer
 class WebMvcConfiguration extends WebMvcConfigurerAdapter {
-
-    @Autowired
-    private EntityManagerFactory emf;
 
     @RequestMapping("/user")
     @ResponseBody
