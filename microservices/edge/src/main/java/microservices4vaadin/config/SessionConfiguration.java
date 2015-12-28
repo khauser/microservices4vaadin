@@ -1,28 +1,27 @@
 package microservices4vaadin.config;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.session.ExpiringSession;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
 @EnableRedisHttpSession
 public class SessionConfiguration {
 
-    @Primary
+    private final static String SESSION_SERIALIZATION_ID = "microservices4vaadin";
+
+    @Autowired
+    private ApplicationContext appContext;
+
     @Bean
-    public RedisTemplate<String,ExpiringSession> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, ExpiringSession> template = new RedisTemplate<String, ExpiringSession>();
-
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setHashKeySerializer(new StringRedisSerializer());
-
-        template.setConnectionFactory(connectionFactory);
-        return template;
+    public String overwriteSerializationId() {
+        BeanFactory beanFactory = appContext.getAutowireCapableBeanFactory();
+        ((DefaultListableBeanFactory) beanFactory).setSerializationId(SESSION_SERIALIZATION_ID);
+        return "overwritten";
     }
 
 }
