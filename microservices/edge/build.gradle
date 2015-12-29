@@ -5,12 +5,9 @@ dependencies {
     compile("org.webjars:angularjs:1.2.26")
     compile("org.webjars:bootstrap:3.2.0")
 
-    //compile("org.springframework.session:spring-session")
-    //compile("org.springframework.boot:spring-boot-starter-redis")
-
-    compile("org.springframework.data:spring-data-redis")
-    compile("redis.clients:jedis")
-    compile("org.springframework.session:spring-session-data-redis:1.0.0.RELEASE")
+    compile("org.springframework.session:spring-session")
+    compile("org.springframework.boot:spring-boot-starter-redis")
+    //compile("org.springframework.session:spring-session-data-redis:1.0.2.RELEASE")
 
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.cloud:spring-cloud-starter-security")

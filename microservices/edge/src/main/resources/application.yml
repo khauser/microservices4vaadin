@@ -8,6 +8,15 @@ spring:
     port: 6379
     default_expire_time: 86400
 
+zuul:
+  routes:
+    user:
+      path: /user/**
+      url: http://localhost:7777/uaa/user
+    frontend:
+      path: /frontend/**
+      url: http://localhost:8081
+
 hystrix:
   command:
     frontend:
@@ -15,13 +24,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 10000
-
-zuul:
-  routes:
-    user:
-      path: /user/**
-      url: http://localhost:7777/uaa/user
-    frontend: /ui/**
 
 management:
   security:

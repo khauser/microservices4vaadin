@@ -5,6 +5,7 @@ ext {
 
 repositories {
     maven { url 'https://maven.vaadin.com/vaadin-prereleases' }
+    maven { url 'http://www.jdal.org/repo' }
 }
 
 dependencyManagement {
@@ -22,14 +23,11 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-hateoas")
 
-    compile("org.springframework.data:spring-data-redis")
-    compile("redis.clients:jedis")
-    compile("org.springframework.session:spring-session-data-redis:1.0.0.RC1")
+    compile("org.springframework.session:spring-session")
+    compile("org.springframework.boot:spring-boot-starter-redis")
+    //compile("org.springframework.session:spring-session-data-redis:1.0.2.RELEASE")
 
-    compile("org.springframework.cloud:spring-cloud-starter-security")
     compile("org.springframework.security.oauth:spring-security-oauth2")
-    compile("org.springframework.security:spring-security-jwt")
-    compile("org.springframework.boot:spring-boot-starter-security")
 
     compile("com.fasterxml.jackson.datatype:jackson-datatype-joda")
 }
