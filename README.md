@@ -18,7 +18,7 @@ Prerequisites:
 * install redis
 
 Development:
-* Eclipse with Gradle IDE (see hints for project import)
+* Eclipse with Gradle IDE, and lombok (see hints for project import)
 
 Set up project:
 * checkout git repository
@@ -27,4 +27,9 @@ Set up project:
 
 Hints:
 * database for the authserver needs to be initialized by setting "ddl-auto: create", running the the authserver-service and importing "/auth_init.sql" into "microservice4vaadin_authserverdb"
-* eclipse has some problems with the subfolder structure. To handle this first copy microservices subfolders to the root folder, import the gradle project to create the ".project" files and move the services back to "microservices". With a new import all subprojects shall be there
+* *eclipse* has some problems with the subfolder structure. To handle this:
+-- first copy microservices subfolders to the root folder
+-- temporarily adjust *settings.gradle* with the new locations
+-- import the gradle project to eclipse to create the ".project" files
+-- and move the services back to the "microservices" folder.
+-- With a new import all subprojects shall be there

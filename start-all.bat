@@ -1,9 +1,6 @@
-start /D microservices\authserver              %CD%\gradlew bootRun
-start /D microservices\discovery               %CD%\gradlew bootRun
-start /D microservices\edge                    %CD%\gradlew bootRun
-
-start /D microservices\frontend                %CD%\gradlew bootRun
-
-REM start /D microservices\turbine                 %CD%\gradlew bootRun
-REM start /D microservices\hystrixdashboard        %CD%\gradlew bootRun
-
+start java -jar  microservices/authserver/build/libs/microservices/authserver-0.0.1-SNAPSHOT.jar
+start java -jar  microservices/discovery/build/libs/microservices/discovery-0.0.1-SNAPSHOT.jar
+start java -jar  microservices/edge/build/libs/microservices/edge-0.0.1-SNAPSHOT.jar
+start java -jar  microservices/frontend/build/libs/microservices/frontend-0.0.1-SNAPSHOT.jar"
+REM start java -jar  microservices/turbine/build/libs/microservices/turbine-0.0.1-SNAPSHOT.jar"
+REM start java -jar  microservices/hystrixdashboard/build/libs/microservices/hystrixdashboard-0.0.1-SNAPSHOT.jar"
