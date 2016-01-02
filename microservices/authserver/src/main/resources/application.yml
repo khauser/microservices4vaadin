@@ -14,8 +14,9 @@ mail:
       enable: true
 
 security:
-  ignored: /css/**,/js/**,/favicon.ico,/webjars/**
   sessions: stateless
+  basic:
+    enabled: false
 
 spring:
   application:
@@ -24,6 +25,10 @@ spring:
     active: ${profile:default}
   aop:
     proxy-target-class: true
+  redis:
+    host: localhost
+    port: 6379
+    default_expire_time: 86400
   # DataSource settings: set here your own configurations for the database
   # connection.
   datasource:

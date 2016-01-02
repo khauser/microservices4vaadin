@@ -12,7 +12,7 @@
 -- Exportiere Daten aus Tabelle microservice4vaadin_authserverdb.acme_user: ~0 rows (ungefähr)
 /*!40000 ALTER TABLE `acme_user` DISABLE KEYS */;
 INSERT INTO `acme_user` (`id`, `activated`, `activation_key`, `created_by`, `created_date`, `email`, `first_name`, `last_modified_by`, `last_modified_date`, `last_name`, `password`) VALUES
-    (1, b'1', NULL, 'system', '2015-11-26 10:33:14', 'ttester@test.de', 'Tobi', NULL, '2015-11-26 10:33:14', 'Tester', '$2a$04$E7J2pUf9rMKV5Sf6nT4wPOWynxT3vEb9Sy8RpmAS1gt9IqfZJSlFy');
+    (1, b'1', NULL, 'system', '2015-11-26 10:33:14', 'ttester@test.de', 'Udo', NULL, '2015-11-26 10:33:14', 'Tester', '$2a$04$E7J2pUf9rMKV5Sf6nT4wPOWynxT3vEb9Sy8RpmAS1gt9IqfZJSlFy');
 /*!40000 ALTER TABLE `acme_user` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle microservice4vaadin_authserverdb.authority: ~2 rows (ungefähr)

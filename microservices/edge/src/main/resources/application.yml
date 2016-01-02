@@ -10,9 +10,12 @@ spring:
 
 zuul:
   routes:
+    authserver:
+      path: /authserver/**
+      url: http://localhost:7777
     user:
       path: /user/**
-      url: http://localhost:7777/uaa/user
+      url: http://localhost:8080/authserver/uaa/user
     frontend:
       path: /frontend/**
       url: http://localhost:8081
@@ -31,13 +34,12 @@ management:
 security:
   basic:
     enabled: false
-  sessions: stateless
   user:
     password: none
   oauth2:
     client:
-      accessTokenUri: http://localhost:7777/uaa/oauth/token
-      userAuthorizationUri: http://localhost:7777/uaa/oauth/authorize
+      accessTokenUri: http://localhost:8080/authserver/uaa/oauth/token
+      userAuthorizationUri: http://localhost:8080/authserver/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
     resource:

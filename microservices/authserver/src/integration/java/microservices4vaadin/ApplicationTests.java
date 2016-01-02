@@ -4,18 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import microservices4vaadin.configuration.PersistenceTestContext;
-import microservices4vaadin.test.DatabaseIntegrationTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
@@ -27,11 +21,17 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import microservices4vaadin.config.CustomAuthenticationSuccessHandler;
+import microservices4vaadin.configuration.PersistenceTestContext;
+import microservices4vaadin.test.DatabaseIntegrationTest;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceTestContext.class})
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
 public class ApplicationTests extends DatabaseIntegrationTest {
+
+    //private final String EXPECTED_FIRST_NAME = "Udo";
 
     @Value("${local.server.port}")
     private int port;
@@ -57,30 +57,26 @@ public class ApplicationTests extends DatabaseIntegrationTest {
 
     @Test
     public void loginSucceeds() {
-        ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/uaa/login", String.class);
-        String csrf = getCsrf(response.getBody());
         MultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>();
-        form.set("username", "t.tester@lmicroservice4vaadin.org");
+        form.set("username", "t.tester@microservice4vaadin.org");
         form.set("password", "password");
-        form.set("_csrf", csrf);
-        HttpHeaders headers = new HttpHeaders();
-        headers.put("COOKIE", response.getHeaders().get("Set-Cookie"));
         RequestEntity<MultiValueMap<String, String>> request = new RequestEntity<MultiValueMap<String, String>>(
-                form, headers, HttpMethod.POST, URI.create("http://localhost:" + port
+                form, null, HttpMethod.POST, URI.create("http://localhost:" + port
                         + "/uaa/login"));
-        ResponseEntity<Void> location = template.exchange(request, Void.class);
-        assertEquals("http://localhost:" + port + "/uaa/",
-                location.getHeaders().getFirst("Location"));
-    }
+        ResponseEntity<Void> response = template.exchange(request, Void.class);
+        assertEquals(CustomAuthenticationSuccessHandler.DEFAULT_TARGET_URL,
+                response.getHeaders().getFirst("Location"));
 
-    private String getCsrf(String soup) {
-        Matcher matcher = Pattern.compile("(?s).*name=\"_csrf\".*?value=\"([^\"]+).*")
-                .matcher(soup);
-        if (matcher.matches()) {
-            return matcher.group(1);
-        }
-        return null;
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.put("COOKIE", response.getHeaders().get("Set-Cookie"));
+//
+//        request = new RequestEntity<MultiValueMap<String, String>>(
+//                form, null, HttpMethod.GET, URI.create("http://localhost:" + port
+//                        + "/uaa/user"));
+//
+//        ResponseEntity<AcmeUserDetails> responseUser = template.exchange(request, AcmeUserDetails.class);
+//        AcmeUserDetails user = responseUser.getBody();
+//        assertEquals(EXPECTED_FIRST_NAME, user.getFirstName());
     }
 
 }

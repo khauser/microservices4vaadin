@@ -5,9 +5,9 @@ dependencies {
     compile("org.webjars:angularjs:1.2.26")
     compile("org.webjars:bootstrap:3.2.0")
 
-    compile("org.springframework.session:spring-session")
-    compile("org.springframework.boot:spring-boot-starter-redis")
-    //compile("org.springframework.session:spring-session-data-redis:1.0.2.RELEASE")
+    compile("org.springframework.session:spring-session:1.1.0.BUILD-SNAPSHOT")
+    compile("org.springframework.data:spring-data-redis:1.7.0.BUILD-SNAPSHOT")
+    compile("redis.clients:jedis:2.8.0")
 
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.cloud:spring-cloud-starter-security")
@@ -16,7 +16,8 @@ dependencies {
     compile("org.springframework.security:spring-security-jwt")
 
     //required for deserializing jpa objects which are in the spring-session
-    compile('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final')
-    compile('org.hibernate:hibernate-entitymanager:4.3.7.Final')
+    compile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
+    compile("org.hibernate:hibernate-entitymanager:4.3.7.Final")
+
     compile("com.fasterxml.jackson.datatype:jackson-datatype-joda")
 }

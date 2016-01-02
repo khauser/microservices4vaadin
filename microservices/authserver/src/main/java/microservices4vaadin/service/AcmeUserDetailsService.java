@@ -7,6 +7,8 @@ import microservices4vaadin.exception.UserNotActivatedException;
 import microservices4vaadin.exception.UserNotFoundException;
 import microservices4vaadin.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,8 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class AcmeUserDetailsService implements UserDetailsService {
 
+    private static final String SESSION_USER_ATTRIBUTE_NAME="user";
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @Override
     @Transactional
@@ -36,7 +43,10 @@ public class AcmeUserDetailsService implements UserDetailsService {
             throw new UserNotActivatedException("User " + lowercaseEmail + " was not activated");
         }
 
-        return new AcmeUserDetails(acmeUser);
+
+        AcmeUserDetails acmeUserDetails = new AcmeUserDetails(acmeUser);
+        httpSession.setAttribute(SESSION_USER_ATTRIBUTE_NAME, acmeUserDetails);
+        return acmeUserDetails;
     }
 
 }

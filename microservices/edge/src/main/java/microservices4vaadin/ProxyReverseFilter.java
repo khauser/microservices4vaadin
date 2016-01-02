@@ -10,7 +10,7 @@ import com.netflix.zuul.context.RequestContext;
 
 public class ProxyReverseFilter extends ZuulFilter {
 
-    private final String locationHeaderName = "Location";
+    private final String LOCATION_HEADER_NAME = "Location";
 
     @Override
     public String filterType() {
@@ -35,12 +35,14 @@ public class ProxyReverseFilter extends ZuulFilter {
         int portalPort = context.getRequest().getServerPort();
         List<Pair<String, String>> responseHeaders = context.getZuulResponseHeaders();
         for (Pair<String, String> entry: responseHeaders){
-            if (entry.first().equals(locationHeaderName) && !entry.second().equals(portalHost)) {
+            if (entry.first().equals(LOCATION_HEADER_NAME) && !entry.second().equals(portalHost)) {
                 try {
                     URL locationOriginal = new URL(entry.second());
                     String path = locationOriginal.getFile();
                     if (path.startsWith("/ui/"))
                         path = path.replace("/ui/", "/frontend/ui/");
+                    else if (path.startsWith("/uaa/"))
+                        path = path.replace("/uaa/", "/authserver/uaa/");
                     URL locationNew = new URL(portalProtocol, portalHost, portalPort, path);
                     entry.setSecond(locationNew.toString());
 
@@ -54,4 +56,5 @@ public class ProxyReverseFilter extends ZuulFilter {
 
         return new Object();
     }
+
 }
