@@ -1,7 +1,9 @@
 # microservices4vaadin
-Sample application to show the secured integration of microservices and vaadin
+Sample application to show the SSO secured integration of microservices and vaadin
 
-Services:
+## Architecture:
+![Architecture](/doc/Architecture.png)
+
 * **authserver**: Authentification and authorization service with user login and also allows user registration via REST
 * **edge**: Gateway for SSO and UI for the landing page, the login and the registration panels
 * **frontend**: Vaadin frontend with a simple "Hello, world!"
