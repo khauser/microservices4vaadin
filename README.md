@@ -14,14 +14,9 @@ ToDo:
 * add a backend service
 
 ## Main frameworks
-* [Spring Boot] (http://projects.spring.io/spring-boot/)
-* [Spring Data JPA] (http://projects.spring.io/spring-data-jpa/)
-* [Spring Session] (http://projects.spring.io/spring-session)
-* [Spring Security] (http://projects.spring.io/spring-security/)
+* Spring: [Spring Boot] (http://projects.spring.io/spring-boot/), [Spring Data JPA] (http://projects.spring.io/spring-data-jpa/), [Spring Session] (http://projects.spring.io/spring-session), [Spring Security] (http://projects.spring.io/spring-security/)
 * [Vaadin] (https://www.vaadin.com/)
-* [Zuul] (https://github.com/Netflix/zuul)
-* [Eureka] (https://github.com/Netflix/eureka)
-* [Hystrix] (https://github.com/Netflix/Hystrix)
+* Netflix: ([Zuul] (https://github.com/Netflix/zuul), [Eureka] (https://github.com/Netflix/eureka), [Hystrix] (https://github.com/Netflix/Hystrix)
 
 ## Installation
 * install JDK 8
