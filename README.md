@@ -5,16 +5,19 @@ Sample application to show the SSO secured integration of microservices and vaad
 ![Architecture](/doc/Architecture.png)
 
 * **Authserver**:
-** Authentification and authorization service
-** Allows user login and also user registration via REST
+  * Authentification and authorization service
+  * Allows user login and also user registration via REST
+  * Generates spring session (persisted in Redis) which also holds the security context
 * **Edge**:
-** SSO Gateway to Frontend and also directly to the Backend
-** UI for the landing page, the login and the registration panels
+  * SSO Gateway to Frontend and also directly to the Backend
+  * UI for the landing page, the login and the registration panels
+  * Gets the security context and the user data from spring session
 * **Frontend**:
-** Vaadin frontend with a simple "Hello, world!"
-** Load balanced (Ribbon) access to backend
+  * Vaadin frontend with a simple "Hello, world!"
+  * Load balanced (Ribbon) access to backend
+  * Gets user data from spring session
 * **Backend**:
-** Simple but secured REST resource as backend for the frontend
+  * Simple but secured REST resource as backend for the frontend
 * **Discovery**: service discovery with eureka
 * **Turbine**+**Hystrixdashboard**: use hystrix as circuit breaker
 
