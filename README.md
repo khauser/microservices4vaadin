@@ -4,12 +4,19 @@ Sample application to show the SSO secured integration of microservices and vaad
 ## Architecture:
 ![Architecture](/doc/Architecture.png)
 
-* **authserver**: Authentification and authorization service with user login and also allows user registration via REST
-* **edge**: Gateway for SSO and UI for the landing page, the login and the registration panels
-* **frontend**: Vaadin frontend with a simple "Hello, world!"
-* **backend**: Simple but secured REST resource as backend for the frontend
-* **discovery**: service discovery with eureka
-* **turbine**+**hystrixdashboard**: use hystrix as circuit breaker
+* **Authserver**:
+** Authentification and authorization service
+** Allows user login and also user registration via REST
+* **Edge**:
+** SSO Gateway to Frontend and also directly to the Backend
+** UI for the landing page, the login and the registration panels
+* **Frontend**:
+** Vaadin frontend with a simple "Hello, world!"
+** Load balanced (Ribbon) access to backend
+* **Backend**:
+** Simple but secured REST resource as backend for the frontend
+* **Discovery**: service discovery with eureka
+* **Turbine**+**Hystrixdashboard**: use hystrix as circuit breaker
 
 ToDo:
 * fix http://stackoverflow.com/questions/34400416/enableredishttpsession-fails-with-vaadin to setup spring security with SSO
