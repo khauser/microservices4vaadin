@@ -2,22 +2,36 @@
 Sample application to show the secured integration of microservices and vaadin
 
 Services:
-* authserver: Authentification and authorization service with user login and registration
-* edge: gateway for SSO and session generation
-* frontend: Vaadin frontend with a simple "Hello, world!"
-* discovery: service discovery with eureka
-* turbine+hystrixdashboard: use hystrix as circuit breaker
+* **authserver**: Authentification and authorization service with user login and also allows user registration via REST
+* **edge**: Gateway for SSO and UI for the landing page, the login and the registration panels
+* **frontend**: Vaadin frontend with a simple "Hello, world!"
+* **backend**: Simple but secured REST resource as backend for the frontend
+* **discovery**: service discovery with eureka
+* **turbine**+**hystrixdashboard**: use hystrix as circuit breaker
 
 ToDo:
 * fix http://stackoverflow.com/questions/34400416/enableredishttpsession-fails-with-vaadin to setup spring security with SSO
 * add a backend service
 
-Prerequisites:
-* install java 8
-* install mysql
-* install redis
+## Main frameworks
+* [Spring Boot] (http://projects.spring.io/spring-boot/)
+* [Spring Data JPA] (http://projects.spring.io/spring-data-jpa/)
+* [Spring Session] (http://projects.spring.io/spring-session)
+* [Spring Security] (http://projects.spring.io/spring-security/)
+* [Vaadin] (https://www.vaadin.com/)
+* [Zuul] (https://github.com/Netflix/zuul)
+* [Eureka] (https://github.com/Netflix/eureka)
+* [Hystrix] (https://github.com/Netflix/Hystrix)
 
-Development:
+## Installation
+* install JDK 8
+* install MySQL
+* install Redis
+* install RabbitMQ
+* Run `gradlew clean build` to compile and build the application
+* Run `start-all.bat` to start the list of services
+
+## Development:
 * Eclipse with Gradle IDE, and lombok (see hints for project import)
 
 Set up project:
