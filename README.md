@@ -26,7 +26,7 @@ ToDo:
 * add a backend service
 
 ## Main frameworks
-* Spring: [Boot] (http://projects.spring.io/spring-boot/), [Data JPA] (http://projects.spring.io/spring-data-jpa/), [Session] (http://projects.spring.io/spring-session), [Security] (http://projects.spring.io/spring-security/)
+* Spring: [Boot] (http://projects.spring.io/spring-boot/), [Data JPA] (http://projects.spring.io/spring-data-jpa), [Session] (http://projects.spring.io/spring-session), [Cloud Security] (http://cloud.spring.io/spring-cloud-security)
 * [Vaadin] (https://www.vaadin.com/)
 * Netflix: [Zuul] (https://github.com/Netflix/zuul), [Eureka] (https://github.com/Netflix/eureka), [Hystrix] (https://github.com/Netflix/Hystrix)
 
