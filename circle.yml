@@ -1,0 +1,13 @@
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - docker
+  environment:
+    COMPOSE_API_VERSION: 1.18
+
+dependencies:
+  override:
+    - sudo pip install -U docker-compose
+  cache_directories:
+    - ~/.gradle
