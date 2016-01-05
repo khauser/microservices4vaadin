@@ -1,5 +1,9 @@
-# microservices4vaadin
-Sample application to show the SSO secured integration of microservices and vaadin
+# microservices4vaadin ![CircleCI](https://circleci.com/gh/khauser/microservices4vaadin.png?style=shield&circle-token=e56d14269e12d73dcc8b45b8dad847985d4e20fb)
+Exemplary application to show the SSO and OAuth2 secured integration of microservices with Spring Cloud and Vaadin. Main concepts in this projects are:
+* Microservices ("Software that Fits in Your Head")
+* Secured Gateway (SSO and OAuth2)
+* Service Discovery
+* Circuit Breaking
 
 ## Architecture:
 ![Architecture](/doc/Architecture.png)
@@ -33,8 +37,7 @@ ToDo:
 ## Installation
 * install JDK 8
 * install MySQL
-* install Redis
-* install RabbitMQ
+* install Redis+RabbitMQ (you can also use the [docker-compose.yml](docker-compose.yml) file
 * Run `gradlew clean build` to compile and build the application
 * Run `start-all.bat` to start the list of services
 
