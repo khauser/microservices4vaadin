@@ -2,6 +2,7 @@ server:
   host: localhost
   port: 8081
   contextPath: /ui
+  use-forward-headers: true
 
 debug: true
 

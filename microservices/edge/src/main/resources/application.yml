@@ -1,3 +1,6 @@
+server:
+  use-forward-headers: true
+
 debug: true
 
 spring:
