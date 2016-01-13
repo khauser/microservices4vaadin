@@ -1,14 +1,3 @@
-// START: have webapp folder available during rollout
-apply plugin: 'application'
-applicationDistribution.into('WebContent') {
-    from ('src/main/webapp')
-}
-startScripts << {
-    unixScript.text = unixScript.text.replace('CLASSPATH=', 'CLASSPATH=$APP_HOME/WebContent:')
-    windowsScript.text = windowsScript.text.replace('set CLASSPATH=', 'set CLASSPATH=$APP_HOME\\WebContent;')
-}
-// END: have webapp folder available during rollout
-
 ext {
     vaadinVersion = "7.6.0.beta1"
     vaadinSpringBootVersion = "1.0.0"
@@ -28,9 +17,6 @@ dependencyManagement {
 dependencies {
     compile("com.vaadin:vaadin-spring-boot-starter:${vaadinSpringBootVersion}")
 
-    compile("org.springframework.cloud:spring-cloud-starter-hystrix:")
-    compile("org.springframework.cloud:spring-cloud-starter-bus-amqp")
-    compile("org.springframework.cloud:spring-cloud-netflix-hystrix-amqp:1.0.3.RELEASE")
 
     compile("org.springframework.boot:spring-boot-starter-hateoas")
 
