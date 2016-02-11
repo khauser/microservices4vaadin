@@ -26,7 +26,7 @@ spring:
   aop:
     proxy-target-class: true
   redis:
-    host: localhost
+    host: klhauser-vm1
     port: 6379
     default_expire_time: 86400
   # DataSource settings: set here your own configurations for the database
