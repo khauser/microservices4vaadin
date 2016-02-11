@@ -1,3 +1,12 @@
+authserver_mysql:
+  image: mysql:5.7
+  environment:
+     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+     - MYSQL_DATABASE=microservice4vaadin_authserverdb
+     - MYSQL_USER=root
+  volumes:
+    - "/data/mysql:/var/lib/mysql"
+
 rabbitmq:
   image: rabbitmq:3.5.1
   ports:
@@ -8,3 +17,54 @@ redis:
   image: redis:2
   ports:
     - "6379:6379"
+
+discovery:
+  image: klhauser/microservice4vaadin-discovery
+  restart: always
+  ports:
+    - "8761:8761"
+
+authserver:
+  image: klhauser/microservice4vaadin-authserver
+  restart: always
+  ports:
+    - "7777:7777"
+  links:
+    - authserver_mysql
+    - discovery
+    - redis
+
+frontend:
+  image: klhauser/microservice4vaadin-frontend
+  restart: always
+  ports:
+    - "8081:8081"
+  links:
+    - discovery
+    - redis
+    - rabbitmq
+
+edge:
+  image: klhauser/microservice4vaadin-edge
+  restart: always
+  ports:
+    - "8080:8080"
+  links:
+    - discovery
+    - redis
+    - frontend
+    - authserver
+
+#hystrixdashboard:
+#  image: klhauser/microservice4vaadin-hystrixdashboard
+#  restart: always
+#  ports:
+#    - "7979:7979"
+#  links:
+#    - discovery
+#
+#turbine:
+#  image: klhauser/microservice4vaadin-turbine
+#  restart: always
+#  ports:
+#    - "8989:8989"

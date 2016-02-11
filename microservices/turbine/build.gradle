@@ -1,3 +1,15 @@
+jar {
+    baseName = 'turbine'
+    version = '0.0.1-SNAPSHOT'
+}
+distDocker {
+    exposePort 8989
+    setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
+}
+docker {
+    baseImage = 'java:8'
+}
+
 dependencies {
     compile("org.springframework.cloud:spring-cloud-netflix-turbine-amqp:1.0.3.RELEASE")
 }

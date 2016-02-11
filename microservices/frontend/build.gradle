@@ -1,3 +1,15 @@
+jar {
+    baseName = 'frontend'
+    version = '0.0.1-SNAPSHOT'
+}
+distDocker {
+    exposePort 8081
+    setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
+}
+docker {
+    baseImage = 'java:8'
+}
+
 ext {
     vaadinVersion = "7.6.1"
     vaadinSpringBootVersion = "1.0.0"

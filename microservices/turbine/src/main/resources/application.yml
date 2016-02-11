@@ -19,11 +19,14 @@ logging:
     com.netflix.discovery: 'OFF'
     # org.springframework.integration: DEBUG
 
-#turbine:
-#  appConfig: customers,stores,productapi
-#  clusterNameExpression: 'default'
+---
+# For deployment in Docker containers
+spring:
+  profiles: docker
 
-#turbine:
-#  aggregator:
-#    clusterConfig: CUSTOMERS
-#  appConfig: customers
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/

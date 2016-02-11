@@ -15,3 +15,15 @@ logging:
     ROOT: INFO
     org.springframework.web: DEBUG
     com.netflix.discovery: 'OFF'
+
+---
+# For deployment in Docker containers
+spring:
+  profiles: docker
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/

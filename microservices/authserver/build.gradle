@@ -1,3 +1,15 @@
+jar {
+    baseName = 'authserver'
+    version = '0.0.1-SNAPSHOT'
+}
+distDocker {
+    exposePort 7777
+    setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
+}
+docker {
+    baseImage = 'java:8'
+}
+
 // START: have webapp folder available during rollout
 apply plugin: 'application'
 applicationDistribution.into('WebContent') {
