@@ -7,7 +7,7 @@ distDocker {
     setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
 }
 docker {
-    baseImage = 'java:8'
+    baseImage = 'develar/java:8u45-dcevm'
 }
 
 ext {

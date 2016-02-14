@@ -61,7 +61,7 @@ subprojects {
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }
 
-	ext {
+  ext {
         springBootVersion = "1.3.1.BUILD-SNAPSHOT"
     }
 
@@ -113,12 +113,17 @@ subprojects {
     integrationTest.mustRunAfter test
     // END: integration test with gradle
 
-	def DOCKER_REPO = "klhauser"
-    task buildContainer(type: Docker) {
-		tagVersion = 'latest'
-	    tag = DOCKER_REPO + "/microservice4vaadin-" + jar.baseName.replace('microservices/','')
-	    push = true
-	}
+    def DOCKER_REPO = "klhauser"
+    task buildDocker(type: Docker) {
+        tagVersion = 'latest'
+        tag = DOCKER_REPO + "/microservice4vaadin-" + jar.baseName.replace('microservices/','')
+        push = project.hasProperty('push')
+        addFile {
+            from jar
+            rename {'app.jar'}
+        }
+        entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
+    }
 }
 
 task wrapper(type: Wrapper) {
