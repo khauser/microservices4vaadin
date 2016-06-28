@@ -1,20 +1,16 @@
 package microservices4vaadin.config;
 
-import java.util.ArrayList;
-
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateCustomizer;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
-import org.springframework.stereotype.Component;
 
 @Configuration
 @EnableOAuth2Sso
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -64,17 +60,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        repository.setHeaderName("X-XSRF-TOKEN");
 //        return repository;
 //    }
-
-}
-
-// TODO: Remove this when upgrading to Spring Boot 1.3.1 (https://github.com/spring-projects/spring-boot/issues/4553)
-@Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
-class WorkaroundRestTemplateCustomizer implements UserInfoRestTemplateCustomizer {
-
-    @Override
-    public void customize(OAuth2RestTemplate template) {
-        template.setInterceptors(new ArrayList<>(template.getInterceptors()));
-    }
 
 }

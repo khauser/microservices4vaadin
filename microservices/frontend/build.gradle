@@ -11,7 +11,7 @@ docker {
 }
 
 ext {
-    vaadinVersion = "7.6.1"
+    vaadinVersion = "7.6.2"
     vaadinSpringBootVersion = "1.0.0"
 }
 
@@ -31,8 +31,8 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-hateoas")
 
-    compile("org.springframework.session:spring-session:1.1.0.BUILD-SNAPSHOT")
-    compile("org.springframework.data:spring-data-redis:1.7.0.BUILD-SNAPSHOT")
+    compile("org.springframework.session:spring-session:1.2.0.BUILD-SNAPSHOT")
+    compile("org.springframework.data:spring-data-redis:1.7.2.BUILD-SNAPSHOT")
     compile("redis.clients:jedis:2.8.0")
 
     compile("org.springframework.security.oauth:spring-security-oauth2")

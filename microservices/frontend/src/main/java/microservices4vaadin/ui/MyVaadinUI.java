@@ -17,6 +17,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 @Theme("valo")
 @SpringUI
@@ -44,6 +45,12 @@ public class MyVaadinUI extends UI {
         Button testButton = new Button("TestButton");
         layout.addComponent(testButton);
         layout.setComponentAlignment(testButton, Alignment.TOP_CENTER);
+        testButton.addClickListener(e -> {
+        	Window window = new Window("TestWindow");
+        	UI.getCurrent().addWindow(window);
+        	window.focus();
+        	window.center();
+        });
 
         setContent(layout);
     }
