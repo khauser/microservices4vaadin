@@ -29,8 +29,8 @@ management:
 
 logging:
   level:
-    lessor: DEBUG
-    org.springframework.security: DEBUG
+    lessor: INFO
+    org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 
 ---

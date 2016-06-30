@@ -23,10 +23,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .antMatcher("/**").authorizeRequests()
                 .antMatchers("/webjars/**", "/", "/index.html", "/home.html", "/login.html").permitAll()
-                .antMatchers("/authserver/uaa/login").permitAll()
+                .antMatchers("/authserver/uaa/login", "/authserver/uaa/register", "/authserver/uaa/activate").permitAll()
                 .antMatchers("/ui/VAADIN/**").permitAll()
-                .antMatchers("/ui/vaadinServlet/UIDL/**").permitAll()
-                .antMatchers("/ui/vaadinServlet/HEARTBEAT/**").permitAll()
+//                .antMatchers("/ui/vaadinServlet/UIDL/**").permitAll()
+//                .antMatchers("/ui/vaadinServlet/HEARTBEAT/**").permitAll()
                 .anyRequest().authenticated().and().csrf().disable();
 //                .csrfTokenRepository(csrfTokenRepository()).and()
 //                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
