@@ -4,7 +4,7 @@ spring:
   aop:
     proxy-target-class: true
   redis:
-    host: 192.168.99.100
+    host: localhost
     port: 6379
     default_expire_time: 86400
 
@@ -18,7 +18,7 @@ zuul:
       url: http://localhost:8080/authserver/uaa/user
     register:
       path: /register/**
-      url: http://localhost:8080/authserver/uaa/register      
+      url: http://localhost:8080/authserver/uaa/register
     frontend1:
       path: /ui/**
       serviceId: frontend
@@ -26,7 +26,7 @@ zuul:
     frontend2:
       path: /frontend/**
       serviceId: frontend
-      
+
 eureka:
   client:
     serviceUrl:

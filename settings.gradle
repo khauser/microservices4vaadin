@@ -1,6 +1,6 @@
-include "microservices/authserver",
-    "microservices/frontend",
-    "microservices/discovery",
-    "microservices/edge",
-    "microservices/hystrixdashboard",
-    "microservices/turbine"
+include "microservices:authserver",
+    "microservices:frontend",
+    "microservices:discovery",
+    "microservices:edge",
+    "microservices:hystrixdashboard",
+    "microservices:turbine"
