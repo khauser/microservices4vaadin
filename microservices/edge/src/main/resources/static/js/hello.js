@@ -2,10 +2,10 @@ var angularApp = angular.module('hello', ['ngResource']);
 angularApp.controller('LoginController', ['$http', '$rootScope', '$scope', '$location', function ($http, $rootScope, $scope, $location) {
 
   var authenticate = function(callback) {
-	$http.get('user').success(function(data) {
-	  if (data.email) {
-	    $rootScope.authenticated = true;
-	    window.location = "/ui";
+  $http.get('user').success(function(data) {
+    if (data.email) {
+      $rootScope.authenticated = true;
+      window.location = "/ui";
       } else {
         $rootScope.authenticated = false;
       }
@@ -16,8 +16,8 @@ angularApp.controller('LoginController', ['$http', '$rootScope', '$scope', '$loc
     });
   }
 
-  authenticate();	
-	
+  authenticate();
+
   $scope.credentials = {};
   $scope.login = function() {
     $http.post('/authserver/uaa/login', $.param($scope.credentials), {
@@ -46,8 +46,8 @@ angularApp.controller('LoginController', ['$http', '$rootScope', '$scope', '$loc
       $rootScope.authenticated = false;
     })
   };
-	
-	
+
+
 }]);
 
 
@@ -66,18 +66,22 @@ angularApp.factory('Activate', ['$resource', function ($resource) {
 angularApp.controller('RegisterController', ['$http', '$rootScope', '$scope', 'Register', function ($http, $rootScope, $scope, Register) {
     $scope.success = null;
     $scope.error = null;
-    $scope.doNotMatch = null;
+    $scope.errorDifferentPasswordConfirm = null;
     $scope.errorEmailExists = null;
     $rootScope.registrationSuccess = null;
     $scope.activateionSuccess = null;
     $scope.activationError = null;
+    $scope.registrationData = null;
     $scope.register = function () {
-        if ($scope.registration.password != $scope.confirmPassword) {
-            $scope.doNotMatch = "ERROR";
+        if ($scope.registrationData === null) {
+          $scope.error = "ERROR";
+        }
+        else if ($scope.registrationData.password != $scope.confirmPassword) {
+            $scope.errorDifferentPasswordConfirm = "ERROR";
         } else {
-            $scope.doNotMatch = null;
             $scope.success = null;
             $scope.error = null;
+            $scope.errorDifferentPasswordConfirm = null;
             $scope.errorEmailExists = null;
             //DOM access in a controller is bad juju but since its just a demo :P
             var csrfToken = angular.element( document.querySelector( '#csrf_token' ) ).val();
@@ -91,10 +95,10 @@ angularApp.controller('RegisterController', ['$http', '$rootScope', '$scope', 'R
                     $rootScope.registrationSuccess = "OK";
                 },
                 function (httpResponse) {
-                	console.log("asdf " + httpResponse.data + " Hallo");
+                  console.log("asdf " + httpResponse.data + " Hallo");
                     if (httpResponse.status === 400 && httpResponse.data === "e-mail address already in use") {
-                        
-                    	$scope.error = null;
+
+                      $scope.error = null;
                         $scope.errorEmailExists = "ERROR";
                     } else {
                         $scope.error = "ERROR";
