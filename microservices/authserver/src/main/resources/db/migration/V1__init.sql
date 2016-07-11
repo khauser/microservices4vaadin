@@ -59,6 +59,6 @@ INSERT INTO AUTHORITY (id, name) VALUES (1, 'ROLE_USER');
 INSERT INTO AUTHORITY (id, name) VALUES (2, 'ROLE_ADMIN');
 
 INSERT INTO ACME_USER (id, activated, activation_key, created_by, created_date, email, first_name, last_modified_by, last_modified_date, last_name, password) VALUES
-(1, b'1', NULL, 'system', '2015-11-26 10:33:14', 'ttester@test.de', 'Udo', NULL, '2015-11-26 10:33:14', 'Tester', '$2a$04$E7J2pUf9rMKV5Sf6nT4wPOWynxT3vEb9Sy8RpmAS1gt9IqfZJSlFy');
+(1, b'1', NULL, 'system', '2015-11-26 10:33:14', 'ttester@test.de', 'Udo', NULL, '2015-11-26 10:33:14', 'Tester', '$2a$04$uGhktP6Fz3y3aOILM1FfMOq4bAqMP71ESoZot574FkJCaen18YQei');
 
 INSERT INTO USER_2_AUTHORITY (user_id, authority_id) VALUES (1, 2);
