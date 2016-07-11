@@ -50,4 +50,4 @@ Set up project:
 * run start-all.bat or equivalent in unix
 
 Hints:
-* database for the authserver "microservice4vaadin_authserverdb" needs to be added by hand in MySQL
+* Database for the authserver "microservice4vaadin_authserverdb" needs to be added by hand in MySQL. Initial test credentials then are `ttester@test.de/qert6`.

@@ -23,8 +23,6 @@ spring:
     name: authserver
   profiles:
     active: ${profile:default}
-  aop:
-    proxy-target-class: true
   redis:
     host: localhost
     port: 6379

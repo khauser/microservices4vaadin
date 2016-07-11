@@ -18,7 +18,7 @@ ext {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
 
-    compile("org.springframework.session:spring-session:1.2.0.BUILD-SNAPSHOT")
+    compile("org.springframework.session:spring-session:1.2.1.BUILD-SNAPSHOT")
     compile("org.springframework.data:spring-data-redis:1.7.2.BUILD-SNAPSHOT")
     compile("redis.clients:jedis:2.8.1")
 
