@@ -45,7 +45,7 @@ spring:
     show-sql: false
     hibernate:
       # Hibernate ddl auto (create, create-drop, update)
-      ddl-auto: update
+      ddl-auto: none
       # Naming strategy
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
@@ -55,7 +55,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
 flyway:
-  enabled: false
+  enabled: true
+  baseline-on-migrate: true
 
 logging:
   level:

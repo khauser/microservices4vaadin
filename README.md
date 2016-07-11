@@ -4,6 +4,7 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 * Secured Gateway (SSO and OAuth2)
 * Service Discovery
 * Circuit Breaking
+* Common Session overall Services
 
 ## Architecture:
 ![Architecture](/doc/Architecture.png)
@@ -26,7 +27,6 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 * **Turbine**+**Hystrixdashboard**: use hystrix as circuit breaker
 
 ToDo:
-* fix http://stackoverflow.com/questions/34400416/enableredishttpsession-fails-with-vaadin to setup spring security with SSO
 * add a backend service
 
 ## Main frameworks
@@ -36,7 +36,7 @@ ToDo:
 
 ## Installation
 * install JDK 8
-* install MySQL
+* install MySQL 5.7
 * install Redis+RabbitMQ (you can also use the [docker-compose.yml](docker-compose.yml) file
 * Run `gradlew clean build` to compile and build the application
 * Run `start-all.bat` to start the list of services
@@ -50,4 +50,4 @@ Set up project:
 * run start-all.bat or equivalent in unix
 
 Hints:
-* database for the authserver needs to be initialized by setting "ddl-auto: create", running the the authserver-service and importing *auth_init.sql* into "microservice4vaadin_authserverdb"
+* database for the authserver "microservice4vaadin_authserverdb" needs to be added by hand in MySQL
