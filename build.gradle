@@ -24,102 +24,104 @@ ext {
 ext['spring-data-releasetrain.version'] = 'Gosling-RELEASE'
 
 // all subprojects
-subprojects {
-    apply plugin: 'java'
-	apply plugin: 'idea'
-    apply plugin: 'spring-boot'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'maven'
-    apply plugin: 'application'
-    apply plugin: 'docker'
+project(':microservices') {
+  subprojects {
+      apply plugin: 'java'
+      apply plugin: 'idea'
+      apply plugin: 'spring-boot'
+      apply plugin: 'io.spring.dependency-management'
+      apply plugin: 'maven'
+      apply plugin: 'application'
+      apply plugin: 'docker'
 
-    springBoot {
-        requiresUnpack = ['com.netflix.eureka:eureka-core','com.netflix.eureka:eureka-client']
-    }
+      springBoot {
+          requiresUnpack = ['com.netflix.eureka:eureka-core','com.netflix.eureka:eureka-client']
+      }
 
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
-    }
+      repositories {
+          mavenLocal()
+          mavenCentral()
+          maven { url "https://repo.spring.io/snapshot" }
+          maven { url "https://repo.spring.io/milestone" }
+      }
 
-    dependencyManagement {
-        imports {
-            mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR1'
-        }
-    }
+      dependencyManagement {
+          imports {
+              mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR1'
+          }
+      }
 
-    group = 'microservices4vaadin'
-    version = '0.0.1-SNAPSHOT'
+      group = 'microservices4vaadin'
+      version = '0.0.1-SNAPSHOT'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+      sourceCompatibility = 1.8
+      targetCompatibility = 1.8
 
-    configurations.all {
-        // check for updates every build
-        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-    }
+      configurations.all {
+          // check for updates every build
+          resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+      }
 
-    dependencies {
-        compile("org.springframework.boot:spring-boot-starter-web")
-        //compile("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
-        //compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+      dependencies {
+          compile("org.springframework.boot:spring-boot-starter-web")
+          //compile("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
+          //compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
 
-        compile("org.springframework.cloud:spring-cloud-starter-eureka")
+          compile("org.springframework.cloud:spring-cloud-starter-eureka")
 
-        //compile("org.apache.httpcomponents:httpclient:${httpClientVersion}")
+          //compile("org.apache.httpcomponents:httpclient:${httpClientVersion}")
 
-        compile "org.projectlombok:lombok:${lombokVersion}"
-        compile("com.google.guava:guava:18.0")
-        compile("com.jayway.jsonpath:json-path")
+          compile "org.projectlombok:lombok:${lombokVersion}"
+          compile("com.google.guava:guava:18.0")
+          compile("com.jayway.jsonpath:json-path")
 
-        testCompile("org.springframework.boot:spring-boot-starter-test")
-        testCompile("junit:junit:${jUnitVersion}")
-    }
+          testCompile("org.springframework.boot:spring-boot-starter-test")
+          testCompile("junit:junit:${jUnitVersion}")
+      }
 
-    jar {
-        manifest.attributes provider: 'gradle'
-    }
+      jar {
+          manifest.attributes provider: 'gradle'
+      }
 
-    // START: integration test with gradle
-    sourceSets {
-        integrationTest {
-            java {
-                compileClasspath += main.output + test.output
-                runtimeClasspath += main.output + test.output
-                srcDir file('src/integration-test/java')
-            }
-            resources.srcDir file('src/integration/resources')
-        }
-    }
+      // START: integration test with gradle
+      sourceSets {
+          integrationTest {
+              java {
+                  compileClasspath += main.output + test.output
+                  runtimeClasspath += main.output + test.output
+                  srcDir file('src/integration-test/java')
+              }
+              resources.srcDir file('src/integration/resources')
+          }
+      }
 
-    configurations {
-        integrationTestCompile.extendsFrom testCompile
-        integrationTestRuntime.extendsFrom testRuntime
-    }
+      configurations {
+          integrationTestCompile.extendsFrom testCompile
+          integrationTestRuntime.extendsFrom testRuntime
+      }
 
-    task integrationTest(type: Test) {
-        testClassesDir = sourceSets.integrationTest.output.classesDir
-        classpath = sourceSets.integrationTest.runtimeClasspath
-        reports.html.destination = new File(reporting.baseDir,'integrationTests')
-    }
+      task integrationTest(type: Test) {
+          testClassesDir = sourceSets.integrationTest.output.classesDir
+          classpath = sourceSets.integrationTest.runtimeClasspath
+          reports.html.destination = new File(reporting.baseDir,'integrationTests')
+      }
 
-    check.dependsOn integrationTest
-    integrationTest.mustRunAfter test
-    // END: integration test with gradle
+      check.dependsOn integrationTest
+      integrationTest.mustRunAfter test
+      // END: integration test with gradle
 
-    def DOCKER_REPO = "klhauser"
-    task buildDocker(type: Docker) {
-        tagVersion = 'latest'
-        tag = DOCKER_REPO + "/microservice4vaadin-" + jar.baseName.replace('microservices/','')
-        push = project.hasProperty('push')
-        addFile {
-            from jar
-            rename {'app.jar'}
-        }
-        entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
-    }
+      def DOCKER_REPO = "klhauser"
+      task buildDocker(type: Docker) {
+          tagVersion = 'latest'
+          tag = DOCKER_REPO + "/microservice4vaadin-" + jar.baseName.replace('microservices/','')
+          push = project.hasProperty('push')
+          addFile {
+              from jar
+              rename {'app.jar'}
+          }
+          entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
+      }
+  }
 }
 
 task wrapper(type: Wrapper) {

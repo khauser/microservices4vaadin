@@ -10,17 +10,6 @@ docker {
     baseImage = 'develar/java:8u45-dcevm'
 }
 
-// START: have webapp folder available during rollout
-apply plugin: 'application'
-applicationDistribution.into('WebContent') {
-    from ('src/main/webapp')
-}
-startScripts << {
-    unixScript.text = unixScript.text.replace('CLASSPATH=', 'CLASSPATH=$APP_HOME/WebContent:')
-    windowsScript.text = windowsScript.text.replace('set CLASSPATH=', 'set CLASSPATH=$APP_HOME\\WebContent;')
-}
-// END: have webapp folder available during rollout
-
 ext {
     dbUnitVersion = "2.5.1"
     springTestDbunitVersion = "1.2.1"
