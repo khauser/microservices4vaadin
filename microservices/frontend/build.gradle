@@ -7,11 +7,11 @@ distDocker {
     setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
 }
 docker {
-    baseImage = 'develar/java:8u45-dcevm'
+    baseImage = 'anapsix/alpine-java:jre8'
 }
 
 ext {
-    vaadinVersion = "7.6.2"
+    vaadinVersion = "7.6.7"
     vaadinSpringBootVersion = "1.0.0"
 }
 
