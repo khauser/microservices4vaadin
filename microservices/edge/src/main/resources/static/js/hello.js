@@ -86,7 +86,7 @@ angularApp.controller('RegisterController', ['$http', '$rootScope', '$scope', 'R
             //DOM access in a controller is bad juju but since its just a demo :P
             var csrfToken = angular.element( document.querySelector( '#csrf_token' ) ).val();
             $http.defaults.headers.common['X-CSRF-TOKEN']= csrfToken;
-            Register.save($scope.registration,
+            Register.save($scope.registrationData,
                 function (value, responseHeaders) {
                     //Resource wants responses to be objects or arrays.  String responses are
                     //treated like an array of strings.  You would probably want to use Restangular or http instead
@@ -95,7 +95,7 @@ angularApp.controller('RegisterController', ['$http', '$rootScope', '$scope', 'R
                     $rootScope.registrationSuccess = "OK";
                 },
                 function (httpResponse) {
-                  console.log("asdf " + httpResponse.data + " Hallo");
+                  console.log("asdf " + httpResponse.status + " Hallo");
                     if (httpResponse.status === 400 && httpResponse.data === "e-mail address already in use") {
 
                       $scope.error = null;
