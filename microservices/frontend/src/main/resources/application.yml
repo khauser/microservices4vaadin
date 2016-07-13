@@ -12,8 +12,7 @@ debug: true
 
 vaadin:
   servlet:
-    params:
-      productionMode: false
+    production-mode: false
 
 spring:
   aop:
@@ -21,7 +20,6 @@ spring:
   redis:
     host: localhost
     port: 6379
-    default_expire_time: 86400
     pool:
       max-wait: -1
       max-active: -1
