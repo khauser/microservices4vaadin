@@ -21,7 +21,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import microservices4vaadin.config.CustomAuthenticationSuccessHandler;
 import microservices4vaadin.configuration.PersistenceTestContext;
 import microservices4vaadin.test.DatabaseIntegrationTest;
 
@@ -64,7 +63,9 @@ public class ApplicationTests extends DatabaseIntegrationTest {
                 form, null, HttpMethod.POST, URI.create("http://localhost:" + port
                         + "/uaa/login"));
         ResponseEntity<Void> response = template.exchange(request, Void.class);
-        assertEquals(CustomAuthenticationSuccessHandler.DEFAULT_TARGET_URL,
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        // in normal environment we would have a referrer here
+        assertEquals(null,
                 response.getHeaders().getFirst("Location"));
 
 //        HttpHeaders headers = new HttpHeaders();

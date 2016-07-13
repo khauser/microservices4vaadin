@@ -3,21 +3,28 @@ package microservices4vaadin.config;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableOAuth2Sso
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new CustomLogoutSuccessHandler();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //http.requiresChannel().anyRequest().requiresSecure();
         http.portMapper().http(8080).mapsTo(8443);
-        http.logout()
+        http.logout().logoutSuccessHandler(logoutSuccessHandler()).permitAll()
             .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(

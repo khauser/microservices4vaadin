@@ -28,7 +28,7 @@ spring:
   profiles:
     active: ${profile:default}
   redis:
-    host: localhost
+    host: docker.local
     port: 6379
   # DataSource settings: set here your own configurations for the database
   # connection.

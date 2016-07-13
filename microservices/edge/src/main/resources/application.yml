@@ -11,7 +11,7 @@ spring:
   aop:
     proxy-target-class: true
   redis:
-    host: localhost
+    host: docker.local
     port: 6379
 
 zuul:

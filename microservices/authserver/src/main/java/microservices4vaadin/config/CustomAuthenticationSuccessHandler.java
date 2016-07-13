@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    public final static String DEFAULT_TARGET_URL = "https://localhost:8443";
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
             HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
-        response.sendRedirect(DEFAULT_TARGET_URL);
+        String referrer = request.getHeader("referer");
+        if (referrer != null)
+            response.sendRedirect(referrer);
     }
 
 }

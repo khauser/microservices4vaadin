@@ -89,7 +89,7 @@ project(':microservices') {
               java {
                   compileClasspath += main.output + test.output
                   runtimeClasspath += main.output + test.output
-                  srcDir file('src/integration-test/java')
+                  srcDir file('src/integration/java')
               }
               resources.srcDir file('src/integration/resources')
           }
