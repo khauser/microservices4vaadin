@@ -1,7 +1,11 @@
 server:
   contextPath: /uaa
   port: 7777
-
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: example
+    key-password: example
+    
 email:
   username: USERNAME
   password: PASSWORD

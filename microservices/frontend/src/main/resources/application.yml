@@ -3,6 +3,10 @@ server:
   port: 8081
   contextPath: /ui
   use-forward-headers: true
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: example
+    key-password: example  
 
 debug: true
 
@@ -18,6 +22,11 @@ spring:
     host: localhost
     port: 6379
     default_expire_time: 86400
+    pool:
+      max-wait: -1
+      max-active: -1
+      max-idle: -1
+      min-idle: 16    
 
 security:
   sessions: NEVER

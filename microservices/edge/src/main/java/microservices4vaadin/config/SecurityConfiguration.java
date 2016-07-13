@@ -15,23 +15,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.logout().and()
+        //http.requiresChannel().anyRequest().requiresSecure();
+        http.portMapper().http(8080).mapsTo(8443);
+        http.logout()
+            .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(
                         new Http401AuthenticationEntryPoint(
                                 "Session realm=\"SESSION\""))
-                .and()
+            .and()
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/webjars/**", "/", "/index.html", "/home.html", "/login.html").permitAll()
+                .antMatchers("/webjars/**", "/", "/index.html", "/empty.html", "/login.html").permitAll()
                 .antMatchers("/authserver/uaa/login", "/authserver/uaa/register", "/authserver/uaa/activate").permitAll()
                 .antMatchers("/ui/VAADIN/**").permitAll()
 //                .antMatchers("/ui/vaadinServlet/UIDL/**").permitAll()
 //                .antMatchers("/ui/vaadinServlet/HEARTBEAT/**").permitAll()
-                .anyRequest().authenticated().and().csrf().disable();
+                .anyRequest().authenticated()
+            .and().csrf().disable().requiresChannel().anyRequest().requiresSecure();
 //                .csrfTokenRepository(csrfTokenRepository()).and()
 //                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
-
 //    private Filter csrfHeaderFilter() {
 //        return new OncePerRequestFilter() {
 //            @Override

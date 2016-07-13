@@ -1,3 +1,10 @@
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: example
+    key-password: example
+       
 debug: true
 
 spring:
@@ -12,13 +19,13 @@ zuul:
   routes:
     authserver:
       path: /authserver/**
-      url: http://localhost:7777
+      url: https://localhost:7777
     user:
       path: /user/**
-      url: http://localhost:8080/authserver/uaa/user
+      url: https://localhost:8443/authserver/uaa/user
     register:
       path: /register/**
-      url: http://localhost:8080/authserver/uaa/register
+      url: https://localhost:8443/authserver/uaa/register
     frontend1:
       path: /ui/**
       serviceId: frontend
@@ -40,6 +47,13 @@ hystrix:
           thread:
             timeoutInMilliseconds: 10000
 
+ribbon: 
+  TrustStore: keystore.jks
+  TrustStorePassword : example
+  ReadTimeout: 60000
+  IsSecure: true
+  MaxAutoRetries: 1
+
 management:
   security:
     enabled: false
@@ -50,8 +64,8 @@ security:
     password: none
   oauth2:
     client:
-      accessTokenUri: http://localhost:8080/authserver/uaa/oauth/token
-      userAuthorizationUri: http://localhost:8080/authserver/uaa/oauth/authorize
+      accessTokenUri: https://localhost:8443/authserver/uaa/oauth/token
+      userAuthorizationUri: https://localhost:8443/authserver/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
     resource:

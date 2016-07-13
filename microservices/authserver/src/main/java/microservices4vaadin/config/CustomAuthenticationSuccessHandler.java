@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    public final static String DEFAULT_TARGET_URL = "http://localhost:8080";
+    public final static String DEFAULT_TARGET_URL = "https://localhost:8443";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

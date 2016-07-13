@@ -40,6 +40,7 @@ import org.springframework.util.CollectionUtils;
  * @author Christoph Strobl
  * @author David Liu
  */
+@SuppressWarnings("rawtypes")
 abstract class AbstractOperations<K, V> {
 
     // utility methods for the template internal methods
@@ -151,6 +152,7 @@ abstract class AbstractOperations<K, V> {
         return hashKeySerializer().serialize(hashKey);
     }
 
+    @SuppressWarnings("unchecked")
     <HK> byte[][] rawHashKeys(HK... hashKeys) {
         final byte[][] rawHashKeys = new byte[hashKeys.length][];
         int i = 0;
@@ -215,7 +217,7 @@ abstract class AbstractOperations<K, V> {
         return set;
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked" })
     TypedTuple<V> deserializeTuple(Tuple tuple) {
         Object value = tuple.getValue();
         if (valueSerializer() != null) {

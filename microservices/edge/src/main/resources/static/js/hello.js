@@ -1,47 +1,34 @@
-var angularApp = angular.module('hello', ['ngResource']);
-angularApp.controller('LoginController', ['$http', '$rootScope', '$scope', '$location', function ($http, $rootScope, $scope, $location) {
+var angularApp = angular.module('hello', ['ngResource', 'ngRoute']);
 
-  var authenticate = function(callback) {
-  $http.get('user').success(function(data) {
-    if (data.email) {
-      $rootScope.authenticated = true;
-      window.location = "/ui";
-      } else {
-        $rootScope.authenticated = false;
+angularApp.config(function($routeProvider, $httpProvider) {
+  $routeProvider.when('/', {
+    templateUrl: '/empty.html',
+    resolve: {
+      loadData: function(AuthenticateService) {
+        AuthenticateService.authenticate();
       }
-      callback && callback();
-    }).error(function() {
-      $rootScope.authenticated = false;
-      callback && callback();
-    });
-  }
+    }
+  }).when('/loginPage', {
+    templateUrl: '/login.html'
+  });
 
-  authenticate();
+  $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+  $httpProvider.defaults.headers.common['Accept'] = 'application/json';
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+});
+
+angularApp.controller('LoginController', ['$http', '$rootScope', '$scope', '$location', 'AuthenticateService', function ($http, $rootScope, $scope, $location, AuthenticateService) {
+
+  //AuthenticateService.authenticate();
 
   $scope.credentials = {};
   $scope.login = function() {
-    $http.post('/authserver/uaa/login', $.param($scope.credentials), {
-      headers : {
-        "content-type" : "application/x-www-form-urlencoded"
-      }
-    }).success(function(data) {
-      authenticate(function() {
-        if ($rootScope.authenticated) {
-          console.log("Login succeeded")
-          //$rootScope.$apply(function() { $location.path("/ui"); });
-          //$location.path("/ui");
-          $scope.error = false;
-          $rootScope.authenticated = true;
-        } else {
-          console.log("Login failed with redirect")
-          $location.path("/");
-          $scope.error = true;
-          $rootScope.authenticated = false;
-        }
-      });
+    $http.post('/authserver/uaa/login', $.param($scope.credentials)).success(function(data) {
+      console.log("Login succeed")
+      AuthenticateService.authenticate();
     }).error(function(data) {
       console.log("Login failed")
-      $location.path("/");
+      $location.path("/loginPage");
       $scope.error = true;
       $rootScope.authenticated = false;
     })
@@ -74,7 +61,7 @@ angularApp.controller('RegisterController', ['$http', '$rootScope', '$scope', 'R
     $scope.registrationData = null;
     $scope.register = function () {
         if ($scope.registrationData === null) {
-          $scope.error = "ERROR";
+            $scope.error = "ERROR";
         }
         else if ($scope.registrationData.password != $scope.confirmPassword) {
             $scope.errorDifferentPasswordConfirm = "ERROR";
@@ -122,3 +109,33 @@ angularApp.controller('ActivationController', ['$rootScope', '$scope', 'Activate
     }
 
 }]);
+
+angularApp.factory('AuthenticateService', ['$window', '$http', '$rootScope', function($window, $http, $rootScope) {
+  var service = {};
+
+  service.authenticate = function() {
+    console.log("check authentication");
+    $http.get('user')
+      .success(function(data) {
+        if (data.email) {
+          console.log("exists");
+          $rootScope.authenticated = true;
+          $window.location = "/ui";
+        } else {
+          console.log("not exists");
+          $rootScope.authenticated = false;
+          $window.location = "#/loginPage";
+        }
+      })
+      .error(function() {
+        console.log("error");
+        $rootScope.authenticated = false;
+        $window.location = "#/loginPage";
+      }
+    );
+  }
+
+  return service;
+}]);
+
+
