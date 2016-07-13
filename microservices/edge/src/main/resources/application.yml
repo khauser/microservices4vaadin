@@ -8,10 +8,8 @@ server:
 debug: true
 
 spring:
-  aop:
-    proxy-target-class: true
   redis:
-    host: docker.local
+    host: localhost
     port: 6379
 
 zuul:

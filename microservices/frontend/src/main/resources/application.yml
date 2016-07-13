@@ -15,10 +15,8 @@ vaadin:
     production-mode: false
 
 spring:
-  aop:
-    proxy-target-class: true
   redis:
-    host: docker.local
+    host: localhost
     port: 6379
     pool:
       max-wait: -1
