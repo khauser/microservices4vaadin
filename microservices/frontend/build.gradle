@@ -10,14 +10,15 @@ docker {
     baseImage = 'anapsix/alpine-java:jre8'
 }
 
+repositories {
+    maven { url "http://maven.vaadin.com/vaadin-addons" }
+    maven { url "http://www.jdal.org/repo" }
+}
+
 ext {
     vaadinVersion = "7.6.7"
     vaadinSpringBootVersion = "1.0.0"
-}
-
-repositories {
-    maven { url 'https://maven.vaadin.com/vaadin-prereleases' }
-    maven { url 'http://www.jdal.org/repo' }
+    jdalVaadinVersion = "2.1.RC1";
 }
 
 dependencyManagement {
@@ -42,4 +43,6 @@ dependencies {
     compile("org.hibernate:hibernate-entitymanager:4.3.7.Final")
 
     compile("com.fasterxml.jackson.datatype:jackson-datatype-joda")
+
+    compile("org.jdal:jdal-vaadin:${jdalVaadinVersion}")
 }

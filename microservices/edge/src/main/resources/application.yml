@@ -4,7 +4,7 @@ server:
     key-store: classpath:keystore.jks
     key-store-password: example
     key-password: example
-       
+
 debug: true
 
 spring:
@@ -44,7 +44,7 @@ hystrix:
           thread:
             timeoutInMilliseconds: 10000
 
-ribbon: 
+ribbon:
   TrustStore: keystore.jks
   TrustStorePassword : example
   ReadTimeout: 60000
