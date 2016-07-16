@@ -47,6 +47,7 @@ ToDo:
 
 Set up project:
 * checkout git repository
+* run `docker-compose up -d` do start dependent Redis & RabbitMQ services
 * `gradlew clean build` to compile project
 * run `start-all.bat` in windows or `start-all.sh` in unix
 
