@@ -4,7 +4,7 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 * Secured Gateway (SSO and OAuth2)
 * Service Discovery
 * Circuit Breaking
-* Common Session overall Services
+* Shared Session overall Services
 
 ## Architecture:
 ![Architecture](/doc/Architecture.png)
@@ -43,12 +43,12 @@ ToDo:
 * `http://localhost:8080` should bring you to the landing page (with a redirect to https)
 
 ## Development:
-* Eclipse with Gradle IDE, and lombok (see hints for project import)
+* Git, Eclipse with Gradle IDE (Buildship), and [lombok] (https://projectlombok.org/)
 
 Set up project:
 * checkout git repository
-* "gradlew clean build" to compile project
-* run start-all.bat or equivalent in unix
+* `gradlew clean build` to compile project
+* run `start-all.bat` in windows or `start-all.sh` in unix
 
 Hints:
-* Database for the authserver "microservice4vaadin_authserverdb" needs to be added by hand in MySQL. Initial test credentials then are `ttester@test.de/quert6`.
+* Database for the authserver `microservice4vaadin_authserverdb` needs to be added by hand in MySQL. Initial test credentials then are `ttester@test.de/quert6`.
