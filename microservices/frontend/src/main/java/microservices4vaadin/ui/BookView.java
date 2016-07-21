@@ -2,6 +2,7 @@ package microservices4vaadin.ui;
 
 import javax.annotation.PostConstruct;
 
+import org.jdal.annotation.SerializableProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.navigator.View;
@@ -30,6 +31,7 @@ public class BookView extends Panel implements View {
     private boolean initialized = false;
 
     @Autowired
+    @SerializableProxy
     private BookController bookController;
 
     private VerticalLayout layout;
