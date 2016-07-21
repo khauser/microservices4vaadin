@@ -30,7 +30,7 @@ management:
 
 logging:
   level:
-    lessor: INFO
+    microservices4vaadin: INFO
     org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 

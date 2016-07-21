@@ -2,6 +2,9 @@ package microservices4vaadin.ui;
 
 import javax.annotation.PostConstruct;
 
+import org.jdal.annotation.SerializableProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.google.common.eventbus.Subscribe;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -37,31 +40,21 @@ public final class MyMenu extends CustomComponent {
     public static final String NOTIFICATIONS_BADGE_ID = "dashboard-menu-notifications-badge";
     private static final String STYLE_VISIBLE = "valo-menu-visible";
 
-//    private MenuItem settingsItem;
+    @Autowired
+    @SerializableProxy
+    private MyEventBus myEventBus;
 
-//    @Autowired
-//    private transient ReloadableResourceBundleMessageSource messageSource;
-
-//    @Autowired
-//    private ProfileWindow profileWindow;
-//
-//    private AccountDTO account;
 
     @PostConstruct
     void init() {
         setPrimaryStyleName("valo-menu");
         setId(ID);
         setSizeUndefined();
+
+        myEventBus.register(this);
     }
 
     public void enter() {
-//        account = (AccountDTO) VaadinSession.getCurrent().getAttribute(
-//                AccountDTO.class.getName());
-//
-        // There's only one DashboardMenu per UI so this doesn't need to be
-        // unregistered from the UI-scoped DashboardEventBus.
-        MyEventBus.register(this);
-
         setCompositionRoot(buildContent());
     }
 

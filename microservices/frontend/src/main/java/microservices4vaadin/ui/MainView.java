@@ -32,7 +32,7 @@ public class MainView extends VerticalLayout {
     private static final long serialVersionUID = -6726502572397504376L;
 
     @Autowired
-    private transient SpringViewProvider viewProvider;
+    private SpringViewProvider viewProvider;
 
     @Autowired
     private MyMenu myMenu;
@@ -46,7 +46,6 @@ public class MainView extends VerticalLayout {
     void init() {
         setSizeFull();
         addStyleName("mainview");
-
     }
 
     private Component buildHeader() {

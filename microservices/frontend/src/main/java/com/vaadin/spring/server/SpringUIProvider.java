@@ -57,10 +57,10 @@ public class SpringUIProvider extends UIProvider {
     @SuppressWarnings("unchecked")
     protected void detectUIs() {
         logger.info("Checking the application context for Vaadin UIs");
-        final String[] uiBeanNames = SpringApplicationContext.getApplicationContext()
+        final String[] uiBeanNames = SpringVaadinApplicationContext.getApplicationContext()
                 .getBeanNamesForAnnotation(SpringUI.class);
         for (String uiBeanName : uiBeanNames) {
-            Class<?> beanType = SpringApplicationContext.getApplicationContext().getType(uiBeanName);
+            Class<?> beanType = SpringVaadinApplicationContext.getApplicationContext().getType(uiBeanName);
             if (UI.class.isAssignableFrom(beanType)) {
                 logger.info("Found Vaadin UI [{}]", beanType.getCanonicalName());
                 final String path;
@@ -95,7 +95,7 @@ public class SpringUIProvider extends UIProvider {
      * @return path to map the UI to
      */
     protected String deriveMappingForUI(String uiBeanName) {
-        SpringUI annotation = SpringApplicationContext.getApplicationContext().findAnnotationOnBean(
+        SpringUI annotation = SpringVaadinApplicationContext.getApplicationContext().findAnnotationOnBean(
                 uiBeanName, SpringUI.class);
         return annotation.path();
     }
@@ -158,7 +158,7 @@ public class SpringUIProvider extends UIProvider {
             logger.debug(
                     "Creating a new UI bean of class [{}] with identifier [{}]",
                     event.getUIClass().getCanonicalName(), identifier);
-            return SpringApplicationContext.getApplicationContext().getBean(event.getUIClass());
+            return SpringVaadinApplicationContext.getApplicationContext().getBean(event.getUIClass());
         } finally {
             CurrentInstance.set(key, null);
         }

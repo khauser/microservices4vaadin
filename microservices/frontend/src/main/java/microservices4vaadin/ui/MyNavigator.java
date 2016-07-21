@@ -2,6 +2,7 @@ package microservices4vaadin.ui;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.spring.server.SpringVaadinApplicationContext;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.UI;
 
@@ -37,10 +38,12 @@ public class MyNavigator extends Navigator {
             public void afterViewChange(final ViewChangeEvent event) {
                 MyViewType view = MyViewType.getByViewName(event
                         .getViewName());
+
+                MyEventBus myEventBus = (MyEventBus) SpringVaadinApplicationContext.getApplicationContext().getBean("myEventBus");
                 // Appropriate events get fired after the view is changed.
-                MyEventBus.post(new PostViewChangeEvent(view));
-                MyEventBus.post(new BrowserResizeEvent());
-                MyEventBus.post(new CloseOpenWindowsEvent());
+                myEventBus.post(new PostViewChangeEvent(view));
+                myEventBus.post(new BrowserResizeEvent());
+                myEventBus.post(new CloseOpenWindowsEvent());
             }
         });
     }

@@ -1,4 +1,4 @@
-package microservices4vaadin.controller;
+package microservices4vaadin.rest.controller;
 
 import javax.annotation.PostConstruct;
 

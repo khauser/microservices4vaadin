@@ -1,6 +1,7 @@
 package microservices4vaadin.ui;
 
 import com.google.common.eventbus.Subscribe;
+import com.vaadin.spring.server.SpringVaadinApplicationContext;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 
@@ -20,7 +21,9 @@ public final class MyMenuItemButton extends Button {
         setPrimaryStyleName("valo-menu-item");
         setIcon(view.getIcon());
         setCaption(label);
-        MyEventBus.register(this);
+
+        MyEventBus myEventBus = (MyEventBus) SpringVaadinApplicationContext.getApplicationContext().getBean("myEventBus");
+        myEventBus.register(this);
         addClickListener(e -> UI.getCurrent().getNavigator().navigateTo(view.getViewName()));
     }
 

@@ -5,7 +5,8 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 public enum MyViewType {
-    HOME(HomeView.VIEW_NAME, "Home", HomeView.class, FontAwesome.HOME, true);
+    HOME(HomeView.VIEW_NAME, "Home", HomeView.class, FontAwesome.HOME, true)
+    , BOOK(BookView.VIEW_NAME, "Book", BookView.class, FontAwesome.BOOK, true);
 
     private final String viewName;
     private final String viewLabel;

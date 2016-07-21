@@ -69,8 +69,8 @@ public class SpringVaadinServlet extends VaadinServlet {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils
                 .getWebApplicationContext(config.getServletContext());
 
-        if (SpringApplicationContext.getApplicationContext() == null)
-            SpringApplicationContext.setApplicationContext(webApplicationContext);
+        if (SpringVaadinApplicationContext.getApplicationContext() == null)
+            SpringVaadinApplicationContext.setApplicationContext(webApplicationContext);
 
         super.init(config);
     }

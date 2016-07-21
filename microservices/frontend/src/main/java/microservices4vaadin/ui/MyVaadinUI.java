@@ -2,6 +2,7 @@ package microservices4vaadin.ui;
 
 import javax.servlet.http.HttpSession;
 
+import org.jdal.annotation.SerializableProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -27,16 +28,19 @@ public class MyVaadinUI extends UI {
 
     private static final long serialVersionUID = -8889596293072651801L;
 
-    private final transient MyEventBus myEventbus = new MyEventBus();
-
     @Autowired
     private MainView mainView;
 
+    @Autowired
+    @SerializableProxy
+    private MyEventBus myEventBus;
+
     @Override
     protected void init(VaadinRequest request) {
-        MyEventBus.register(this);
         Responsive.makeResponsive(this);
         addStyleName(ValoTheme.UI_WITH_MENU);
+
+        myEventBus.register(this);
 
         updateContent();
     }
@@ -63,10 +67,6 @@ public class MyVaadinUI extends UI {
         for (Window window : getWindows()) {
             window.close();
         }
-    }
-
-    public static MyEventBus getMyEventbus() {
-        return ((MyVaadinUI) getCurrent()).myEventbus;
     }
 
     public static HttpSession session() {

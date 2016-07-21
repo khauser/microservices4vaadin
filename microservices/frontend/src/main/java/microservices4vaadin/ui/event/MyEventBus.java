@@ -1,29 +1,33 @@
 package microservices4vaadin.ui.event;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Service;
+
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.SubscriberExceptionContext;
 import com.google.common.eventbus.SubscriberExceptionHandler;
 
-import microservices4vaadin.ui.MyVaadinUI;
-
-/**
- * A simple wrapper for Guava event bus. Defines static convenience methods for
- * relevant actions.
- */
+@Service
 public class MyEventBus implements SubscriberExceptionHandler {
 
-    private final EventBus eventBus = new EventBus(this);
+    private EventBus bus;
 
-    public static void post(final Object event) {
-        MyVaadinUI.getMyEventbus().eventBus.post(event);
+    @PostConstruct
+    public void init() {
+        bus = new EventBus();
     }
 
-    public static void register(final Object object) {
-        MyVaadinUI.getMyEventbus().eventBus.register(object);
+    public void post(final Object event) {
+        bus.post(event);
     }
 
-    public static void unregister(final Object object) {
-        MyVaadinUI.getMyEventbus().eventBus.unregister(object);
+    public  void register(final Object object) {
+        bus.register(object);
+    }
+
+    public void unregister(final Object object) {
+        bus.unregister(object);
     }
 
     @Override
@@ -31,4 +35,5 @@ public class MyEventBus implements SubscriberExceptionHandler {
             final SubscriberExceptionContext context) {
         exception.printStackTrace();
     }
+
 }
