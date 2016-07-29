@@ -1,0 +1,106 @@
+@mixin valo-menu-responsive() {
+  .v-ui {
+
+    @include width-range() {
+      padding-top: $v-unit-size;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+
+      .v-loading-indicator {
+        top: $v-unit-size;
+      }
+
+      > .v-widget {
+        position: relative !important
+      }
+
+      .valo-menu {
+        border-right: none;
+      }
+
+      .valo-menu-part {
+        overflow: visible;
+      }
+
+      .valo-menu-toggle {
+        display: inline-block;
+      }
+
+      .valo-menu-title {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: $v-unit-size !important;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 0;
+        -webkit-backface-visibility: hidden;
+        text-align: left;
+      }
+
+      .valo-menu-title .v-menubar-menuitem {
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .v-menubar-user-menu {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        height: $v-unit-size;
+        color: valo-font-color($v-selection-color, 0.5);
+        max-width: 30%;
+        -webkit-backface-visibility: hidden;
+
+        .v-menubar-menuitem {
+          line-height: $v-unit-size - 1px;
+          white-space: nowrap;
+        }
+
+        .v-menubar-menuitem img.v-icon {
+          display: inline-block;
+          margin: 0 round($v-unit-size / 6) 0 0;
+          width: round($v-unit-size / 2);
+          height: round($v-unit-size / 2);
+          border-radius: ceil($v-unit-size / 4);
+          border: none;
+        }
+      }
+
+      .valo-menuitems {
+        @include valo-menu-style;
+        position: fixed;
+        z-index: 200;
+        top: $v-unit-size;
+        bottom: 0;
+        height: auto;
+        max-width: 100%;
+        overflow: auto;
+        padding: round($v-unit-size / 2) 0;
+        @include transform(translatex(-100%));
+        @include transition(all 300ms);
+      }
+
+      .valo-menu-visible .valo-menuitems {
+        @include transform(translatex(0%));
+      }
+    }
+
+    @include width-range($max: 500px) {
+      .valo-menu-toggle .v-button-caption {
+        display: none;
+      }
+
+      .v-menubar-user-menu .v-menubar-menuitem-caption {
+        display: inline-block;
+        width: round($v-unit-size / 2);
+        overflow: hidden;
+      }
+    }
+  }
+ }

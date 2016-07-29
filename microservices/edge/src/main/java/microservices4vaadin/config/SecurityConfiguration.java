@@ -1,6 +1,7 @@
 package microservices4vaadin.config;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,9 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return new CustomLogoutSuccessHandler();
@@ -22,8 +26,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //http.requiresChannel().anyRequest().requiresSecure();
         http.portMapper().http(8080).mapsTo(8443);
+
+        http.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint);
+
         http.logout().logoutSuccessHandler(logoutSuccessHandler()).permitAll()
             .and()
                 .exceptionHandling()
@@ -35,40 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**", "/", "/index.html", "/empty.html", "/login.html").permitAll()
                 .antMatchers("/authserver/uaa/login", "/authserver/uaa/register", "/authserver/uaa/activate").permitAll()
                 .antMatchers("/ui/VAADIN/**").permitAll()
-//                .antMatchers("/ui/vaadinServlet/UIDL/**").permitAll()
-//                .antMatchers("/ui/vaadinServlet/HEARTBEAT/**").permitAll()
                 .anyRequest().authenticated()
             .and().csrf().disable().requiresChannel().anyRequest().requiresSecure();
-//                .csrfTokenRepository(csrfTokenRepository()).and()
-//                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
-//    private Filter csrfHeaderFilter() {
-//        return new OncePerRequestFilter() {
-//            @Override
-//            protected void doFilterInternal(HttpServletRequest request,
-//                    HttpServletResponse response, FilterChain filterChain)
-//                            throws ServletException, IOException {
-//                CsrfToken csrf = (CsrfToken) request
-//                        .getAttribute(CsrfToken.class.getName());
-//                if (csrf != null) {
-//                    Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
-//                    String token = csrf.getToken();
-//                    if (cookie == null
-//                            || token != null && !token.equals(cookie.getValue())) {
-//                        cookie = new Cookie("XSRF-TOKEN", token);
-//                        cookie.setPath("/");
-//                        response.addCookie(cookie);
-//                    }
-//                }
-//                filterChain.doFilter(request, response);
-//            }
-//        };
-//    }
-//
-//    private CsrfTokenRepository csrfTokenRepository() {
-//        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-//        repository.setHeaderName("X-XSRF-TOKEN");
-//        return repository;
-//    }
 
 }

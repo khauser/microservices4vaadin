@@ -31,7 +31,7 @@ public class MyEventBus implements SubscriberExceptionHandler {
     }
 
     @Override
-    public final void handleException(final Throwable exception,
+    public void handleException(final Throwable exception,
             final SubscriberExceptionContext context) {
         exception.printStackTrace();
     }

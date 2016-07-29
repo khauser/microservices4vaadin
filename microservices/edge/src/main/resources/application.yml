@@ -5,8 +5,6 @@ server:
     key-store-password: example
     key-password: example
 
-debug: true
-
 spring:
   redis:
     host: localhost
