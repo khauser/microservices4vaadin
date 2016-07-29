@@ -1,8 +1,7 @@
 package microservices4vaadin.config;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,11 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint);
 
         http.logout().logoutSuccessHandler(logoutSuccessHandler()).permitAll()
-            .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(
-                        new Http401AuthenticationEntryPoint(
-                                "Session realm=\"SESSION\""))
             .and()
                 .antMatcher("/**").authorizeRequests()
                 .antMatchers("/webjars/**", "/", "/index.html", "/empty.html", "/login.html").permitAll()
