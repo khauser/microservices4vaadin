@@ -4,11 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.jdal.annotation.SerializableProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.google.common.eventbus.Subscribe;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
@@ -20,7 +21,6 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import microservices4vaadin.auth.AcmeUserDetails;
 import microservices4vaadin.ui.event.MyEvent.CloseOpenWindowsEvent;
-import microservices4vaadin.ui.event.MyEventBus;
 
 @Theme("microservices4vaadin")
 @SpringUI
@@ -33,14 +33,12 @@ public class MyVaadinUI extends UI {
 
     @Autowired
     @SerializableProxy
-    private MyEventBus myEventBus;
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     protected void init(VaadinRequest request) {
         Responsive.makeResponsive(this);
         addStyleName(ValoTheme.UI_WITH_MENU);
-
-        myEventBus.register(this);
 
         updateContent();
     }
@@ -62,7 +60,7 @@ public class MyVaadinUI extends UI {
     }
 
 
-    @Subscribe
+    @EventListener
     public void closeOpenWindows(final CloseOpenWindowsEvent event) {
         for (Window window : getWindows()) {
             window.close();

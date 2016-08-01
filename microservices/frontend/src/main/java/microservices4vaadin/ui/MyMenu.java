@@ -4,8 +4,9 @@ import javax.annotation.PostConstruct;
 
 import org.jdal.annotation.SerializableProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 
-import com.google.common.eventbus.Subscribe;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
@@ -16,7 +17,6 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.themes.ValoTheme;
 
 import microservices4vaadin.ui.event.MyEvent.PostViewChangeEvent;
-import microservices4vaadin.ui.event.MyEventBus;
 
 //import lessoria.rest.resource.dto.AccountDTO;
 //import lessoria.rest.resource.dto.UserDTO;
@@ -42,7 +42,7 @@ public final class MyMenu extends CustomComponent {
 
     @Autowired
     @SerializableProxy
-    private MyEventBus myEventBus;
+    private ApplicationEventPublisher eventPublisher;
 
 
     @PostConstruct
@@ -50,8 +50,6 @@ public final class MyMenu extends CustomComponent {
         setPrimaryStyleName("valo-menu");
         setId(ID);
         setSizeUndefined();
-
-        myEventBus.register(this);
     }
 
     public void enter() {
@@ -104,7 +102,7 @@ public final class MyMenu extends CustomComponent {
 
     }
 
-    @Subscribe
+    @EventListener
     public void postViewChange(final PostViewChangeEvent event) {
         // After a successful view change the menu can be hidden in mobile view.
         getCompositionRoot().removeStyleName(STYLE_VISIBLE);

@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.portMapper().http(8080).mapsTo(8443);
+        http.portMapper().http(80).mapsTo(443);
 
         http.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint);
 

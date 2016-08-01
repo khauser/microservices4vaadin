@@ -1,5 +1,5 @@
 server:
-  port: 8443
+  port: 443
   ssl:
     key-store: classpath:keystore.jks
     key-store-password: example
@@ -14,13 +14,13 @@ zuul:
   routes:
     authserver:
       path: /authserver/**
-      url: https://localhost:7777
+      serviceId: authserver
     user:
       path: /user/**
-      url: https://localhost:8443/authserver/uaa/user
+      url: https://localhost:443/authserver/uaa/user
     register:
       path: /register/**
-      url: https://localhost:8443/authserver/uaa/register
+      url: https://localhost:443/authserver/uaa/register
     frontend1:
       path: /ui/**
       serviceId: frontend
@@ -59,8 +59,8 @@ security:
     password: none
   oauth2:
     client:
-      accessTokenUri: https://localhost:8443/authserver/uaa/oauth/token
-      userAuthorizationUri: https://localhost:8443/authserver/uaa/oauth/authorize
+      accessTokenUri: https://localhost:443/authserver/uaa/oauth/token
+      userAuthorizationUri: https://localhost:443/authserver/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
     resource:

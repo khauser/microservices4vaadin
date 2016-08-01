@@ -40,7 +40,7 @@ ToDo:
 * install Redis+RabbitMQ (you can also use the [docker-compose.yml](docker-compose.yml) file
 * Run `gradlew clean build` to compile and build the application
 * Run `start-all.bat` to start the list of services
-* `http://localhost:8080` should bring you to the landing page (with a redirect to https)
+* `http://localhost` should bring you to the landing page (with a redirect to https)
 
 ## Development:
 * Git, Eclipse with Gradle IDE (Buildship), and [lombok] (https://projectlombok.org/)
