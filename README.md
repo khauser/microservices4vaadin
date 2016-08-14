@@ -5,6 +5,7 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 * Service Discovery
 * Circuit Breaking
 * Shared Session overall Services
+* Event store to fulfill CQRS principles
 
 ## Architecture:
 ![Architecture](/doc/Architecture.png)
@@ -20,11 +21,11 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 * **Eventstore**:
   * Distribute events across microservices via RabbitMQ and persist them in MongoDB
 * **Frontend**:
-  * Vaadin frontend with a simple "Hello, world!"
+  * Vaadin frontend with some simple but responsive UI
   * Load balanced (Ribbon) access to backend
   * Gets user data from spring session
 * **UserService**:
-  * Should hold all about the user domain
+  * Represents the user domain
 * **Backend**:
   * Simple but secured REST resource as backend for the frontend
 * **Discovery**: service discovery with eureka
@@ -58,4 +59,4 @@ Set up project:
 * run `start-all.bat` in windows or `start-all.sh` in unix
 
 Hints:
-* Database for the authserver `microservice4vaadin_authserverdb` needs to be added by hand in MySQL. Initial test credentials then are `ttester@test.de/quert6`.
+* Database for the authserver `microservice4vaadin_authserverdb` and for the userservice `microservices4vaadin_userservicedb` needs to be added by hand in MySQL. Initial test credentials then are `ttester@test.de/quert6`.
