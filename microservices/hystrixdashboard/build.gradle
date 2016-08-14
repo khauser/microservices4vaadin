@@ -2,12 +2,12 @@ jar {
     baseName = 'hystrixdashboard'
     version = '0.0.1-SNAPSHOT'
 }
-distDocker {
-    exposePort 7979
-    setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
-}
-docker {
-    baseImage = 'anapsix/alpine-java:jre8'
+ext {
+    //docker
+    imageName = dockerRepository + jar.baseName
+    version = jar.version
+    dockerBaseImage = 'anapsix/alpine-java:jre8'
+    dockerExposePort = 7979
 }
 
 dependencies {

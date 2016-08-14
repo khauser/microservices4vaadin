@@ -1,6 +1,8 @@
+start cmd.exe /k "java -jar  microservices/eventstore/build/libs/eventstore-0.0.1-SNAPSHOT.jar"
 start cmd.exe /k "java -jar  microservices/authserver/build/libs/authserver-0.0.1-SNAPSHOT.jar"
 start cmd.exe /k "java -jar  microservices/discovery/build/libs/discovery-0.0.1-SNAPSHOT.jar"
 start cmd.exe /k "java -jar  microservices/edge/build/libs/edge-0.0.1-SNAPSHOT.jar"
+start cmd.exe /k "java -jar  microservices/userservice/build/libs/userservice-0.0.1-SNAPSHOT.jar"
 start cmd.exe /k "java -jar  microservices/frontend/build/libs/frontend-0.0.1-SNAPSHOT.jar"
 REM start cmd.exe /k "java -jar  microservices/turbine/build/libs/turbine-0.0.1-SNAPSHOT.jar"
 REM start cmd.exe /k "java -jar  microservices/hystrixdashboard/build/libs/hystrixdashboard-0.0.1-SNAPSHOT.jar"

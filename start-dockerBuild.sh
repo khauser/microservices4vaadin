@@ -5,10 +5,12 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 #echo $SCRIPTPATH
 
-(cd microservices/discovery; $SCRIPTPATH/gradlew buildContainer)
-(cd microservices/authserver; $SCRIPTPATH/gradlew buildContainer)
-(cd microservices/edge; $SCRIPTPATH/gradlew buildContainer)
-(cd microservices/frontend; $SCRIPTPATH/gradlew buildContainer)
-#(cd microservices/hystrixdashboard; $SCRIPTPATH/gradlew buildContainer)
-#(cd microservices/turbine; $SCRIPTPATH/gradlew buildContainer)
+(cd microservices/eventstore; $SCRIPTPATH/gradlew buildDockerContainer)
+(cd microservices/discovery; $SCRIPTPATH/gradlew buildDockerContainer)
+(cd microservices/authserver; $SCRIPTPATH/gradlew buildDockerContainer)
+(cd microservices/edge; $SCRIPTPATH/gradlew buildDockerContainer)
+(cd microservices/userservice; $SCRIPTPATH/gradlew buildDockerContainer)
+(cd microservices/frontend; $SCRIPTPATH/gradlew buildDockerContainer)
+#(cd microservices/hystrixdashboard; $SCRIPTPATH/gradlew buildDockerContainer)
+#(cd microservices/turbine; $SCRIPTPATH/gradlew buildDockerContainer)
 

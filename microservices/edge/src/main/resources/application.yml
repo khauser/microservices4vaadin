@@ -95,15 +95,15 @@ zuul:
   routes:
     user:
       path: /user/**
-      url: https://myurl.de:443/authserver/uaa/user
+      url: https://lessoria.de:443/authserver/uaa/user
     register:
       path: /register/**
-      url: https://myurl.de:443/authserver/uaa/register
+      url: https://lessoria.de:443/authserver/uaa/register
 
 security:
   oauth2:
     resource:
-      userInfoUri: https://myurl.de:443/uaa/user
+      userInfoUri: https://lessoria.de:443/uaa/user
 
 eureka:
   client:

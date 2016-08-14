@@ -65,7 +65,7 @@ flyway:
 
 logging:
   level:
-    microservices4vaadin: INFO
+    lessoria: INFO
     org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 

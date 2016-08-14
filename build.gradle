@@ -1,127 +1,156 @@
 buildscript {
     ext {
-        springBootVersion = "1.3.5.BUILD-SNAPSHOT"
+        coverallsVersion = "2.6.3"
+        gradlePluginVersion = "3.0.1"
+        springBootVersion = "1.4.0.RELEASE"
+        springDependencyManagementVersion = "0.6.0.RELEASE"
+        queryDslVersion = "1.0.6"
     }
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/milestone" }
-        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("io.spring.gradle:dependency-management-plugin:0.5.7.RELEASE")
-        classpath 'se.transmode.gradle:gradle-docker:1.2'
+        classpath("io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}")
+        classpath("com.bmuschko:gradle-docker-plugin:${gradlePluginVersion}")
+        classpath("org.kt3k.gradle.plugin:coveralls-gradle-plugin:${coverallsVersion}")
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${queryDslVersion}")
     }
 }
 
 ext {
-    jUnitVersion = "4.12"
+    jUnitVersion = "4.+"
     lombokVersion = "1.16.6"
-    httpClientVersion = "4.5.1"
+
+    //docker
+    dockerRepository = 'klhauser/microservices4vaadin-'
 }
 
-// Override the spring-data-releasetrain.version property
-ext['spring-data-releasetrain.version'] = 'Gosling-RELEASE'
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 // all subprojects
 project(':microservices') {
-  subprojects {
-      apply plugin: 'java'
-      apply plugin: 'idea'
-      apply plugin: 'spring-boot'
-      apply plugin: 'io.spring.dependency-management'
-      apply plugin: 'maven'
-      apply plugin: 'application'
-      apply plugin: 'docker'
+    subprojects {
+        apply plugin: 'java'
+        apply plugin: 'idea'
+        apply plugin: 'spring-boot'
+        apply plugin: 'io.spring.dependency-management'
+        apply plugin: 'maven'
+        apply plugin: 'com.bmuschko.docker-remote-api'
 
-      springBoot {
-          requiresUnpack = ['com.netflix.eureka:eureka-core','com.netflix.eureka:eureka-client']
-      }
+        springBoot {
+            requiresUnpack = ['com.netflix.eureka:eureka-core','com.netflix.eureka:eureka-client']
+        }
 
-      repositories {
-          mavenLocal()
-          mavenCentral()
-          maven { url "https://repo.spring.io/snapshot" }
-          maven { url "https://repo.spring.io/milestone" }
-      }
+        repositories {
+            mavenLocal()
+            mavenCentral()
+        }
 
-      dependencyManagement {
-          imports {
-              mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR1'
-          }
-      }
+        dependencyManagement {
+            imports {
+                mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.RELEASE'
+            }
+        }
 
-      group = 'microservices4vaadin'
-      version = '0.0.1-SNAPSHOT'
+        group = 'microservices4vaadin'
+        version = '0.0.1-SNAPSHOT'
 
-      sourceCompatibility = 1.8
-      targetCompatibility = 1.8
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
 
-      configurations.all {
-          // check for updates every build
-          resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-      }
+        configurations.all {
+            // check for updates every build
+            resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        }
 
-      dependencies {
-          compile("org.springframework.boot:spring-boot-starter-web")
-          //compile("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
-          //compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+        dependencies {
+            compile("org.springframework.boot:spring-boot-starter-web")
 
-          compile("org.springframework.cloud:spring-cloud-starter-eureka")
+            compile("org.springframework.cloud:spring-cloud-starter-eureka")
 
-          //compile("org.apache.httpcomponents:httpclient:${httpClientVersion}")
+            compile "org.projectlombok:lombok:${lombokVersion}"
+            compile("com.google.guava:guava:18.0")
+            compile("com.jayway.jsonpath:json-path")
 
-          compile "org.projectlombok:lombok:${lombokVersion}"
-          compile("com.google.guava:guava:18.0")
-          compile("com.jayway.jsonpath:json-path")
+            testCompile("org.springframework.boot:spring-boot-starter-test")
+            testCompile("junit:junit:${jUnitVersion}")
+        }
 
-          testCompile("org.springframework.boot:spring-boot-starter-test")
-          testCompile("junit:junit:${jUnitVersion}")
-      }
+        jar {
+            manifest.attributes provider: 'gradle'
+        }
 
-      jar {
-          manifest.attributes provider: 'gradle'
-      }
+        docker {
+            url = 'unix:///var/run/docker.sock'
+            certPath = null
+            if (System.getenv("DOCKER_HOST")) {
+                url = System.getenv("DOCKER_HOST").replace("tcp", "https")
+                if (System.getenv("DOCKER_CERT_PATH")) {
+                    certPath = new File(System.getenv("DOCKER_CERT_PATH").toString())
+                }
+            }
+            registryCredentials {
+                url = 'https://index.docker.io/v1'
+                username = "$System.env.DOCKER_USER"
+                password = "$System.env.DOCKER_PASS"
+                email = "$System.env.DOCKER_EMAIL"
+            }
+        }
 
-      // START: integration test with gradle
-      sourceSets {
-          integrationTest {
-              java {
-                  compileClasspath += main.output + test.output
-                  runtimeClasspath += main.output + test.output
-                  srcDir file('src/integration/java')
-              }
-              resources.srcDir file('src/integration/resources')
-          }
-      }
+        afterEvaluate { project ->
+            def dockerBuildDir = 'build/docker'
 
-      configurations {
-          integrationTestCompile.extendsFrom testCompile
-          integrationTestRuntime.extendsFrom testRuntime
-      }
+            task taskCopyFilesForDocker(type: Copy) {
+                dependsOn "copyShellScript", "copyJar"
+            }
 
-      task integrationTest(type: Test) {
-          testClassesDir = sourceSets.integrationTest.output.classesDir
-          classpath = sourceSets.integrationTest.runtimeClasspath
-          reports.html.destination = new File(reporting.baseDir,'integrationTests')
-      }
+            task copyJar(type: Copy) {
+                from "build/libs/${jar.baseName}-${project.version}.jar"
+                into dockerBuildDir
+                rename { "app.jar" }
+            }
 
-      check.dependsOn integrationTest
-      integrationTest.mustRunAfter test
-      // END: integration test with gradle
+            task copyShellScript(type: Copy) {
+                from project.file('docker-entrypoint.sh').getAbsolutePath()
+                into dockerBuildDir
+            }
 
-      def DOCKER_REPO = "klhauser"
-      task buildDocker(type: Docker) {
-          tagVersion = 'latest'
-          tag = DOCKER_REPO + "/microservice4vaadin-" + jar.baseName.replace('microservices/','')
-          push = project.hasProperty('push')
-          addFile {
-              from jar
-              rename {'app.jar'}
-          }
-          entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
-      }
-  }
+            task createDockerfile(type: Dockerfile) {
+                dependsOn taskCopyFilesForDocker
+                destFile = project.file(dockerBuildDir + '/Dockerfile')
+                from project.dockerBaseImage
+                maintainer 'Karsten Ludwig Hauser'
+                addFile 'app.jar', 'app.jar'
+                runCommand '[ -e /sbin/apk ] && ( [ -e /bin/bash ] || apk add --update bash ) || ( [ -e /usr/bin/apt-get ] && ( apt-get update && apt-get dist-upgrade -y && apt-get install -y ca-certificates patch unzip && apt-get clean all && which unzip && which patch ) || ( echo "no \"apk\", no \"apt-get\", what are you running, Gentoo?" >&2 && exit 1 ) )'
+                runCommand '( which curl || apk add --update curl )'
+                if (project.hasProperty('dockerExposePort'))
+                    exposePort project.dockerExposePort
+                if (project.file('docker-entrypoint.sh').exists()) {
+                    copyFile './docker-entrypoint.sh', '/'
+                    runCommand 'chmod +x docker-entrypoint.sh'
+                    entryPoint '/docker-entrypoint.sh'
+                }
+                else
+                    entryPoint 'java', '-jar', '-Djava.security.egd=file:/dev/./urandom', '-Dspring.profiles.active=docker', '/app.jar'
+            }
+
+            task buildDockerImage(type: DockerBuildImage) {
+                dependsOn createDockerfile
+                inputDir = createDockerfile.destFile.parentFile
+                tag = project.imageName
+            }
+
+            task pushDockerImage(type: DockerPushImage) {
+                dependsOn buildDockerImage
+                imageName = project.imageName
+            }
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {

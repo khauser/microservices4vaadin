@@ -1,13 +1,13 @@
 jar {
-    baseName = 'frontend'
+    baseName = 'discovery'
     version = '0.0.1-SNAPSHOT'
 }
-distDocker {
-    exposePort 8081
-    setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
-}
-docker {
-    baseImage = 'anapsix/alpine-java:jre8'
+ext {
+    //docker
+    imageName = dockerRepository + jar.baseName
+    version = jar.version
+    dockerBaseImage = 'anapsix/alpine-java:jre8'
+    dockerExposePort = 8081
 }
 
 repositories {
@@ -32,10 +32,9 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-hateoas")
 
-    compile("org.springframework.session:spring-session:1.2.1.BUILD-SNAPSHOT")
-    compile("org.springframework.data:spring-data-redis:1.7.2.BUILD-SNAPSHOT")
-    compile("redis.clients:jedis:2.8.1")
-
+    compile("org.springframework.session:spring-session:1.2.1.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-redis")
+	
     compile("org.springframework.security.oauth:spring-security-oauth2")
 
     //required for deserializing jpa objects which are in the spring-session
