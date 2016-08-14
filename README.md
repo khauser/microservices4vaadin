@@ -17,6 +17,8 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
   * SSO Gateway to Frontend and also directly to the Backend
   * UI for the landing page, the login and the registration panels
   * Gets the security context and the user data from spring session
+* **Eventstore**:
+  * Distribute events across microservices via RabbitMQ and persist them in MongoDB
 * **Frontend**:
   * Vaadin frontend with a simple "Hello, world!"
   * Load balanced (Ribbon) access to backend
