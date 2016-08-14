@@ -29,6 +29,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint);
 
+        http.headers().frameOptions().disable();
+
         http.logout().logoutSuccessHandler(logoutSuccessHandler()).permitAll()
             .and()
                 .antMatcher("/**").authorizeRequests()

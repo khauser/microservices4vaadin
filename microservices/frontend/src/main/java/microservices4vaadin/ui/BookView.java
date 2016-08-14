@@ -19,7 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 import microservices4vaadin.rest.controller.BookController;
-import microservices4vaadin.rest.resource.Book;
+import microservices4vaadin.rest.resource.dto.Book;
 
 @SpringView(name = BookView.VIEW_NAME)
 public class BookView extends Panel implements View {

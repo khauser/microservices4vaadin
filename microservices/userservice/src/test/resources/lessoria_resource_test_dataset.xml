@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <user id="1" first_name="Teo" last_name="Olsen" last_modified_by="testsystem" last_modified_date_time="1952-01-23 12:23:22" language="de" />
+  <user id="2" first_name="Lisa" last_name="Mayer" last_modified_by="testsystem" last_modified_date_time="1953-01-23 12:23:22" language="en" />
+</dataset>

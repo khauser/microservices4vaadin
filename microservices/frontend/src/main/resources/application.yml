@@ -9,6 +9,10 @@ server:
   session:
     persistent: false
 
+ribbon:
+  TrustStore: ssl/keystore.jks
+  TrustStorePassword: changeit
+
 vaadin:
   servlet:
     production-mode: false
@@ -36,10 +40,16 @@ logging:
 # For deployment in Docker containers
 spring:
   profiles: docker
+  redis:
+    host: redis
 
+server:
+  ssl:
+    key-store: ssl/keystore.jks
+    key-store-password: changeit
+    key-password: noidea
+    
 eureka:
-  instance:
-    preferIpAddress: true
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/

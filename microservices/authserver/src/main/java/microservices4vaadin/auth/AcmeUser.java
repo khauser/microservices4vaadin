@@ -1,8 +1,8 @@
 package microservices4vaadin.auth;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,11 +17,13 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.Data;
-
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
 
 
 /**
@@ -40,15 +42,9 @@ public class AcmeUser implements Serializable {
         this.itemId = acmeUser.itemId;
         this.email = acmeUser.email;
         this.password = acmeUser.password;
-        this.firstName = acmeUser.firstName;
-        this.lastName = acmeUser.lastName;
         this.activated = acmeUser.activated;
         this.activationKey = acmeUser.activationKey;
         this.authorities = acmeUser.authorities;
-        this.createdBy = acmeUser.createdBy;
-        this.createdDate = acmeUser.createdDate;
-        this.lastModifiedBy = acmeUser.lastModifiedBy;
-        this.lastModifiedDate = acmeUser.lastModifiedDate;
     }
 
     @Id
@@ -67,14 +63,6 @@ public class AcmeUser implements Serializable {
     @Column(length = 100)
     private String password;
 
-    @Size(min = 0, max = 50)
-    @Column(name = "first_name", length = 50)
-    private String firstName;
-
-    @Size(min = 0, max = 50)
-    @Column(name = "last_name", length = 50)
-    private String lastName;
-
     boolean activated = false;
 
     @Size(min = 0, max = 20)
@@ -90,19 +78,12 @@ public class AcmeUser implements Serializable {
 
     @NotNull
     @Column(nullable = false, length = 50, updatable = false)
-    @JsonIgnore
     private String createdBy;
 
     @NotNull
     @Column(nullable = false)
-    @JsonIgnore
-    private Date createdDate = new Date();
-
-    @Column(length = 50)
-    @JsonIgnore
-    private String lastModifiedBy;
-
-    @JsonIgnore
-    private Date lastModifiedDate = new Date();
+    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdDateTime;
 
 }

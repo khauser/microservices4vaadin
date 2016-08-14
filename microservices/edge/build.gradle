@@ -2,25 +2,24 @@ jar {
     baseName = 'edge'
     version = '0.0.1-SNAPSHOT'
 }
-distDocker {
-    exposePort 8080
-    setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
-}
-docker {
-    baseImage = 'anapsix/alpine-java:jre8'
+ext {
+    //docker
+    imageName = dockerRepository + jar.baseName
+    version = jar.version
+    dockerBaseImage = 'anapsix/alpine-java:jre8'
+    dockerExposePort = 8080
 }
 
 dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-zuul")
 
-    compile("org.webjars:jquery:1.11.1")
-    compile("org.webjars:angularjs:1.2.26")
-    compile("org.webjars.bower:angular-resource:1.2.7")
-    compile("org.webjars:bootstrap:3.2.0")
+    compile("org.webjars:jquery:3.0.0")
+    compile("org.webjars:angularjs:1.5.7")
+    compile("org.webjars.bower:angular-resource:1.5.7")
+    compile("org.webjars:bootstrap:3.3.7")
 
-    compile("org.springframework.session:spring-session:1.2.1.BUILD-SNAPSHOT")
-    compile("org.springframework.data:spring-data-redis:1.7.2.BUILD-SNAPSHOT")
-    compile("redis.clients:jedis:2.8.1")
+    compile("org.springframework.session:spring-session:1.2.1.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-redis")
 
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.cloud:spring-cloud-starter-security")

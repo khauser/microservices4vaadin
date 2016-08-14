@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Controller;
 
-import microservices4vaadin.rest.resource.Book;
+import microservices4vaadin.rest.resource.dto.Book;
 
 @Controller
 public class BookController extends AbstractRestController {

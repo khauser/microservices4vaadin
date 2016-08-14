@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-  <authority id="1" name="Doit" />
-  <acme_user id="1" activated="1" first_name="Udo" last_name="Tester" email="t.tester@microservice4vaadin.org" created_by="God" created_date="2023-11-04 00:00:00" password="$2a$10$xeHHMIGfhY6sjq/53IBY7.Khe8T8OEpCiPVh730OV2ya7eO11vvK." />
-
-  <user_2_authority user_id="1" authority_id="1" />
-</dataset>

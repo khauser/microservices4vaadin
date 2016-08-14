@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 import microservices4vaadin.auth.AcmeUser;
 import microservices4vaadin.repository.UserRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
- * Handles registering and activating users.  Also cleans up users who have not activated
+ * Handles registering and activating users. Also cleans up users who have not activated
  * in a reasonable amount of time
  */
 @Service
@@ -53,10 +53,11 @@ public class ActivationService {
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNonActivatedUsers() {
         DateTime now = new DateTime();
-        List<AcmeUser> users = userRepository.findNotActivatedUsersByCreationDateBefore(now.minusDays(3).toDate());
+        List<AcmeUser> users = userRepository.findNotActivatedUsersByCreatedDateTimeBefore(now.minusDays(3).toDate());
         for (AcmeUser user : users) {
             log.debug("Deleting not activated user {}", user.getEmail());
             userRepository.delete(user);
         }
     }
+
 }

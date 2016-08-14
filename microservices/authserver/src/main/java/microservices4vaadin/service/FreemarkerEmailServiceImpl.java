@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
-import microservices4vaadin.util.ConstantsUtil;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -18,6 +16,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import microservices4vaadin.util.ConstantsUtil;
 
 @Repository
 @Transactional

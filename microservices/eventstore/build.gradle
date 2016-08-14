@@ -1,0 +1,25 @@
+jar {
+    baseName = 'eventstore'
+    version = '0.0.1-SNAPSHOT'
+}
+
+ext {
+    axonVersion = "2.4.3"
+
+    //docker
+    imageName = dockerRepository + jar.baseName
+    version = jar.version
+    dockerBaseImage = 'anapsix/alpine-java:jre8'
+    dockerExposePort = 6666
+}
+
+dependencies {
+    compile project(":common")
+    compile("org.axonframework:axon-amqp:${axonVersion}")
+    compile("org.axonframework:axon-mongo:${axonVersion}")
+    compile("org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    compile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
+
+    testCompile("org.axonframework:axon-test:2.4.3")
+}

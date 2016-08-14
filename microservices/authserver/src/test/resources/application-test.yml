@@ -1,0 +1,23 @@
+server:
+  ssl:
+    enabled: false
+    
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem://lessoria_authservertestdb?useSSL=false
+    username: sa
+    password:
+    driverClassName: org.hsqldb.jdbcDriver
+    validationQuery: SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+  jpa:
+    generate-ddl: true
+    show-sql: false
+    hibernate:
+      ddl-auto: create
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HSQLDialect
+        
+flyway:
+  enabled: false

@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.5.1
+    
+  mongodb:
+    image: mongo:2.4
+
+  eventstore:
+    image: klhauser/lessoria-eventstore
+    ports:
+      - "6666:6666"
+    links:
+      - rabbitmq
+      - mongodb

@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+    }
+}
+
+apply plugin: 'java'
+
+jar {
+    baseName = 'common'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+ext {
+    lombokVersion = "1.16.6"
+}
+
+dependencies {
+  compile "org.projectlombok:lombok:${lombokVersion}"
+}

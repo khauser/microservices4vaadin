@@ -1,0 +1,36 @@
+server:
+  port: 6666
+
+spring:
+  application:
+    name: eventstore
+    exchange: user.events.fanout.exchange
+    queue: user.default.queue
+    databaseName: users
+    eventsCollectionName: events
+    snapshotCollectionName: snapshots
+  rabbitmq:
+    hostname: docker.local
+#    username: test
+#    password: password
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/users
+  profiles:
+    active: ${profile:default}
+
+---
+# For deployment in Docker containers
+spring:
+  profiles: docker
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/users
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+

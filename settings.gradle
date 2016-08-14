@@ -1,6 +1,10 @@
-include "microservices:authserver",
-    "microservices:frontend",
+include "common",
+	"microservices:eventstore",
+    "microservices:authserver",
     "microservices:discovery",
     "microservices:edge",
+	"microservices:userservice",
+    "microservices:frontend",
+    "microservices:discovery",
     "microservices:hystrixdashboard",
     "microservices:turbine"

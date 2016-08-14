@@ -1,0 +1,66 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: userservice
+    index: ${random.int[1024,4096]}
+    exchange: user.events.fanout.exchange
+    queue: event.stream
+    terminal: user.axon.terminal
+  rabbitmq:
+    hostname: 192.168.99.100
+  profiles:
+    active: ${profile:default}
+  # DataSource settings: set here your own configurations for the database
+  # connection.
+  datasource:
+    url: jdbc:mysql://localhost:3306/userservicedb?useSSL=false&zeroDateTimeBehavior=convertToNull
+    username: root
+    password:
+    driverClassName: com.mysql.jdbc.Driver
+    testOnBorrow: true
+    validationQuery: SELECT 1
+  jpa:
+    # Specify the DBMS
+    database: MYSQL
+    # Show or not log for each sql query
+    show-sql: false
+    hibernate:
+      # Hibernate ddl auto (create, create-drop, update)
+      ddl-auto: none
+      # Naming strategy
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        # Use spring.jpa.properties.* for Hibernate native properties (the prefix is
+        # stripped before adding them to the entity manager)
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+flyway:
+  enabled: true
+  baseline-on-migrate: true
+
+logging:
+  level:
+    lessoria: INFO
+    org.hibernate.SQL: INFO
+    com.netflix.discovery: 'OFF'
+
+---
+# For deployment in Docker containers
+spring:
+  profiles: docker
+  rabbitmq:
+    hostname: rabbitmq  
+  datasource:
+    url: jdbc:mysql://mysql/userservicedb?useSSL=false&zeroDateTimeBehavior=convertToNull
+
+server:
+  port: 7575
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+

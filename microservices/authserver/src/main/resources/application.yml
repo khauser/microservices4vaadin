@@ -6,6 +6,10 @@ server:
     key-store-password: example
     key-password: example
 
+eureka:
+  instance:
+    securePortEnabled: true
+
 email:
   username: USERNAME
   password: PASSWORD
@@ -28,12 +32,12 @@ spring:
   profiles:
     active: ${profile:default}
   redis:
-    host: locahost
+    host: localhost
     port: 6379
   # DataSource settings: set here your own configurations for the database
   # connection.
   datasource:
-    url: jdbc:mysql://localhost:3306/microservice4vaadin_authserverdb?useSSL=false
+    url: jdbc:mysql://localhost:3306/microservice4vaadin_authserverdb?useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password:
     driverClassName: com.mysql.jdbc.Driver
@@ -61,17 +65,26 @@ flyway:
 
 logging:
   level:
-    org.springframework.security: DEBUG
+    microservices4vaadin: INFO
+    org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 
 ---
 # For deployment in Docker containers
 spring:
   profiles: docker
+  redis:
+    host: redis
+  datasource:
+    url: jdbc:mysql://mysql/microservice4vaadin_authserverdb?useSSL=false&zeroDateTimeBehavior=convertToNull  
+
+server:
+  ssl:
+    key-store: ssl/keystore.jks
+    key-store-password: changeit
+    key-password: noidea
 
 eureka:
-  instance:
-    preferIpAddress: true
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <authority id="1" name="Doit" />
+  <acme_user id="1" activated="1" email="t.tester@lessoria.org" created_by="God" created_date_time="2023-11-04 00:00:00" password="$2a$10$xeHHMIGfhY6sjq/53IBY7.Khe8T8OEpCiPVh730OV2ya7eO11vvK." />
+
+  <user_2_authority user_id="1" authority_id="1" />
+</dataset>

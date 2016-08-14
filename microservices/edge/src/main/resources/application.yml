@@ -5,6 +5,13 @@ server:
     key-store-password: example
     key-password: example
 
+ribbon:
+  TrustStore: keystore.jks
+  TrustStorePassword : example
+  ReadTimeout: 60000
+  IsSecure: true
+  MaxAutoRetries: 2
+    
 spring:
   redis:
     host: localhost
@@ -33,21 +40,19 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-
+    
 hystrix:
   command:
     frontend:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 10000
-
-ribbon:
-  TrustStore: keystore.jks
-  TrustStorePassword : example
-  ReadTimeout: 60000
-  IsSecure: true
-  MaxAutoRetries: 1
+            timeoutInMilliseconds: 60000
+    authserver:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
 
 management:
   security:
@@ -58,21 +63,13 @@ security:
   user:
     password: none
   oauth2:
-    client:
-      accessTokenUri: https://localhost:443/authserver/uaa/oauth/token
-      userAuthorizationUri: https://localhost:443/authserver/uaa/oauth/authorize
-      clientId: acme
-      clientSecret: acmesecret
     resource:
-      jwt:
-        id: openid
-        keyValue: |
-          -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGp/Q5lh0P8nPL21oMMrt2RrkT9AW5jgYwLfSUnJVc9G6uR3cXRRDCjHqWU5WYwivcF180A6CWp/ireQFFBNowgc5XaA0kPpzEtgsA5YsNX7iSnUibB004iBTfU9hZ2Rbsc8cWqynT0RyN4TP1RYVSeVKvMQk4GT1r7JCEC+TNu1ELmbNwMQyzKjsfBXyIOCFU/E94ktvsTZUHF4Oq44DBylCDsS1k7/sfZC2G5EU7Oz0mhG8+Uz6MSEQHtoIi6mc8u64Rwi3Z3tscuWG2ShtsUFuNSAFNkY7LkLn+/hxLCu2bNISMaESa8dG22CIMuIeRLVcAmEWEWH5EEforTg+QIDAQAB
-          -----END PUBLIC KEY-----
+      userInfoUri: https://localhost:443/uaa/user
 
 logging:
   level:
+    org.springframework.boot: INFO
+    org.springframework.session: INFO
     org.springframework.security: INFO
     org.springframework.web: INFO
     com.netflix.discovery: 'OFF'
@@ -81,10 +78,34 @@ logging:
 # For deployment in Docker containers
 spring:
   profiles: docker
+  redis:
+    host: redis
+
+server:
+  ssl:
+    key-store: ssl/keystore.jks
+    key-store-password: changeit
+    key-password: noidea
+
+ribbon: 
+  TrustStore: ssl/keystore.jks
+  TrustStorePassword : changeit
+
+zuul:
+  routes:
+    user:
+      path: /user/**
+      url: https://myurl.de:443/authserver/uaa/user
+    register:
+      path: /register/**
+      url: https://myurl.de:443/authserver/uaa/register
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: https://myurl.de:443/uaa/user
 
 eureka:
-  instance:
-    preferIpAddress: true
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/

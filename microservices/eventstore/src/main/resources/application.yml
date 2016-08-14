@@ -1,0 +1,46 @@
+server:
+  port: 6666
+
+spring:
+  application:
+    name: eventstore
+    exchange: user.events.fanout.exchange
+    queue: user.default.queue
+    databaseName: users
+    eventsCollectionName: events
+    snapshotCollectionName: snapshots
+  rabbitmq:
+    hostname: localhost
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/users
+  profiles:
+    active: ${profile:default}
+
+logging:
+  level:
+    lessoria: DEBUG
+    org.springframework.security: DEBUG
+    com.netflix.discovery: 'OFF'
+
+---
+# For deployment in Docker containers
+spring:
+  profiles: docker
+  rabbitmq:
+    hostname: rabbitmq
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/users
+
+server:
+  ssl:
+    key-store: ssl/keystore.jks
+    key-store-password: changeit
+    key-password: noidea
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+

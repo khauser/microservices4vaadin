@@ -6,8 +6,13 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-  
+
   redis:
     image: redis:3.2.1-alpine
     ports:
       - "6379:6379"
+
+  mongodb:
+    image: mongo:2.4
+    ports:
+      - "27017:27017"

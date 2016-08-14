@@ -4,12 +4,13 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import microservices4vaadin.auth.AcmeUserDetails;
+import microservices4vaadin.service.AcmeUserDetailsService;
 
 /**
  * Return information about the currently logged in user
@@ -18,7 +19,7 @@ import microservices4vaadin.auth.AcmeUserDetails;
 class UserController {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private AcmeUserDetailsService acmeUserDetailsService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public AcmeUserDetails user(Principal principal) {
@@ -26,9 +27,18 @@ class UserController {
             return (AcmeUserDetails)principal;
         }
         else if(principal instanceof UsernamePasswordAuthenticationToken) {
-            return (AcmeUserDetails)userDetailsService.loadUserByUsername(principal.getName());
+            return (AcmeUserDetails)acmeUserDetailsService.loadUserByUsername(principal.getName());
         }
         return null;
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.PATCH)
+    public AcmeUserDetails updateUserCredentials(Principal principal, @RequestBody CredentialUpdateResource credentials) {
+        //TODO: maybe check principal belongs to correct user (email check)
+        // AcmeUserDetails user = (AcmeUserDetails)principal;
+
+        return (AcmeUserDetails)acmeUserDetailsService.updateUserCredentials(credentials.getEmail()
+                , credentials.getNewPassword(), credentials.getOldPassword());
     }
 
 }

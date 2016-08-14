@@ -6,9 +6,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-
 import microservices4vaadin.auth.Authorities;
+
+import java.util.Collection;
 
 /**
  * Utility class for Spring Security.

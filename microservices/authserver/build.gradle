@@ -2,26 +2,38 @@ jar {
     baseName = 'authserver'
     version = '0.0.1-SNAPSHOT'
 }
-distDocker {
-    exposePort 7777
-    setEnvironment 'JAVA_OPTS', '-Dspring.profiles.active=docker'
-}
-docker {
-    baseImage = 'anapsix/alpine-java:jre8'
-}
+
+// maybe needed to check integration with other services
+//test.dependsOn upDockerCompose
+//test << {
+//  downDockerCompose.execute()
+//}
 
 ext {
+    hsqlDbVersion = "2.3.4"
     dbUnitVersion = "2.5.1"
     flywayVersion = "4.0.3"
     springTestDbunitVersion = "1.2.1"
+
+    //docker
+    imageName = dockerRepository + jar.baseName
+    version = jar.version
+    dockerBaseImage = 'anapsix/alpine-java:jre8'
+    dockerExposePort = 7777
 }
 
 dependencies {
+    compile project(':common')
+
     compile("org.springframework.boot:spring-boot-starter-security")
 
-    compile("org.springframework.session:spring-session:1.2.1.BUILD-SNAPSHOT")
-    compile("org.springframework.data:spring-data-redis:1.7.2.BUILD-SNAPSHOT")
-    compile("redis.clients:jedis:2.8.1")
+    compile("org.springframework.boot:spring-boot-starter-hateoas")
+
+    compile("org.springframework.session:spring-session:1.2.1.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-redis")
+
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.4") // used for LocalDate java8
+    compile("org.jadira.usertype:usertype.extended:5.0.0.GA") // needed for dbunit and hibernate
 
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.cloud:spring-cloud-starter-security")
@@ -39,6 +51,8 @@ dependencies {
     compile("joda-time:joda-time")
     compile("javax.mail:mail:1.4.7")
 
+    testCompile("org.hsqldb:hsqldb:${hsqlDbVersion}")
+    testRuntime("org.hsqldb:hsqldb:${hsqlDbVersion}")
     testCompile("org.dbunit:dbunit:${dbUnitVersion}")
     testCompile("com.github.springtestdbunit:spring-test-dbunit:${springTestDbunitVersion}")
 }

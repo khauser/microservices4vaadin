@@ -28,11 +28,11 @@ angularApp.controller('LoginController', ['$http', '$rootScope', '$scope', '$loc
       params  : $scope.credentials,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
     })
-    .success(function(data) {
-      console.log("Login succeed")
+    .success(function(data, status) {
+      console.log("Login succeed" +data)
       AuthenticateService.authenticate();
-    }).error(function(data) {
-      console.log("Login failed")
+    }).error(function(data, status) {
+      console.log("Login failed with status " + status)
       $location.path("/loginPage");
       $scope.error = true;
       $rootScope.authenticated = false;

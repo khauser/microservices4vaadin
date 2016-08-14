@@ -15,7 +15,7 @@ import org.springframework.session.web.http.HttpSessionStrategy;
 @EnableRedisHttpSession
 public class SessionConfiguration {
 
-    private final static String SESSION_SERIALIZATION_ID = "microservices4vaadin";
+    private final static String SESSION_SERIALIZATION_ID = "lessoria";
 
     @Autowired
     private ApplicationContext appContext;
