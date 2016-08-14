@@ -5,6 +5,5 @@ include "common",
     "microservices:edge",
 	"microservices:userservice",
     "microservices:frontend",
-    "microservices:discovery",
     "microservices:hystrixdashboard",
     "microservices:turbine"

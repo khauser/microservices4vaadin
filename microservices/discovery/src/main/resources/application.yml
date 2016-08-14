@@ -1,21 +1,13 @@
 server:
   port: 8761
 
-management:
-  security:
-    enabled: false
-security:
-  basic:
-    enabled: false
-
----
-# For deployment in Docker containers
-spring:
-  profiles: docker
-
 eureka:
   instance:
-    preferIpAddress: true
+    hostname: discovery
   client:
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://discovery:${server.port}/eureka/
+
+spring.cloud.config.discovery.enabled: true

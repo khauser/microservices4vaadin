@@ -23,6 +23,8 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
   * Vaadin frontend with a simple "Hello, world!"
   * Load balanced (Ribbon) access to backend
   * Gets user data from spring session
+* **UserService**:
+  * Should hold all about the user domain
 * **Backend**:
   * Simple but secured REST resource as backend for the frontend
 * **Discovery**: service discovery with eureka
@@ -35,11 +37,13 @@ ToDo:
 * Spring: [Boot] (http://projects.spring.io/spring-boot/), [Data JPA] (http://projects.spring.io/spring-data-jpa), [Session] (http://projects.spring.io/spring-session), [Cloud Security] (http://cloud.spring.io/spring-cloud-security)
 * [Vaadin] (https://www.vaadin.com/)
 * Netflix: [Zuul] (https://github.com/Netflix/zuul), [Eureka] (https://github.com/Netflix/eureka), [Hystrix] (https://github.com/Netflix/Hystrix)
+* [AxonFramwork] (http://www.axonframework.org/)
+* [Rancher] (http://rancher.com/)
 
 ## Installation
 * install JDK 8
 * install MySQL 5.7
-* install Redis+RabbitMQ (you can also use the [docker-compose.yml](docker-compose.yml) file
+* install Redis+RabbitMQ+MongoDB (you can also use the [docker-compose.yml](docker-compose.yml) file
 * Run `gradlew clean build` to compile and build the application
 * Run `start-all.bat` to start the list of services
 * `http://localhost` should bring you to the landing page (with a redirect to https)
@@ -49,7 +53,7 @@ ToDo:
 
 Set up project:
 * checkout git repository
-* run `docker-compose up -d` do start dependent Redis & RabbitMQ services
+* run `docker-compose up -d` do start dependent Redis, RabbitMQ and MongoDB services
 * `gradlew clean build` to compile project
 * run `start-all.bat` in windows or `start-all.sh` in unix
 
