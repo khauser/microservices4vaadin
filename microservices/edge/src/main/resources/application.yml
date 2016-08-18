@@ -1,5 +1,6 @@
 server:
   port: 443
+  use-forward-headers: true
   ssl:
     key-store: classpath:keystore.jks
     key-store-password: example
@@ -18,6 +19,9 @@ spring:
     port: 6379
 
 zuul:
+  add-proxy-headers: true
+  debug:
+    request: true
   routes:
     authserver:
       path: /authserver/**

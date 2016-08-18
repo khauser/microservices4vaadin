@@ -8,7 +8,9 @@ server:
 
 eureka:
   instance:
+    nonSecurePortEnabled: false
     securePortEnabled: true
+    securePort: 7777
 
 email:
   username: USERNAME
@@ -65,7 +67,8 @@ flyway:
 
 logging:
   level:
-    lessoria: INFO
+    microservices4vaadin: INFO
+    org.springframework.session: INFO
     org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 

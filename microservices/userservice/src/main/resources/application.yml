@@ -43,7 +43,7 @@ flyway:
 
 logging:
   level:
-    lessoria: INFO
+    microservices4vaadin: INFO
     org.hibernate.SQL: INFO
     com.netflix.discovery: 'OFF'
 

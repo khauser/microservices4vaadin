@@ -9,9 +9,6 @@ server:
   session:
     persistent: false
 
-ribbon:
-  TrustStore: ssl/keystore.jks
-  TrustStorePassword: changeit
 
 vaadin:
   servlet:
@@ -48,6 +45,10 @@ server:
     key-store: ssl/keystore.jks
     key-store-password: changeit
     key-password: noidea
+
+ribbon:
+  TrustStore: ssl/keystore.jks
+  TrustStorePassword: changeit
     
 eureka:
   client:

@@ -19,8 +19,9 @@ spring:
 
 logging:
   level:
-    lessoria: DEBUG
-    org.springframework.security: DEBUG
+    microservices4vaadin: INFO
+    org.springframework.session: INFO
+    org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 
 ---
