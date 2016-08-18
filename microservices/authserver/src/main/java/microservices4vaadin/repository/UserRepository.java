@@ -1,6 +1,6 @@
 package microservices4vaadin.repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<AcmeUser, String> {
     AcmeUser getUserByActivationKey(String activationKey);
 
     @Query("select u from AcmeUser u where u.activated = false and u.createdDateTime > ?1")
-    List<AcmeUser> findNotActivatedUsersByCreatedDateTimeBefore(@DateTimeFormat(iso=ISO.DATE) Date dateTime);
+    List<AcmeUser> findNotActivatedUsersByCreatedDateTimeBefore(@DateTimeFormat(iso=ISO.DATE) LocalDateTime dateTime);
 
     AcmeUser findOneByEmail(String email);
 

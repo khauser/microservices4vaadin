@@ -70,6 +70,8 @@ public class UserServiceController {
         UserServiceUserUpdateResource resource = new UserServiceUserUpdateResource();
         resource.setFirstName(dto.getFirstName());
         resource.setLastName(dto.getLastName());
+        resource.setGender(dto.getGender().toString());
+        resource.setTitle(dto.getTitle());
         resource.setLastModifiedBy(dto.getLastModifiedBy());
         resource.setLastModifiedDateTime(dto.getLastModifiedDateTime());
         resource.setLanguage(dto.getLanguage());

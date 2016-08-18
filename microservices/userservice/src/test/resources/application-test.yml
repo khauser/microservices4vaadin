@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:hsqldb:mem://userservicetestdb?useSSL=false
+    url: jdbc:hsqldb:mem://microservices4vaadin_userservicetestdb?useSSL=false
     username: sa
     password:
     driverClassName: org.hsqldb.jdbcDriver

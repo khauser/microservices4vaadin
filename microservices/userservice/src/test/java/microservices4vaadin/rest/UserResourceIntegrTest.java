@@ -1,4 +1,4 @@
-package lessoria.rest;
+package microservices4vaadin.rest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestOperations;
 
-import lessoria.persistence.User;
+import microservices4vaadin.persistence.User;
 
 @WebAppConfiguration
 @IntegrationTest("server.port:0")

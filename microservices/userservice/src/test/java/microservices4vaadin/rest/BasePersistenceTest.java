@@ -1,4 +1,4 @@
-package lessoria.rest;
+package microservices4vaadin.rest;
 
 import java.sql.SQLException;
 
@@ -21,7 +21,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import lessoria.UserServiceApplication;
+import microservices4vaadin.UserServiceApplication;
 
 @SpringApplicationConfiguration(classes = {UserServiceApplication.class})
 @EnableTransactionManagement
@@ -29,7 +29,7 @@ import lessoria.UserServiceApplication;
 @ActiveProfiles("test")
 public abstract class BasePersistenceTest extends DatabaseTestCase {
 
-    protected static final String DATASET = "lessoria_resource_test_dataset.xml";
+    protected static final String DATASET = "microservices4vaadin_resource_test_dataset.xml";
 
     @PostConstruct
     public void init() throws DatabaseUnitException, SQLException, Exception {

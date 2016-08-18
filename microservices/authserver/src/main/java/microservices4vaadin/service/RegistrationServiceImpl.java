@@ -33,7 +33,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private PasswordEncoder passwordEncoder;
 
     /* (non-Javadoc)
-     * @see lessoria.service.RegistrationService#registerUser(lessoria.service.Registration)
+     * @see microservices4vaadin.service.RegistrationService#registerUser(microservices4vaadin.service.Registration)
      */
     @Override
     public AcmeUser registerUser(Registration registration) {

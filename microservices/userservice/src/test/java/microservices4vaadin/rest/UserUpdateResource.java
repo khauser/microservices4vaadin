@@ -1,4 +1,4 @@
-package lessoria.rest;
+package microservices4vaadin.rest;
 
 import java.time.LocalDateTime;
 

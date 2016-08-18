@@ -29,7 +29,7 @@ angularApp.controller('LoginController', ['$http', '$rootScope', '$scope', '$loc
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
     })
     .success(function(data, status) {
-      console.log("Login succeed" +data)
+      console.log("Login succeed")
       AuthenticateService.authenticate();
     }).error(function(data, status) {
       console.log("Login failed with status " + status)

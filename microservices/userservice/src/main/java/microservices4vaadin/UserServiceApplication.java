@@ -1,4 +1,4 @@
-package lessoria;
+package microservices4vaadin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +17,14 @@ public class UserServiceApplication extends SpringBootServletInitializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceApplication.class);
 
-    public static String CURIE_NAMESPACE = "lessoria";
+    public static String CURIE_NAMESPACE = "microservice4vaadin";
 
     public @Bean CurieProvider curieProvider() {
         return new DefaultCurieProvider(CURIE_NAMESPACE, new UriTemplate("http://localhost:8082/profile/{rel}"));
     }
 
     public static void main(String[] args) {
-        LOG.info("Starting BackendApplication");
+        LOG.info("Starting AuthserverApplication");
         new SpringApplicationBuilder(UserServiceApplication.class).run(args);
     }
 

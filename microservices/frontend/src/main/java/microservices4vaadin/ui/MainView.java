@@ -23,7 +23,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-import microservices4vaadin.auth.AcmeUserDetails;
+import microservices4vaadin.rest.resource.dto.UserServiceUserDTO;
 
 @UIScope
 @SpringComponent
@@ -36,6 +36,9 @@ public class MainView extends VerticalLayout {
 
     @Autowired
     private MyMenu myMenu;
+
+    @Autowired
+    private ProfileWindow profileWindow;
 
     private MenuItem settingsItem;
 
@@ -71,13 +74,22 @@ public class MainView extends VerticalLayout {
     }
 
     private Component buildUserMenu() {
-        AcmeUserDetails user = getCurrentUser();
+        UserServiceUserDTO user = getCurrentUser();
 
         final MenuBar settings = new MenuBar();
         settings.addStyleName("user-menu");
         settingsItem = settings.addItem("", new ThemeResource(
                 "images/profile-pic-300px.jpg"), null);
         settingsItem.setText(user.getFirstName() + " " + user.getLastName());
+
+        settingsItem.addItem("Profile", new Command() {
+            private static final long serialVersionUID = -3817204076897480538L;
+
+            @Override
+            public void menuSelected(final MenuItem selectedItem) {
+                profileWindow.open(getCurrentUser());
+            }
+        });
         settingsItem.addSeparator();
         settingsItem.addItem("Sign Out", new Command() {
             private static final long serialVersionUID = -728291901908708727L;
@@ -107,9 +119,9 @@ public class MainView extends VerticalLayout {
         navigator.addProvider(viewProvider);
     }
 
-    public AcmeUserDetails getCurrentUser() {
-        return (AcmeUserDetails) VaadinSession.getCurrent().getAttribute(
-                AcmeUserDetails.class.getName());
+    public UserServiceUserDTO getCurrentUser() {
+        return (UserServiceUserDTO) VaadinSession.getCurrent().getAttribute(
+                UserServiceUserDTO.class.getName());
     }
 
 }

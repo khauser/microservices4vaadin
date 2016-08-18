@@ -1,4 +1,4 @@
-package lessoria.configuration;
+package microservices4vaadin.configuration;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;

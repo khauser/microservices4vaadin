@@ -19,6 +19,8 @@ dependencies {
     compile("org.axonframework:axon-mongo:${axonVersion}")
     compile("org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    compile("org.mongodb:mongo-java-driver:2.14.3")
+
     compile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
 
     testCompile("org.axonframework:axon-test:2.4.3")

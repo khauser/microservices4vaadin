@@ -1,4 +1,4 @@
-package lessoria.configuration;
+package microservices4vaadin.configuration;
 
 import java.util.Properties;
 

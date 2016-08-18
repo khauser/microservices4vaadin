@@ -8,7 +8,7 @@ services:
     image: mongo:2.4
 
   eventstore:
-    image: klhauser/lessoria-eventstore
+    image: klhauser/microservices4vaadin-eventstore
     ports:
       - "6666:6666"
     links:

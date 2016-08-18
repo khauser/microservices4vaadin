@@ -4,7 +4,7 @@ server:
     
 spring:
   datasource:
-    url: jdbc:hsqldb:mem://lessoria_authservertestdb?useSSL=false
+    url: jdbc:hsqldb:mem://microservices4vaadin_authservertestdb?useSSL=false
     username: sa
     password:
     driverClassName: org.hsqldb.jdbcDriver

@@ -56,8 +56,8 @@ public class AcmeUserDetailsService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDetails updateUserCredentials(String email, String newPassword, String oldPassword) {
-        AcmeUser acmeUser = findUserByEmail(email.toLowerCase());
+    public UserDetails updateUserCredentials(String oldEmail, String email, String newPassword, String oldPassword) {
+        AcmeUser acmeUser = findUserByEmail(oldEmail.toLowerCase()); // this would fail if email is wrong
         if (newPassword != null && !newPassword.equals("")) {
             if (!passwordEncoder.matches(oldPassword, acmeUser.getPassword()))
                 throw new WrongOldPasswordException("Wrong old password for user " + email);

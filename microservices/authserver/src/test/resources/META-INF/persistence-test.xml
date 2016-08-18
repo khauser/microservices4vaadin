@@ -2,8 +2,8 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
   version="1.0">
   <persistence-unit name="testPersistence" transaction-type="RESOURCE_LOCAL">
-    <class>lessoria.auth.AcmeUser</class>
-    <class>lessoria.auth.Authority</class>
+    <class>microservices4vaadin.auth.AcmeUser</class>
+    <class>microservices4vaadin.auth.Authority</class>
 
     <properties>
       <property name="hibernate.hbm2ddl.auto" value="create" />

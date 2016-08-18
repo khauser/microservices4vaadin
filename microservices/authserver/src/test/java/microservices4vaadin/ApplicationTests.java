@@ -1,4 +1,4 @@
-package lessoria;
+package microservices4vaadin;
 
 import java.net.URI;
 
@@ -17,9 +17,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestOperations;
 
-import lessoria.rest.BasePersistenceTest;
 import microservices4vaadin.auth.AcmeUserDetails;
 import microservices4vaadin.controller.CredentialUpdateResource;
+import microservices4vaadin.rest.BasePersistenceTest;
 
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
@@ -29,7 +29,7 @@ public class ApplicationTests extends BasePersistenceTest {
 
     private static final String EXPECTED_USER_NEW_PASSWORT = "olafson";
 
-    private static final String EXPECTED_USER_EMAIL = "t.tester@lessoria.org";
+    private static final String EXPECTED_USER_EMAIL = "t.tester@microservices4vaadin.org";
 
     private final Long EXPECTED_USER_ID = 1L;
 

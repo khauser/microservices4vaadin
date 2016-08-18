@@ -1,4 +1,4 @@
-package lessoria.configuration;
+package microservices4vaadin.configuration;
 
 import org.axonframework.contextsupport.spring.AnnotationDriven;
 import org.springframework.amqp.core.Binding;

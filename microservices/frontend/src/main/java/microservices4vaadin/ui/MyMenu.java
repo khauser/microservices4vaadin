@@ -18,13 +18,6 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import microservices4vaadin.ui.event.MyEvent.PostViewChangeEvent;
 
-//import lessoria.rest.resource.dto.AccountDTO;
-//import lessoria.rest.resource.dto.UserDTO;
-//import lessoria.ui.event.LessorEventBus;
-//import lessoria.ui.event.LessorEvent.PostViewChangeEvent;
-//import lessoria.ui.event.LessorEvent.ProfileUpdatedEvent;
-//import lessoria.ui.event.LessorEvent.UserLoggedOutEvent;
-
 /**
  * A responsive menu component providing user information and the controls for
  * primary navigation between the views.

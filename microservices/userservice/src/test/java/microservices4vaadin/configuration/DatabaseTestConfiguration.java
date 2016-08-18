@@ -1,4 +1,4 @@
-package lessoria.configuration;
+package microservices4vaadin.configuration;
 
 import java.util.Properties;
 
@@ -46,7 +46,7 @@ public class DatabaseTestConfiguration {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory.setPackagesToScan(new String[] {"lessor.persistence"});
+        entityManagerFactory.setPackagesToScan(new String[] {"microservices4vaadin.persistence"});
         entityManagerFactory.setPersistenceXmlLocation("classpath:META-INF/persistence-test.xml");
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create");

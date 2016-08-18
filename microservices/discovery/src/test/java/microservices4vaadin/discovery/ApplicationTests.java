@@ -1,4 +1,4 @@
-package lessor.discovery;
+package microservices4vaadin.discovery;
 
 import microservices4vaadin.discovery.EurekaApplication;
 

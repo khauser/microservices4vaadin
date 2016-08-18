@@ -19,7 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
-import microservices4vaadin.auth.AcmeUserDetails;
+import microservices4vaadin.rest.resource.dto.UserServiceUserDTO;
 
 @SpringView(name = HomeView.VIEW_NAME)
 public class HomeView extends Panel implements View {
@@ -76,7 +76,7 @@ public class HomeView extends Panel implements View {
         VerticalLayout bodyLayout = new VerticalLayout();
         bodyLayout.setSizeFull();
 
-        AcmeUserDetails user = getCurrentUser();
+        UserServiceUserDTO user = getCurrentUser();
 
         Label greetings = new Label(new Label("Hello <b>" + user.getFirstName() + " " + user.getLastName()
         + "</b>, now you are in the Vaadin UI."));
@@ -98,9 +98,9 @@ public class HomeView extends Panel implements View {
         return bodyLayout;
     }
 
-    public AcmeUserDetails getCurrentUser() {
-        return (AcmeUserDetails) VaadinSession.getCurrent().getAttribute(
-                AcmeUserDetails.class.getName());
+    public UserServiceUserDTO getCurrentUser() {
+        return (UserServiceUserDTO) VaadinSession.getCurrent().getAttribute(
+                UserServiceUserDTO.class.getName());
     }
 
 }

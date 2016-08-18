@@ -1,4 +1,4 @@
-package lessoria.persistence;
+package microservices4vaadin.persistence;
 
 import java.time.LocalDateTime;
 

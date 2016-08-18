@@ -34,10 +34,7 @@ class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.PATCH)
     public AcmeUserDetails updateUserCredentials(Principal principal, @RequestBody CredentialUpdateResource credentials) {
-        //TODO: maybe check principal belongs to correct user (email check)
-        // AcmeUserDetails user = (AcmeUserDetails)principal;
-
-        return (AcmeUserDetails)acmeUserDetailsService.updateUserCredentials(credentials.getEmail()
+        return (AcmeUserDetails)acmeUserDetailsService.updateUserCredentials(principal.getName(), credentials.getEmail()
                 , credentials.getNewPassword(), credentials.getOldPassword());
     }
 

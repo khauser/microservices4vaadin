@@ -19,6 +19,12 @@ public class UserServiceUserUpdateResource {
     private String lastName;
 
     @JsonInclude(Include.NON_NULL)
+    private String gender;
+
+    @JsonInclude(Include.NON_EMPTY)
+    private String title;
+
+    @JsonInclude(Include.NON_NULL)
     private String lastModifiedBy;
 
     @JsonInclude(Include.NON_NULL)

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import microservices4vaadin.auth.AcmeUser;
 import microservices4vaadin.rest.resource.dto.AbstractPersonDTO.Gender;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,5 +39,7 @@ public class UserServiceUserDTO implements Serializable {
 
     @JsonInclude(Include.NON_NULL)
     private String language;
+
+    private AcmeUser acmeUser;
 
 }

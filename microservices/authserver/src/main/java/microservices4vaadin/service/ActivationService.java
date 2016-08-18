@@ -1,6 +1,5 @@
 package microservices4vaadin.service;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import microservices4vaadin.auth.AcmeUser;
 import microservices4vaadin.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,8 +52,8 @@ public class ActivationService {
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNonActivatedUsers() {
-        DateTime now = new DateTime();
-        List<AcmeUser> users = userRepository.findNotActivatedUsersByCreatedDateTimeBefore(now.minusDays(3).toDate());
+        LocalDateTime now = LocalDateTime.now();
+        List<AcmeUser> users = userRepository.findNotActivatedUsersByCreatedDateTimeBefore(now.minusDays(3));
         for (AcmeUser user : users) {
             log.debug("Deleting not activated user {}", user.getEmail());
             userRepository.delete(user);

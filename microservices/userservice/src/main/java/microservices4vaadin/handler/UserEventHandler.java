@@ -1,13 +1,13 @@
-package lessoria.handler;
+package microservices4vaadin.handler;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.axonframework.eventhandling.replay.ReplayAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lessoria.persistence.User;
-import lessoria.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import microservices4vaadin.persistence.User;
+import microservices4vaadin.repository.UserRepository;
 import microservices4vaadin.userevents.UserCreatedEvent;
 
 @Component

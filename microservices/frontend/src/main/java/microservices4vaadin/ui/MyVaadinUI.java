@@ -85,6 +85,8 @@ public class MyVaadinUI extends UI {
         AcmeUserDetails user = (AcmeUserDetails)sci.getAuthentication().getPrincipal();
 
         UserServiceUserDTO userServiceUser = userServiceController.findOne(user.getItemId());
+        userServiceUser.setAcmeUser(user);
+
         VaadinSession.getCurrent().setAttribute(UserServiceUserDTO.class.getName(), userServiceUser);
         VaadinSession.getCurrent().setLocale(Locale.forLanguageTag(userServiceUser.getLanguage()));
 

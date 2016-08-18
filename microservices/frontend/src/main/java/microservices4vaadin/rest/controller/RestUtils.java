@@ -37,13 +37,12 @@ public class RestUtils {
         URI uri = null;
         try {
             ServiceInstance instance = loadBalancer.choose(serviceId);
-
             if (instance == null) {
                 throw new RuntimeException("Can't find a service with serviceId = " + serviceId);
             }
 
             uri = instance.getUri();
-            log.debug("Resolved serviceId '{}' to URL '{}'.", serviceId, uri);
+            log.debug("Resolved serviceId '{}' to URL '{} and secured '{}'.", serviceId, uri, instance.isSecure());
 
         } catch (RuntimeException e) {
             // Eureka not available, use fallback if specified otherwise rethrow the error
