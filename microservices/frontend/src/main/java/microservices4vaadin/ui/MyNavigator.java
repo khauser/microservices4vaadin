@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationEventPublisher;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.spring.server.SpringVaadinApplicationContext;
+import com.vaadin.spring.server.SpringVaadinServletService;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.UI;
 
@@ -40,7 +40,9 @@ public class MyNavigator extends Navigator {
                 MyViewType view = MyViewType.getByViewName(event
                         .getViewName());
 
-                ApplicationEventPublisher eventPublisher = (ApplicationEventPublisher) SpringVaadinApplicationContext.getApplicationContext();
+                UI ui = UI.getCurrent();
+
+                ApplicationEventPublisher eventPublisher = (ApplicationEventPublisher) ((SpringVaadinServletService) ui.getSession().getService()).getWebApplicationContext();
                 // Appropriate events get fired after the view is changed.
                 eventPublisher.publishEvent(new PostViewChangeEvent(MyVaadinUI.getCurrent(), view));
                 eventPublisher.publishEvent(new BrowserResizeEvent(MyVaadinUI.getCurrent()));
