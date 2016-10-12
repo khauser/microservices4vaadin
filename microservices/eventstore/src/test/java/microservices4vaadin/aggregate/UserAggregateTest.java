@@ -13,6 +13,8 @@ public class UserAggregateTest {
 
     private static final long EXPECTED_USER_ID = 1L;
     private static final String EXPECTED_USER_NAME = "UserName";
+    private static final String EXPECTED_FIRST_NAME = "Udo";
+    private static final String EXPECTED_LAST_NAME = "Lateck";
     private FixtureConfiguration<UserAggregate> fixture;
 
     @Before
@@ -25,8 +27,10 @@ public class UserAggregateTest {
         UserCreatedEvent user = new UserCreatedEvent();
         user.setId(1L);
         user.setEmail(EXPECTED_USER_NAME);
+        user.setFirstName(EXPECTED_FIRST_NAME);
+        user.setLastName(EXPECTED_LAST_NAME);		
         fixture.given()
-                .when(new CreateUserCommand(EXPECTED_USER_ID, EXPECTED_USER_NAME))
+                .when(new CreateUserCommand(EXPECTED_USER_ID, EXPECTED_USER_NAME, EXPECTED_FIRST_NAME, EXPECTED_LAST_NAME))
                 .expectEvents(user);
     }
 

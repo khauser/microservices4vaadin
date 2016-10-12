@@ -19,7 +19,8 @@ public class UserAggregate extends AbstractAnnotatedAggregateRoot<Object> {
     @AggregateIdentifier
     private Long id;
     private String email;
-//    private boolean isActivated = false;
+    private String firstName;
+    private String lastName;
 
     public UserAggregate() {
     }
@@ -32,6 +33,8 @@ public class UserAggregate extends AbstractAnnotatedAggregateRoot<Object> {
         UserCreatedEvent user = new UserCreatedEvent();
         user.setId(command.getId());
         user.setEmail(command.getName());
+        user.setFirstName(command.getFirstName());
+        user.setLastName(command.getLastName());
         apply(user);
     }
 
@@ -59,6 +62,8 @@ public class UserAggregate extends AbstractAnnotatedAggregateRoot<Object> {
     public void on(UserCreatedEvent event) {
         this.id = event.getId();
         this.email = event.getEmail();
+        this.firstName = event.getFirstName();
+        this.lastName = event.getLastName();
         log.debug("Applied: 'UserCreatedEvent' [{}] '{}'", event.getId(), event.getEmail());
     }
 

@@ -12,6 +12,8 @@ import lombok.Setter;
 @Setter
 public class UserUpdateResource {
 
+    private Long itemId;
+
     @JsonInclude(Include.NON_NULL)
     private String firstName;
 

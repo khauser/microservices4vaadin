@@ -28,7 +28,8 @@ public class UserEventController {
                     HttpServletResponse response) {
 
         log.debug("Adding User [{}] '{}'", userCreatedEvent.getId(), userCreatedEvent.getEmail());
-        CreateUserCommand command = new CreateUserCommand(userCreatedEvent.getId(), userCreatedEvent.getEmail());
+        CreateUserCommand command = new CreateUserCommand(userCreatedEvent.getId()
+                , userCreatedEvent.getEmail(), userCreatedEvent.getFirstName(), userCreatedEvent.getLastName());
         commandGateway.sendAndWait(command);
         log.info("Added User [{}] '{}'", userCreatedEvent.getId(), userCreatedEvent.getEmail());
         response.setStatus(HttpServletResponse.SC_CREATED);// Set up the 201 CREATED response

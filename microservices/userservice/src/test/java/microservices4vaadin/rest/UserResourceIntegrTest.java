@@ -27,6 +27,7 @@ import microservices4vaadin.persistence.User;
 public class UserResourceIntegrTest extends BasePersistenceTest {
 
     private static final Long EXPECTED_USER_ID = 1L;
+    private static final Long EXPECTED_USER_ID_NEW = 3L;
     private static final String EXPECTED_USER_FIRST_NAME = "Teo";
     private static final String EXPECTED_USER_LAST_NAME = "Olsen";
     private static final String EXPECTED_USER_MODIFIED_BY = "testsystem";
@@ -74,6 +75,7 @@ public class UserResourceIntegrTest extends BasePersistenceTest {
     @Test
     public void testCreate() {
         UserUpdateResource user = new UserUpdateResource();
+        user.setItemId(EXPECTED_USER_ID_NEW);
         user.setFirstName(EXPECTED_USER_FIRST_NAME_2);
         user.setLastName(EXPECTED_USER_LAST_NAME);
         user.setCreatedBy(EXPECTED_USER_MODIFIED_BY);
@@ -83,6 +85,7 @@ public class UserResourceIntegrTest extends BasePersistenceTest {
         User respUser = restTemplate.postForObject(userRestUrl, new HttpEntity<UserUpdateResource>(user), User.class);
 
         assertNotNull(respUser);
+        assertEquals(EXPECTED_USER_ID_NEW, respUser.getItemId());
         assertEquals(EXPECTED_USER_FIRST_NAME_2, respUser.getFirstName());
         assertEquals(EXPECTED_USER_LAST_NAME, respUser.getLastName());
     }
