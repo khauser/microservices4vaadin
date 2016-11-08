@@ -16,12 +16,8 @@
 
 package org.springframework.session.data.redis;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
+import com.vaadin.server.VaadinService;
+import com.vaadin.server.VaadinSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationEvent;
@@ -49,7 +45,11 @@ import org.springframework.session.events.SessionExpiredEvent;
 import org.springframework.session.web.http.SessionRepositoryFilter;
 import org.springframework.util.Assert;
 
-import com.vaadin.server.VaadinSession;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -778,8 +778,8 @@ public class RedisOperationsSessionRepository implements
 			String sessionId = getId();
 			
 			// force redis to store a session with assigned UI
-			VaadinSession session = (VaadinSession)this.cached.getAttribute("com.vaadin.server.VaadinSession.springVaadinServlet");			
-			this.delta.put("sessionAttr:com.vaadin.server.VaadinSession.springVaadinServlet", session);
+			String vaadinSessionKey = VaadinSession.class.getName() + "." + VaadinService.getCurrent().getServiceName(); // see VaadinService.getSessionAttributeName()
+			this.delta.put(getSessionAttrNameKey(vaadinSessionKey), this.cached.getAttribute(vaadinSessionKey));
 			
 			
 			getSessionBoundHashOperations(sessionId).putAll(this.delta);
