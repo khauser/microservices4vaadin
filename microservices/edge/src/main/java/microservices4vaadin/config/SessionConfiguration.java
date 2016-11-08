@@ -38,4 +38,9 @@ public class SessionConfiguration {
       return cookieHttpSessionStrategy;
     }
 
+    @Bean
+    public SessionSerializer springSessionDefaultRedisSerializer() {
+        return new SessionSerializer();
+    }
+
 }
