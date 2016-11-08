@@ -16,7 +16,7 @@ repositories {
 }
 
 ext {
-    vaadinVersion = "7.7.1"
+    vaadinVersion = "7.7.3"
     vaadinSpringBootVersion = "1.0.2"
     jdalVaadinVersion = "2.1.RC1";
 }
