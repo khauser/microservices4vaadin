@@ -4,25 +4,20 @@ import java.net.URI;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.TestRestTemplate;
+import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestOperations;
 
 import microservices4vaadin.auth.AcmeUserDetails;
 import microservices4vaadin.controller.CredentialUpdateResource;
 import microservices4vaadin.rest.BasePersistenceTest;
 
-@WebAppConfiguration
-@IntegrationTest("server.port:0")
 public class ApplicationTests extends BasePersistenceTest {
 
     private static final String EXPECTED_USER_OLD_PASSWORD = "password";
@@ -33,7 +28,7 @@ public class ApplicationTests extends BasePersistenceTest {
 
     private final Long EXPECTED_USER_ID = 1L;
 
-    @Value("${local.server.port}")
+    @LocalServerPort
     private int port;
 
     private String userRestUrl;
@@ -41,7 +36,7 @@ public class ApplicationTests extends BasePersistenceTest {
     private String logoutRestUrl;
     //private String authorizeRestUrl;
 
-    private RestOperations restTemplate = new TestRestTemplate();
+    private TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Before
     public void setUp() {

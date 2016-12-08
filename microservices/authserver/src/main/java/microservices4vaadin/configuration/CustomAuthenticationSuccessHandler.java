@@ -19,7 +19,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             throws IOException, ServletException {
         String referrer = request.getHeader("referer");
         if (referrer != null)
-            response.sendRedirect(referrer);
+            response.sendRedirect(referrer + "/index.html");
     }
 
 }

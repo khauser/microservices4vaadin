@@ -16,16 +16,15 @@ import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import microservices4vaadin.UserServiceApplication;
-
-@SpringApplicationConfiguration(classes = {UserServiceApplication.class})
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
 @EnableTransactionManagement
-@RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 public abstract class BasePersistenceTest extends DatabaseTestCase {
 

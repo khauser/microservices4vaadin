@@ -8,22 +8,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestOperations;
 
 import microservices4vaadin.persistence.User;
 
-@WebAppConfiguration
-@IntegrationTest("server.port:0")
 public class UserResourceIntegrTest extends BasePersistenceTest {
 
     private static final Long EXPECTED_USER_ID = 1L;
@@ -38,7 +34,7 @@ public class UserResourceIntegrTest extends BasePersistenceTest {
     private static final String EXPECTED_USER_LANGUAGE = "de";
 
 
-    @Value("${local.server.port}")
+    @LocalServerPort
     private int port;
 
     private String userRestUrl;

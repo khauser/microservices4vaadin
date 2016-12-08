@@ -2,7 +2,7 @@ package microservices4vaadin.hystrixdashboard;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @EnableHystrixDashboard
 public class HystrixDashboardApplication extends SpringBootServletInitializer {
-	
-	@RequestMapping("/")
-	public String home() {
-		return "forward:/hystrix";
-	}
+
+    @RequestMapping("/")
+    public String home() {
+        return "forward:/hystrix";
+    }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -25,5 +25,5 @@ public class HystrixDashboardApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         new SpringApplicationBuilder(HystrixDashboardApplication.class).web(true).run(args);
     }
-	
+
 }

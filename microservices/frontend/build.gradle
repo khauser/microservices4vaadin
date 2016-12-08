@@ -16,8 +16,8 @@ repositories {
 }
 
 ext {
-    vaadinVersion = "7.7.3"
-    vaadinSpringBootVersion = "1.0.2"
+    vaadinVersion = "7.7.5"
+    vaadinSpringBootVersion = "1.1.1"
     jdalVaadinVersion = "2.1.RC1";
 }
 
@@ -33,7 +33,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-hateoas")
 
     compile("org.springframework.session:spring-session:1.2.1.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-redis")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
 
     compile("org.springframework.security.oauth:spring-security-oauth2")
 
