@@ -20,8 +20,6 @@ spring:
 logging:
   level:
     microservices4vaadin: INFO
-    org.springframework.session: INFO
-    org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 
 ---
@@ -33,12 +31,6 @@ spring:
   data:
     mongodb:
       uri: mongodb://mongodb:27017/users
-
-server:
-  ssl:
-    key-store: ssl/keystore.jks
-    key-store-password: changeit
-    key-password: noidea
 
 eureka:
   client:
