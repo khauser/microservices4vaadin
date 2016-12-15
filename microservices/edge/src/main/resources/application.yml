@@ -100,15 +100,15 @@ zuul:
   routes:
     user:
       path: /user/**
-      url: https://yoururl.de:443/authserver/uaa/user
+      url: https://localhost:443/authserver/uaa/user
     register:
       path: /register/**
-      url: https://yoururl.de:443/authserver/uaa/register
+      url: https://localhost:443/authserver/uaa/register
 
 security:
   oauth2:
     resource:
-      userInfoUri: https://yoururl.de:443/uaa/user
+      userInfoUri: https://localhost:443/uaa/user
 
 eureka:
   client:
