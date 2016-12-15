@@ -1,0 +1,105 @@
+version: '2'
+services:
+  eventstore:
+    mem_limit: 104857600
+    image: klhauser/microservices4vaadin-eventstore:latest
+    links:
+      - discovery
+      - mysql
+      - rabbitmq
+      - mongodb
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=utils
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  edge:
+    mem_limit: 314572800
+    image: klhauser/microservices4vaadin-edge:latest
+    links:
+      - discovery
+      - authserver
+      - frontend
+      - redis
+    ports:
+      - 443:443/tcp
+      - 80:80/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=frontend
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  discovery:
+    mem_limit: 157286400
+    image: klhauser/microservices4vaadin-discovery:latest
+    ports:
+     - 8761:8761/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=utils
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  authserver:
+    mem_limit: 104857600
+    image: klhauser/microservices4vaadin-authserver:latest
+    links:
+      - discovery
+      - eventstore
+      - mysql
+      - redis
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=frontend
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  userservice:
+    mem_limit: 209715200
+    image: klhauser/microservices4vaadin-userservice:latest
+    links:
+      - discovery
+      - mysql
+      - rabbitmq
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=utils
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_USER: root
+    volumes:
+      - /microservices4vaadin/mysql/conf.d:/etc/mysql/conf.d
+      - /microservices4vaadin/mysql/data:/var/lib/mysql
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=database
+      io.rancher.container.hostname_override: container_name
+  rabbitmq:
+    image: rabbitmq:3.5.1
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=database
+      io.rancher.container.hostname_override: container_name
+  mongodb:
+    image: mongo:3.2.11
+    stdin_open: true
+    volumes:
+      - /microservices4vaadin/mongo/data:/data/db
+    tty: true
+    command:
+      - --smallfiles
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=database
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  redis:
+    image: redis:3.2.1-alpine
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=database
+      io.rancher.container.hostname_override: container_name
+  frontend:
+    mem_limit: 524288000
+    image: klhauser/microservices4vaadin-frontend:latest
+    links:
+      - userservice
+      - discovery
+      - redis
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=frontend
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
