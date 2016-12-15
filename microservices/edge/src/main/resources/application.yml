@@ -86,25 +86,6 @@ spring:
   redis:
     host: redis
 
-server:
-  ssl:
-    key-store: ssl/keystore.jks
-    key-store-password: changeit
-    key-password: noidea
-
-ribbon: 
-  TrustStore: ssl/keystore.jks
-  TrustStorePassword : changeit
-
-zuul:
-  routes:
-    user:
-      path: /user/**
-      url: https://localhost:443/authserver/uaa/user
-    register:
-      path: /register/**
-      url: https://localhost:443/authserver/uaa/register
-
 security:
   oauth2:
     resource:

@@ -81,12 +81,6 @@ spring:
   datasource:
     url: jdbc:mysql://mysql/microservice4vaadin_authserverdb?useSSL=false&zeroDateTimeBehavior=convertToNull  
 
-server:
-  ssl:
-    key-store: ssl/keystore.jks
-    key-store-password: changeit
-    key-password: noidea
-
 eureka:
   client:
     serviceUrl:
