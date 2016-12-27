@@ -1,0 +1,16 @@
+jar {
+    baseName = 'config'
+    version = '0.0.1-SNAPSHOT'
+}
+
+ext {
+    //docker
+    imageName = dockerRepository + jar.baseName
+    version = jar.version
+    dockerBaseImage = 'anapsix/alpine-java:jre8'
+    dockerExposePort = 8888
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-config-server')
+}

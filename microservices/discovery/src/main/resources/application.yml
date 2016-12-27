@@ -9,5 +9,3 @@ eureka:
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://discovery:${server.port}/eureka/
-
-spring.cloud.config.discovery.enabled: true

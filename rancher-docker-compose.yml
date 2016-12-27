@@ -4,6 +4,7 @@ services:
     mem_limit: 104857600
     image: klhauser/microservices4vaadin-eventstore:latest
     links:
+      - configserver
       - discovery
       - mysql
       - rabbitmq
@@ -16,6 +17,7 @@ services:
     mem_limit: 314572800
     image: klhauser/microservices4vaadin-edge:latest
     links:
+      - configserver
       - discovery
       - authserver
       - frontend
@@ -27,11 +29,20 @@ services:
       io.rancher.scheduler.affinity:host_label: system=frontend
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
+  configserver:
+    mem_limit: 104857600
+    image: klhauser/microservices4vaadin-config:latest
+    labels:
+      io.rancher.scheduler.affinity:host_label: system=utils
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
   discovery:
     mem_limit: 157286400
     image: klhauser/microservices4vaadin-discovery:latest
+    links:
+      - configserver
     ports:
-     - 8761:8761/tcp
+      - 8761:8761/tcp
     labels:
       io.rancher.scheduler.affinity:host_label: system=utils
       io.rancher.container.hostname_override: container_name
@@ -40,6 +51,7 @@ services:
     mem_limit: 104857600
     image: klhauser/microservices4vaadin-authserver:latest
     links:
+      - configserver
       - discovery
       - eventstore
       - mysql
@@ -52,6 +64,7 @@ services:
     mem_limit: 209715200
     image: klhauser/microservices4vaadin-userservice:latest
     links:
+      - configserver
       - discovery
       - mysql
       - rabbitmq
@@ -96,6 +109,7 @@ services:
     mem_limit: 524288000
     image: klhauser/microservices4vaadin-frontend:latest
     links:
+      - configserver
       - userservice
       - discovery
       - redis

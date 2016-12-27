@@ -1,8 +1,9 @@
+start /D microservices\config                  %CD%\gradlew buildDockerImage
 start /D microservices\eventstore              %CD%\gradlew buildDockerImage
-start /D microservices\discovery               %CD%\gradlew buildDocker
-start /D microservices\authserver              %CD%\gradlew buildDocker
-start /D microservices\edge                    %CD%\gradlew buildDocker
-start /D microservices\userservice              %CD%\gradlew buildDockerImage
-start /D microservices\frontend                %CD%\gradlew buildDocker
-#start /D microservices\turbine                 %CD%\gradlew buildDocker
-#start /D microservices\hystrixdashboard        %CD%\gradlew buildDocker
+start /D microservices\discovery               %CD%\gradlew buildDockerImage
+start /D microservices\authserver              %CD%\gradlew buildDockerImage
+start /D microservices\edge                    %CD%\gradlew buildDockerImage
+start /D microservices\userservice             %CD%\gradlew buildDockerImage
+start /D microservices\frontend                %CD%\gradlew buildDockerImage
+#start /D microservices\turbine                %CD%\gradlew buildDockerImage
+#start /D microservices\hystrixdashboard       %CD%\gradlew buildDockerImage

@@ -14,6 +14,8 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
   * Authentification and authorization service
   * Allows user login and also user registration via REST
   * Generates spring session (persisted in Redis) which also holds the security context
+* **Configserver**
+  * Centralized configuration of each service
 * **Edge**:
   * SSO Gateway to Frontend and also directly to the Backend
   * UI for the landing page, the login and the registration panels

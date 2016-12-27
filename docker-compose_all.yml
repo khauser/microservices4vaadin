@@ -21,11 +21,19 @@ services:
     volumes:
       - "/data/mysql:/var/lib/mysql"
   
+  configserver:
+    image: klhauser/microservice4vaadin-config
+    restart: always
+    ports:
+      - "8888:8888"
+  
   discovery:
     image: klhauser/microservice4vaadin-discovery
     restart: always
     ports:
       - "8761:8761"
+    links:
+      - configserver
   
   authserver:
     image: klhauser/microservice4vaadin-authserver
@@ -36,6 +44,7 @@ services:
       - authserver_mysql
       - discovery
       - redis
+      - configserver
   
   frontend:
     image: klhauser/microservice4vaadin-frontend
@@ -46,6 +55,7 @@ services:
       - discovery
       - redis
       - rabbitmq
+      - configserver
   
   edge:
     image: klhauser/microservice4vaadin-edge
@@ -57,6 +67,7 @@ services:
       - redis
       - frontend
       - authserver
+      - configserver
   
   #hystrixdashboard:
   #  image: klhauser/microservice4vaadin-hystrixdashboard
@@ -65,9 +76,12 @@ services:
   #    - "7979:7979"
   #  links:
   #    - discovery
+  #    - configserver
   #
   #turbine:
   #  image: klhauser/microservice4vaadin-turbine
   #  restart: always
   #  ports:
   #    - "8989:8989"
+  #  links:
+  #    - configserver

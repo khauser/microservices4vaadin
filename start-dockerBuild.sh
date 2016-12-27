@@ -5,6 +5,7 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 #echo $SCRIPTPATH
 
+(cd microservices/config; $SCRIPTPATH/gradlew buildDockerContainer)
 (cd microservices/eventstore; $SCRIPTPATH/gradlew buildDockerContainer)
 (cd microservices/discovery; $SCRIPTPATH/gradlew buildDockerContainer)
 (cd microservices/authserver; $SCRIPTPATH/gradlew buildDockerContainer)

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+nohup java -jar  microservices/config/build/libs/config-0.0.1-SNAPSHOT.jar > config.log &
+sleep 10 & wait %1 &
 nohup java -jar  microservices/eventstore/build/libs/eventstore-0.0.1-SNAPSHOT.jar > eventstore.log &
 nohup java -jar  microservices/discovery/build/libs/discovery-0.0.1-SNAPSHOT.jar > discovery.log &
 nohup java -jar  microservices/authserver/build/libs/authserver-0.0.1-SNAPSHOT.jar > authserver.log &

@@ -1,3 +1,5 @@
+start cmd.exe /k "java -jar  microservices/config/build/libs/config-0.0.1-SNAPSHOT.jar"
+timeout 30
 start cmd.exe /k "java -jar  microservices/eventstore/build/libs/eventstore-0.0.1-SNAPSHOT.jar"
 start cmd.exe /k "java -jar  microservices/authserver/build/libs/authserver-0.0.1-SNAPSHOT.jar"
 start cmd.exe /k "java -jar  microservices/discovery/build/libs/discovery-0.0.1-SNAPSHOT.jar"

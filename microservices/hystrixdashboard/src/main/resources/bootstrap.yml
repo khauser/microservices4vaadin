@@ -3,5 +3,12 @@ spring:
     name: hystrixdashboard
   cloud:
     config:
-      uri: ${vcap.services.${PREFIX:}configserver.credentials.uri:http://user:password@localhost:8888}
-      
+      uri: http://localhost:8888
+
+---
+# For deployment in Docker containers
+spring:
+  profiles: docker
+  cloud:
+     config:
+        uri: http://192.168.59.103:8888
