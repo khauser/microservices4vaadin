@@ -16,6 +16,7 @@
 
 package org.springframework.session.data.redis;
 
+import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -777,9 +778,11 @@ public class RedisOperationsSessionRepository implements
             String sessionId = getId();
 
             // force redis to store a session with assigned UI
-            VaadinSession session = (VaadinSession)this.cached.getAttribute("com.vaadin.server.VaadinSession.myVaadinUIServlet");
-            this.delta.put("sessionAttr:com.vaadin.server.VaadinSession.myVaadinUIServlet", session);
-
+            VaadinService vaadinService = VaadinService.getCurrent();
+            if (vaadinService != null) {
+                String vaadinSessionKey = VaadinSession.class.getName() + "." + vaadinService.getServiceName();
+                this.delta.put(getSessionAttrNameKey(vaadinSessionKey), this.cached.getAttribute(vaadinSessionKey));
+            }
 
             getSessionBoundHashOperations(sessionId).putAll(this.delta);
             String principalSessionKey = getSessionAttrNameKey(
