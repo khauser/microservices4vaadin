@@ -10,6 +10,8 @@ angularApp.config(function($routeProvider, $httpProvider) {
     }
   }).when('/loginPage', {
     templateUrl: '/login.html'
+  }).otherwise({
+    redirectTo:'/'
   });
 
   $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
