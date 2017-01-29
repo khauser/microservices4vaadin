@@ -1,0 +1,45 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.7.7+"
+}
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+  options.compilerArgs << '-Xlint:all'
+}
+
+jacocoTestReport {
+    group = 'Coverage reports'
+    description = 'Generates a test coverage report for a project'
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+tasks.withType(Test) {
+    if (System.properties.containsKey('debug')) {
+        jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005'
+    }
+    options {
+        jvmArgs '-XX:SoftRefLRUPolicyMSPerMB=0', '-noverify'
+    }
+    if (System.env.'CI') {
+        maxHeapSize = '512m'
+        reports.html.enabled = false
+    }
+    testLogging {
+        events 'skipped', 'failed'
+        exceptionFormat 'full'
+        showCauses = true
+        showExceptions = true
+        showStackTraces = true
+    }
+    jacoco {
+        append = true
+        destinationFile = file("${rootDir}/build/jacoco/jacocoTest.exec")
+        classDumpFile = file("${rootDir}/build/jacoco/classpathdumps")
+    }
+}

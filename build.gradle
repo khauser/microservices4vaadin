@@ -1,5 +1,6 @@
 buildscript {
     ext {
+        coverallsVersion = "2.7.1"
         springBootVersion = "1.4.2.RELEASE"
         springDependencyManagementVersion = "0.6.1.RELEASE"
         queryDslVersion = "1.0.6"
@@ -12,8 +13,11 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}")
         classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${queryDslVersion}")
+        classpath("org.kt3k.gradle.plugin:coveralls-gradle-plugin:${coverallsVersion}")
     }
 }
+
+apply plugin: 'java'
 
 ext {
     jUnitVersion = "4.+"
@@ -81,8 +85,13 @@ project(':microservices') {
             manifest.attributes provider: 'gradle'
         }
 
+        apply from: '../../gradle/jacoco.gradle'
         apply from: '../../gradle/docker.gradle'
     }
+}
+
+if (project != project(':common')) {
+    apply from: 'gradle/jacocoAll.gradle'
 }
 
 task wrapper(type: Wrapper) {

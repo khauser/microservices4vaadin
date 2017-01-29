@@ -14,7 +14,7 @@ dependencies:
 
 test:
   override:
-    - export TERM="dumb"; ./gradlew clean build
+    - export TERM="dumb"; ./gradlew clean build coveralls
 
 deployment:
   production:

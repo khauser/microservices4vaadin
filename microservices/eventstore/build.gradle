@@ -15,6 +15,7 @@ ext {
 
 dependencies {
     compile project(":common")
+
     compile("org.axonframework:axon-amqp:${axonVersion}")
     compile("org.axonframework:axon-mongo:${axonVersion}")
     compile("org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}")

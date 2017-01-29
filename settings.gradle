@@ -1,10 +1,10 @@
 include "common",
     "microservices:config",
-	"microservices:eventstore",
+    "microservices:eventstore",
     "microservices:authserver",
     "microservices:discovery",
     "microservices:edge",
-	"microservices:userservice",
+    "microservices:userservice",
     "microservices:frontend",
     "microservices:hystrixdashboard",
     "microservices:turbine"
