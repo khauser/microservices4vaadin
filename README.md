@@ -71,4 +71,5 @@ Hints:
 ![Landing page](/doc/landing_page.png)
 Initial test credentials then are `ttester@test.de/quert6`.
 
-* ![Vaadin UI](/doc/vaadin_ui.png)
+* Fingers crossed.. Finally the Vaadin UI should show up:
+![Vaadin UI](/doc/vaadin_ui.png)
