@@ -8,7 +8,7 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 * Event store to fulfill CQRS principles
 
 ## Architecture:
-![Architecture](/doc/architecture.png)
+![Architecture](/doc/Architecture.png)
 
 * **Authserver**:
   * Authentification and authorization service
@@ -64,9 +64,11 @@ Hints:
 * Database for the authserver `microservice4vaadin_authserverdb` and for the userservice `microservices4vaadin_userservicedb` needs to be added by hand in MySQL.
 
 ##Deployment:
-The project could be deployed to a rancher stack using the given `rancher-docker-compose.yml`. The databases from above also here need to be added manually, here within the execute shell of the MySQL-container.
+* The project could be deployed to a rancher stack using the given `rancher-docker-compose.yml`. The databases from above also here need to be added manually, here within the execute shell of the MySQL-container.
 ![Rancher stack](/doc/rancher_stack_graph.png)
-If all works fine (services might need to be restarted) you should see the this landing page:
+
+* If all works fine (services might need to be restarted) you should see the this landing page:
 ![Landing page](/doc/landing_page.png)
 Initial test credentials then are `ttester@test.de/quert6`.
-![Vaadin UI](/doc/vaadin_ui.png)
+
+* ![Vaadin UI](/doc/vaadin_ui.png)
