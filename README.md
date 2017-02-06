@@ -8,7 +8,7 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 * Event store to fulfill CQRS principles
 
 ## Architecture:
-![Architecture](/doc/Architecture.png)
+![Architecture](/doc/architecture.png)
 
 * **Authserver**:
   * Authentification and authorization service
@@ -36,14 +36,14 @@ Exemplary application to show the SSO and OAuth2 secured integration of microser
 ToDo:
 * add a backend service
 
-## Main frameworks
+## Main frameworks:
 * Spring: [Boot] (http://projects.spring.io/spring-boot/), [Data JPA] (http://projects.spring.io/spring-data-jpa), [Session] (http://projects.spring.io/spring-session), [Cloud Security] (http://cloud.spring.io/spring-cloud-security)
 * [Vaadin] (https://www.vaadin.com/)
 * Netflix: [Zuul] (https://github.com/Netflix/zuul), [Eureka] (https://github.com/Netflix/eureka), [Hystrix] (https://github.com/Netflix/Hystrix)
 * [AxonFramwork] (http://www.axonframework.org/)
 * [Rancher] (http://rancher.com/)
 
-## Installation
+## Installation:
 * install JDK 8
 * install MySQL 5.7
 * install Redis+RabbitMQ+MongoDB (you can also use the [docker-compose.yml](docker-compose.yml) file
@@ -54,11 +54,19 @@ ToDo:
 ## Development:
 * Git, Eclipse with Gradle IDE (Buildship), and [lombok] (https://projectlombok.org/)
 
-Set up project:
+### Set up project:
 * checkout git repository
 * run `docker-compose up -d` do start dependent Redis, RabbitMQ and MongoDB services
 * `gradlew clean build` to compile project
 * run `start-all.bat` in windows or `start-all.sh` in unix
 
 Hints:
-* Database for the authserver `microservice4vaadin_authserverdb` and for the userservice `microservices4vaadin_userservicedb` needs to be added by hand in MySQL. Initial test credentials then are `ttester@test.de/quert6`.
+* Database for the authserver `microservice4vaadin_authserverdb` and for the userservice `microservices4vaadin_userservicedb` needs to be added by hand in MySQL.
+
+##Deployment:
+The project could be deployed to a rancher stack using the given `rancher-docker-compose.yml`. The databases from above also here need to be added manually, here within the execute shell of the MySQL-container.
+![Rancher stack](/doc/rancher_stack_graph.png)
+If all works fine (services might need to be restarted) you should see the this landing page:
+![Landing page](/doc/landing_page.png)
+Initial test credentials then are `ttester@test.de/quert6`.
+![Vaadin UI](/doc/vaadin_ui.png)
