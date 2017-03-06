@@ -31,9 +31,3 @@ spring:
   data:
     mongodb:
       uri: mongodb://mongodb:27017/users
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
-

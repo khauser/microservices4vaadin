@@ -41,6 +41,11 @@ flyway:
   enabled: true
   baseline-on-migrate: true
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
+
 logging:
   level:
     microservices4vaadin: INFO
@@ -58,9 +63,3 @@ spring:
 
 server:
   port: 7575
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
-

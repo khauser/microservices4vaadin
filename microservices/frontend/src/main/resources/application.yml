@@ -26,9 +26,14 @@ management:
   security:
     enabled: false
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
+
 logging:
   level:
-    microservices4vaadin: DEBUG
+    microservices4vaadin: INFO
     org.springframework.security: INFO
     com.netflix.discovery: 'OFF'
 
@@ -38,8 +43,3 @@ spring:
   profiles: docker
   redis:
     host: redis
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/

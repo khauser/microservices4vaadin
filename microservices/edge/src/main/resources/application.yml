@@ -44,7 +44,7 @@ zuul:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
     
 hystrix:
   command:
@@ -90,8 +90,3 @@ security:
   oauth2:
     resource:
       userInfoUri: https://localhost:443/uaa/user
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/

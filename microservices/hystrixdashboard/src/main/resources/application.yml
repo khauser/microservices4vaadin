@@ -10,6 +10,11 @@ endpoints:
 server:
   port: 7979
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
+
 logging:
   level:
     ROOT: INFO
@@ -20,8 +25,3 @@ logging:
 # For deployment in Docker containers
 spring:
   profiles: docker
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
