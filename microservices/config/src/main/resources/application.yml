@@ -14,3 +14,4 @@ spring:
       server:
         git:
           uri: https://github.com/khauser/microservices4vaadin-config
+          
