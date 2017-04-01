@@ -18,7 +18,7 @@ dependencies {
     compile("org.webjars.bower:angular-resource:1.5.7")
     compile("org.webjars:bootstrap:3.3.7")
 
-    compile("org.springframework.session:spring-session:1.2.1.RELEASE")
+    compile("org.springframework.session:spring-session")
     compile("org.springframework.boot:spring-boot-starter-data-redis")
 
     compile("org.springframework.boot:spring-boot-starter-security")

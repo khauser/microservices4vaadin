@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Responsive;
-import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
@@ -82,8 +82,8 @@ public class BookView extends Panel implements View {
 
         Book book = bookController.findOne(null);
 
-        Label greetings = new Label(new Label("Book <b>" + book.getName()
-        + "</b> found."));
+        Label greetings = new Label("Book <b>" + book.getName()
+        + "</b> found.");
         greetings.setContentMode(ContentMode.HTML);
         greetings.setWidth(null);
 

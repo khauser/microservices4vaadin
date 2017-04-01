@@ -27,7 +27,7 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-hateoas")
 
-    compile("org.springframework.session:spring-session:1.2.1.RELEASE")
+    compile("org.springframework.session:spring-session")
     compile("org.springframework.boot:spring-boot-starter-data-redis")
 
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.4") // used for LocalDate java8

@@ -6,7 +6,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinSession;
-import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -78,8 +78,8 @@ public class HomeView extends Panel implements View {
 
         UserServiceUserDTO user = getCurrentUser();
 
-        Label greetings = new Label(new Label("Hello <b>" + user.getFirstName() + " " + user.getLastName()
-        + "</b>, now you are in the Vaadin UI."));
+        Label greetings = new Label("Hello <b>" + user.getFirstName() + " " + user.getLastName()
+        + "</b>, now you are in the Vaadin UI.");
         greetings.setContentMode(ContentMode.HTML);
         greetings.setWidth(null);
 

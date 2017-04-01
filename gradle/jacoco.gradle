@@ -40,6 +40,6 @@ tasks.withType(Test) {
     jacoco {
         append = true
         destinationFile = file("${rootDir}/build/jacoco/jacocoTest.exec")
-        classDumpFile = file("${rootDir}/build/jacoco/classpathdumps")
+        classDumpDir = file("${rootDir}/build/jacoco/classpathdumps")
     }
 }

@@ -1,16 +1,18 @@
 package microservices4vaadin.frontend.ui;
 
+import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
 
 import org.jdal.annotation.SerializableProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.fieldgroup.PropertyId;
+import com.vaadin.annotations.PropertyId;
+import com.vaadin.data.Binder;
+import com.vaadin.data.ValidationException;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Alignment;
@@ -21,8 +23,8 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -32,8 +34,8 @@ import com.vaadin.ui.themes.ValoTheme;
 import microservices4vaadin.auth.AcmeUser;
 import microservices4vaadin.frontend.rest.controller.AcmeUserController;
 import microservices4vaadin.frontend.rest.controller.UserServiceController;
-import microservices4vaadin.frontend.rest.resource.dto.UserServiceUserDTO;
 import microservices4vaadin.frontend.rest.resource.dto.AbstractPersonDTO.Gender;
+import microservices4vaadin.frontend.rest.resource.dto.UserServiceUserDTO;
 import microservices4vaadin.frontend.ui.event.MyEvent.ProfileUpdatedEvent;
 
 @UIScope
@@ -51,13 +53,13 @@ public class ProfileWindow extends Window {
     @PropertyId("lastName")
     private TextField lastNameField;
     @PropertyId("title")
-    private ComboBox titleField;
+    private ComboBox<String> titleField;
     @PropertyId("gender")
-    private OptionGroup genderField;
+    private RadioButtonGroup<Gender> genderField;
     @PropertyId("phone")
     private TextField phoneField;
     @PropertyId("language")
-    private ComboBox languageField;
+    private ComboBox<String> languageField;
 
     @PropertyId("email")
     private TextField emailField;
@@ -66,8 +68,8 @@ public class ProfileWindow extends Window {
     private PasswordField passwordNewField;
     private PasswordField passwordConfirmField;
 
-    private BeanFieldGroup<UserServiceUserDTO> fieldGroupUserServiceUser;
-    private BeanFieldGroup<AcmeUser> fieldGroupAcmeUser;
+    private Binder<UserServiceUserDTO> binderUserServiceUser = new Binder<>();
+    private Binder<AcmeUser> binderAcmeUser = new Binder<>();
 
     @Autowired
     @SerializableProxy
@@ -106,7 +108,7 @@ public class ProfileWindow extends Window {
     private Component buildProfileTab() {
         HorizontalLayout root = new HorizontalLayout();
         root.setCaption("Edit profile");
-        root.setIcon(FontAwesome.USER);
+        root.setIcon(VaadinIcons.USER);
         root.setSpacing(true);
         root.setMargin(true);
 
@@ -119,23 +121,20 @@ public class ProfileWindow extends Window {
         lastNameField = new TextField("Last name");
         details.addComponent(lastNameField);
 
-        titleField = new ComboBox("Title");
-        titleField.setInputPrompt("Please specify");
-        titleField.addItem("Mr.");
-        titleField.addItem("Mrs.");
-        titleField.addItem("Ms.");
-        titleField.setNewItemsAllowed(true);
+        titleField = new ComboBox<>("Title");
+        //titleField.setInputPrompt("Please specify");
+        titleField.setItems(Arrays.asList("Mr.", "Mrs.", "Ms."));
+        //titleField.setNewItemsAllowed(true);
         details.addComponent(titleField);
 
-        genderField = new OptionGroup("Gender");
-        genderField.addItem(Gender.FEMALE);
-        genderField.addItem(Gender.MALE);
+        genderField = new RadioButtonGroup<>("Gender");
+        genderField.setItems(Arrays.asList(Gender.FEMALE, Gender.MALE));
         genderField.addStyleName("horizontal");
         details.addComponent(genderField);
 
         phoneField = new TextField("Phone");
         phoneField.setWidth("100%");
-        phoneField.setNullRepresentation("");
+        //phoneField.setNullRepresentation("");
         details.addComponent(phoneField);
 
         Label section = new Label("Contact info");
@@ -145,28 +144,28 @@ public class ProfileWindow extends Window {
 
         emailField = new TextField("E-Mail");
         emailField.setWidth("100%");
-        emailField.setRequired(true);
-        emailField.setNullRepresentation("");
+        //emailField.setRequired(true);
+        //emailField.setNullRepresentation("");
         details.addComponent(emailField);
 
         passwordOldField = new PasswordField("Old password");
         passwordOldField.setWidth("100%");
-        passwordOldField.setRequired(true);
-        passwordOldField.setNullRepresentation("");
+        //passwordOldField.setRequired(true);
+        //passwordOldField.setNullRepresentation("");
         passwordOldField.setValue(null);
         details.addComponent(passwordOldField);
 
         passwordNewField = new PasswordField("New password");
         passwordNewField.setWidth("100%");
-        passwordNewField.setRequired(true);
-        passwordNewField.setNullRepresentation("");
+        //passwordNewField.setRequired(true);
+        //passwordNewField.setNullRepresentation("");
         passwordNewField.setValue(null);
         details.addComponent(passwordNewField);
 
         passwordConfirmField = new PasswordField("Confirm new password");
         passwordConfirmField.setWidth("100%");
-        passwordConfirmField.setRequired(true);
-        passwordConfirmField.setNullRepresentation("");
+        //passwordConfirmField.setRequired(true);
+        //passwordConfirmField.setNullRepresentation("");
         passwordConfirmField.setValue(null);
         details.addComponent(passwordConfirmField);
 
@@ -197,10 +196,6 @@ public class ProfileWindow extends Window {
      */
     public void save(Button.ClickEvent event) {
         try {
-
-            fieldGroupUserServiceUser.commit();
-            fieldGroupAcmeUser.commit();
-
             String newPassword = null;
             if (passwordNewField.getValue() != null) {
                 newPassword = passwordNewField.getValue();
@@ -208,8 +203,6 @@ public class ProfileWindow extends Window {
                     Notification.show("New password is not valid", Notification.Type.ERROR_MESSAGE);
                     return;
                 }
-
-
             }
             acmeUserController.updateCredentials(emailField.getValue(), newPassword, passwordOldField.getValue());
 
@@ -219,8 +212,13 @@ public class ProfileWindow extends Window {
 
             eventPublisher.publishEvent(new ProfileUpdatedEvent(MyVaadinUI.getCurrent()));
             close();
-        } catch (FieldGroup.CommitException e) {
-            Notification.show("You fail!");
+
+
+            binderUserServiceUser.writeBean(user);
+            binderAcmeUser.writeBean(acmeUser);
+        } catch (ValidationException e) {
+            Notification.show("Person could not be saved, " +
+              "please check error messages for each field.");
         }
     }
 
@@ -241,8 +239,8 @@ public class ProfileWindow extends Window {
             initialized = true;
         }
 
-        fieldGroupUserServiceUser = BeanFieldGroup.bindFieldsBuffered(user, this);
-        fieldGroupAcmeUser = BeanFieldGroup.bindFieldsBuffered(acmeUser, this);
+        binderUserServiceUser.readBean(user);
+        binderAcmeUser.readBean(acmeUser);
 
         UI.getCurrent().addWindow(this);
         focus();

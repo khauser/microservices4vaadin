@@ -1,12 +1,12 @@
 package microservices4vaadin.frontend.ui;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 public enum MyViewType {
-    HOME(HomeView.VIEW_NAME, "Home", HomeView.class, FontAwesome.HOME, true)
-    , BOOK(BookView.VIEW_NAME, "Book", BookView.class, FontAwesome.BOOK, true);
+    HOME(HomeView.VIEW_NAME, "Home", HomeView.class, VaadinIcons.HOME, true)
+    , BOOK(BookView.VIEW_NAME, "Book", BookView.class, VaadinIcons.BOOK, true);
 
     private final String viewName;
     private final String viewLabel;
