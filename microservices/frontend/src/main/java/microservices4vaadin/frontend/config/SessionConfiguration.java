@@ -6,13 +6,14 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.session.data.redis.RedisFlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieHttpSessionStrategy;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
 @Configuration
-@EnableRedisHttpSession
+@EnableRedisHttpSession(redisFlushMode = RedisFlushMode.ON_SAVE)
 public class SessionConfiguration {
 
     private final static String SESSION_SERIALIZATION_ID = "microservices4vaadin";
