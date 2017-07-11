@@ -45,8 +45,7 @@ ToDo:
 
 ## Installation:
 * install JDK 8
-* install MySQL 5.7
-* install Redis+RabbitMQ+MongoDB (you can also use the [docker-compose.yml](docker-compose.yml) file
+* install Redis+RabbitMQ+MongoDB+MySQL (you can also use the [docker-compose.yml](docker-compose.yml) file
 * Run `gradlew clean build` to compile and build the application
 * Run `start-all.bat` to start the list of services
 * `http://localhost` should bring you to the landing page (with a redirect to https)
@@ -56,12 +55,12 @@ ToDo:
 
 ### Set up project:
 * checkout git repository
-* run `docker-compose up -d` do start dependent Redis, RabbitMQ and MongoDB services
+* run `docker-compose up -d` do start dependent Redis, RabbitMQ, MongoDB and MySQL services
 * `gradlew clean build` to compile project
 * run `start-all.bat` in windows or `start-all.sh` in unix
 
 Hints:
-* Database for the authserver `microservice4vaadin_authserverdb` and for the userservice `microservices4vaadin_userservicedb` needs to be added by hand in MySQL.
+* Database for the authserver `microservices4vaadin_authserverdb` and for the userservice `microservices4vaadin_userservicedb` needs to be added by hand in MySQL.
 
 ##Deployment:
 * The project could be deployed to a rancher stack using the given `rancher-docker-compose.yml`. The databases from above also here need to be added manually, here within the execute shell of the MySQL-container.

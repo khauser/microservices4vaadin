@@ -39,7 +39,7 @@ spring:
   # DataSource settings: set here your own configurations for the database
   # connection.
   datasource:
-    url: jdbc:mysql://localhost:3306/microservice4vaadin_authserverdb?useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:3306/microservices4vaadin_authserverdb?useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password:
     driverClassName: com.mysql.jdbc.Driver
@@ -79,7 +79,7 @@ spring:
   redis:
     host: redis
   datasource:
-    url: jdbc:mysql://mysql/microservice4vaadin_authserverdb?useSSL=false&zeroDateTimeBehavior=convertToNull  
+    url: jdbc:mysql://mysql/microservices4vaadin_authserverdb?useSSL=false&zeroDateTimeBehavior=convertToNull  
 
 eureka:
   client:

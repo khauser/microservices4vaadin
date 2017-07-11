@@ -16,3 +16,11 @@ services:
     image: mongo:2.4
     ports:
       - "27017:27017"
+      
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_USER: root
+    ports:
+      - "3306:3306"

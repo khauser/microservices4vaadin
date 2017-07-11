@@ -5,4 +5,6 @@ ALTER TABLE `acme_user`
   DROP COLUMN `last_modified_date`;
 
 ALTER TABLE `acme_user`
-  CHANGE COLUMN `created_date` `created_date_time` DATETIME NOT NULL AFTER `created_by`;
+  CHANGE `created_date` `created_date_time` DATETIME AFTER `created_by`;
+
+ALTER TABLE `acme_user` MODIFY `created_date_time` DATETIME NOT NULL;
