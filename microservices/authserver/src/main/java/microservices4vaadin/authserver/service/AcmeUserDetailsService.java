@@ -1,5 +1,6 @@
 package microservices4vaadin.authserver.service;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import microservices4vaadin.auth.AcmeUser;
 import microservices4vaadin.auth.AcmeUserDetails;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +34,8 @@ public class AcmeUserDetailsService implements UserDetailsService {
     @Autowired
     private HttpSession httpSession;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Getter
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     @Transactional

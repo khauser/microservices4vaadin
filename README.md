@@ -55,12 +55,9 @@ ToDo:
 
 ### Set up project:
 * checkout git repository
-* run `docker-compose up -d` do start dependent Redis, RabbitMQ, MongoDB and MySQL services
+* run `docker-compose up -d` do start dependent Redis, RabbitMQ, MongoDB and MySQL services (also DBs will be added automatically)
 * `gradlew clean build` to compile project
 * run `start-all.bat` in windows or `start-all.sh` in unix
-
-Hints:
-* Database for the authserver `microservices4vaadin_authserverdb` and for the userservice `microservices4vaadin_userservicedb` needs to be added by hand in MySQL.
 
 ##Deployment:
 * The project could be deployed to a rancher stack using the given `rancher-docker-compose.yml`. The databases from above also here need to be added manually, here within the execute shell of the MySQL-container.

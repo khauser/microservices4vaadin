@@ -10,10 +10,10 @@ jar {
 //}
 
 ext {
-    hsqlDbVersion = "2.3.4"
-    dbUnitVersion = "2.5.1"
+    hsqlDbVersion = "2.4.0"
+    dbUnitVersion = "2.5.4"
     flywayVersion = "4.0.3"
-    springTestDbunitVersion = "1.2.1"
+    springTestDbunitVersion = "1.3.0"
 
     //docker
     imageName = dockerRepository + jar.baseName
@@ -34,8 +34,6 @@ dependencies {
     compile("org.jadira.usertype:usertype.extended:5.0.0.GA") // needed for dbunit and hibernate
 
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.springframework.cloud:spring-cloud-starter-security")
-    compile("org.springframework.cloud:spring-cloud-starter-oauth2")
     compile("org.springframework.security.oauth:spring-security-oauth2")
     compile("org.springframework.security:spring-security-jwt")
 

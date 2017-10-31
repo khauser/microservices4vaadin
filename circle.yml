@@ -1,24 +1,22 @@
-machine:
-  java:
-    version: oraclejdk8
-  services:
-    - docker
-  environment:
-    COMPOSE_API_VERSION: 1.18
-
-dependencies:
-  override:
-    - sudo pip install -U docker-compose
-  cache_directories:
-    - ~/.gradle
-
-test:
-  override:
-    - export TERM="dumb"; ./gradlew clean build coveralls
-
-deployment:
-  production:
-    branch: "master"
-    commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - ./start-dockerPush.sh
+version: 2
+jobs:
+  build:
+    machine:
+      enabled: true
+    working_directory: ~/microservices4vaadin
+    steps:
+      - checkout
+      - restore_cache:
+          key: microservices4vaadin-{{ checksum "build.gradle" }}
+      - run: ./gradlew clean build coveralls
+      - save_cache:
+          paths:
+            - "~/.gradle"
+          key: microservices4vaadin-{{ checksum "build.gradle" }}
+      - deploy:
+          name: Push image to docker hub
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+              ./start-dockerPush.sh
+            fi  

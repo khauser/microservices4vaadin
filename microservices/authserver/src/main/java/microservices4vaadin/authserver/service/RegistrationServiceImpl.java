@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +23,13 @@ import microservices4vaadin.authserver.util.RandomUtil;
 public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
+    private AcmeUserDetailsService userDetailsService;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private AuthorityRepository authorityRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     /* (non-Javadoc)
      * @see microservices4vaadin.service.RegistrationService#registerUser(microservices4vaadin.service.Registration)
@@ -41,7 +40,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         //default new users to ROLE_USER
         Authority authority = authorityRepository.findOneByName(Authorities.USER);
         List<Authority> authorities = new ArrayList<Authority>();
-        String encryptedPassword = passwordEncoder.encode(registration.getPassword());
+        String encryptedPassword = userDetailsService.getPasswordEncoder().encode(registration.getPassword());
         newUser.setEmail(registration.getEmail());
         newUser.setPassword(encryptedPassword);
         // new user is not active

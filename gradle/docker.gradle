@@ -85,3 +85,46 @@ afterEvaluate { project ->
     }
 
 }
+
+// START: docker-compose
+import org.apache.tools.ant.taskdefs.condition.Os
+
+task upDockerCompose (type: Exec) {
+	//dependsOn buildDockerImage
+	if (project.file('docker-compose.yml').exists()) {
+		if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+			commandLine "cmd", "/c", "docker-compose", "up", "-d"
+		}
+		else {
+			commandLine "docker-compose", "up", "-d"
+		}
+	}
+	else {
+		commandLine "docker-compose", "ps"
+	}
+}
+
+upDockerCompose.doLast {
+	if (project.file('docker-compose.yml').exists()) {
+		sleep(60 * 1000)
+	}
+}
+
+task downDockerCompose (type: Exec) {
+	//dependsOn buildDockerImage
+	if (project.file('docker-compose.yml').exists()) {
+		if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+			commandLine "cmd", "/c", "docker-compose", "down"
+		}
+		else {
+			commandLine "docker-compose", "down"
+		}
+	}
+	else {
+		commandLine "docker-compose", "ps"
+	}
+}
+
+test.dependsOn(upDockerCompose)
+build.dependsOn(downDockerCompose)
+// END: docker-compose

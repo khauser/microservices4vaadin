@@ -22,7 +22,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-redis")
 
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.springframework.cloud:spring-cloud-starter-security")
     compile("org.springframework.cloud:spring-cloud-starter-oauth2")
     compile("org.springframework.security.oauth:spring-security-oauth2")
     compile("org.springframework.security:spring-security-jwt")
