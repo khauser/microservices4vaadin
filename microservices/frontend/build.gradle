@@ -10,15 +10,10 @@ ext {
     dockerExposePort = 8081
 }
 
-repositories {
-    maven { url "http://maven.vaadin.com/vaadin-addons" }
-    maven { url "http://www.jdal.org/repo" }
-}
-
 ext {
-    vaadinVersion = "8.1.6"
+    vaadinVersion = "8.3.0"
     vaadinSpringBootVersion = "2.0.1"
-    jdalVaadinVersion = "2.1.RC1";
+    jdalVaadinVersion = "2.0.0";
 }
 
 dependencyManagement {
