@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        gradlePluginVersion = "3.0.1"
+        gradlePluginVersion = "3.2.4"
     }
     repositories {
         mavenCentral()
@@ -90,39 +90,39 @@ afterEvaluate { project ->
 import org.apache.tools.ant.taskdefs.condition.Os
 
 task upDockerCompose (type: Exec) {
-	//dependsOn buildDockerImage
-	if (project.file('docker-compose.yml').exists()) {
-		if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-			commandLine "cmd", "/c", "docker-compose", "up", "-d"
-		}
-		else {
-			commandLine "docker-compose", "up", "-d"
-		}
-	}
-	else {
-		commandLine "docker-compose", "ps"
-	}
+  //dependsOn buildDockerImage
+  if (project.file('docker-compose.yml').exists()) {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+      commandLine "cmd", "/c", "docker-compose", "up", "-d"
+    }
+    else {
+      commandLine "docker-compose", "up", "-d"
+    }
+  }
+  else {
+    commandLine "docker-compose", "ps"
+  }
 }
 
 upDockerCompose.doLast {
-	if (project.file('docker-compose.yml').exists()) {
-		sleep(60 * 1000)
-	}
+  if (project.file('docker-compose.yml').exists()) {
+    sleep(60 * 1000)
+  }
 }
 
 task downDockerCompose (type: Exec) {
-	//dependsOn buildDockerImage
-	if (project.file('docker-compose.yml').exists()) {
-		if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-			commandLine "cmd", "/c", "docker-compose", "down"
-		}
-		else {
-			commandLine "docker-compose", "down"
-		}
-	}
-	else {
-		commandLine "docker-compose", "ps"
-	}
+  //dependsOn buildDockerImage
+  if (project.file('docker-compose.yml').exists()) {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+      commandLine "cmd", "/c", "docker-compose", "down"
+    }
+    else {
+      commandLine "docker-compose", "down"
+    }
+  }
+  else {
+    commandLine "docker-compose", "ps"
+  }
 }
 
 test.dependsOn(upDockerCompose)
